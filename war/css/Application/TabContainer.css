@@ -1,0 +1,13 @@
+/*
+TabContainer.css
+*/
+
+div.tab-container-col {
+	background-color: #DFEAEC;
+	/* height: 340px; */
+}
+
+div.tab-container-col div.tab-container-scroll-wrapper {
+	overflow-y: auto;
+	overflow-x: hidden;
+}

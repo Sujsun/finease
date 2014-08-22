@@ -1,0 +1,9 @@
+/*
+	ApplicationShell.css
+	Date : 16/8/2014
+*/
+
+div.application-shell {
+	overflow: hidden;
+	border-radius: 10px;
+}

@@ -1,0 +1,26 @@
+/*
+	MainPage-Global.css
+	Date : 4/8/2014
+*/
+
+div.main-overall-wrapper-col {
+	background-color: #000000;
+}
+
+body {
+	background-color: #000000;
+}
+
+body div.tooltip {
+	z-index: 9999;
+}
+
+/* Bootstrap Override CSS */
+.container-fluid {
+	padding: 0px;
+}
+
+.row {
+	margin-left: 0px;
+	margin-right: 0px;
+}
