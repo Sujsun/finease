@@ -116,10 +116,15 @@ abbr.context-menu-cursor {
 .right-inner-addon i {
     position: absolute;
   	left: 0px;
+    top: 0px;
   	padding: 7px 7px;
   	pointer-events: none;
 }
 /* Textbox with icon - Right */
+
+.typeahead {
+  z-index: 1051;
+}
 
  .blink-me {
     animation-name: blinker;

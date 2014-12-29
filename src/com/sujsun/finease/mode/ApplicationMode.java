@@ -1,5 +1,6 @@
 package com.sujsun.finease.mode;
 
+import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import com.google.appengine.api.utils.SystemProperty;
@@ -39,6 +40,34 @@ public class ApplicationMode {
 			appMode = AppMode.DEV;
 		}
 		return appMode;
+	}
+	
+	public static String getApplicationId() {
+		String applicationId = null;
+		if( appMode == ApplicationMode.AppMode.LIVE ) {
+			applicationId = ResourceBundle.getBundle("ApplicationResources").getString( "live.finease.applicationId" );
+		} else if( appMode == ApplicationMode.AppMode.STAGING ) {
+			applicationId = ResourceBundle.getBundle("ApplicationResources").getString( "staging.finease.applicationId" );
+		} else if( appMode == ApplicationMode.AppMode.DEV ) {
+			applicationId = ResourceBundle.getBundle("ApplicationResources").getString( "dev.finease.applicationId" );
+		} else {
+			applicationId = ResourceBundle.getBundle("ApplicationResources").getString( "live.finease.applicationId" );
+		}
+		return applicationId;
+	}
+	
+	public static String getApplicatioTitle() {
+		String applicationId = null;
+		if( appMode == ApplicationMode.AppMode.LIVE ) {
+			applicationId = ResourceBundle.getBundle("ApplicationResources").getString( "live.finease.applicationTitle" );
+		} else if( appMode == ApplicationMode.AppMode.STAGING ) {
+			applicationId = ResourceBundle.getBundle("ApplicationResources").getString( "staging.finease.applicationTitle" );
+		} else if( appMode == ApplicationMode.AppMode.DEV ) {
+			applicationId = ResourceBundle.getBundle("ApplicationResources").getString( "dev.finease.applicationTitle" );
+		} else {
+			applicationId = ResourceBundle.getBundle("ApplicationResources").getString( "live.finease.applicationTitle" );
+		}
+		return applicationId;
 	}
 	
 }

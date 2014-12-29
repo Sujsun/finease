@@ -1,0 +1,124 @@
+/*
+ContactDetails.css
+*/
+
+div.contact-details {
+	color: #6B8F8F;
+}
+
+div.contact-details div.contact-details-header {
+	height: 40px;
+	border-bottom: 1px solid #000000;
+	border-bottom: 1px solid #D6E0E0;
+}
+
+div.contact-details div.contact-details-header div.contact-details-header-name-col {
+	padding: 10px 50px 10px 20px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+div.contact-details div.contact-details-header div.contact-details-header-menu {
+	position: absolute;
+	padding: 5px;
+	right: 0px;
+}
+
+div.contact-details div.contact-details-header div.contact-details-header-menu button {
+	color: #6B8F8F;
+	padding: 3px 10px;
+	background-color: #F2F4F7;
+	border-color: #E7E7E7;
+	border-radius: 3px;
+}
+
+div.contact-details div.contact-details-header div.contact-details-header-menu button:hover, div.contact-details div.contact-details-header div.contact-details-header-menu button:focus {
+	background-color: #F8F8F8;
+	border-color: #D6D5D5;
+}
+
+div.contact-details div.contact-details-header div.contact-details-header-menu button i {
+	font-size: 20px;
+}
+
+div.contact-details div.contact-details-container-col {
+	padding: 10px;
+	overflow-y: auto;
+}
+
+div.contact-details div.contact-details-container-col img.contact-details-pic {
+	padding: 3px;
+	max-height: 106px;
+}
+
+div.contact-details div.contact-details-container-col input {
+	height: 30px;
+	padding: 7px;
+	border-radius: 10px;
+	border: 1px solid #CCCCCC;
+}
+
+div.contact-details div.contact-details-container-col input:focus {
+	outline: none;
+}
+
+div.contact-details div.contact-details-container-col div.contact-field-row {
+	padding: 3px 0px 3px 40px;
+}
+
+div.contact-details div.contact-details-container-col div.phone-number.contact-field-row {
+	padding: 3px 46px 3px 40px;
+}
+
+div.contact-details div.contact-details-container-col div.contact-field-row div.field-icon {
+	position: absolute;
+	left: 0px;
+	font-size: 20px;
+	padding: 1px 17px;
+}
+
+div.contact-details div.contact-details-container-col div.contact-field-row div.add-icon {
+	position: absolute;
+	right: 0px;
+	font-size: 20px;
+	padding: 1px 17px;
+	margin: -2px 0px;
+}
+
+div.contact-details div.contact-details-container-col div.contact-field-row div.add-icon button {
+	color: #6B8F8F;
+	padding: 3px 10px;
+	background-color: #F2F4F7;
+	border-color: #E7E7E7;
+	border-radius: 3px;
+}
+
+div.contact-details div.contact-details-container-col div.contact-field-row div.add-icon button:focus, div.contact-details div.contact-details-container-col div.contact-field-row div.add-icon button:hover {
+	background-color: #F8F8F8;
+	border-color: #D6D5D5;
+}
+
+div.contact-details div.contact-details-container-col div.contact-details-1-1 {
+	padding: 3px 0px 3px 5px;
+}
+
+div.contact-details div.contact-details-container-col div.contact-details-1-2 {
+	padding: 3px 0px 3px 5px;
+}
+
+div.contact-details div.contact-details-container-col div.contact-details-1-3 {
+	padding: 3px 0px 3px 5px;
+}
+
+div.contact-details div.contact-details-container-col hr {
+	margin: 5px 0px;
+	border-color: #D5E0E0;
+}
+
+div.contact-details div.contact-details-container-col div.city {
+	padding: 0px 3px 0px 0px;
+}
+
+div.contact-details div.contact-details-container-col div.state {
+	padding: 0px 0px 0px 3px;
+}

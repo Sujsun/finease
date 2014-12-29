@@ -53,6 +53,12 @@ $( window.document ).ready( function() {
 	elem.singleColumnListContainer = $( '.single-column-list-shell-container' );
 	elem.singleColumnListCol = $( '.single-column-list-shell-col' );
 	elem.subTabContent = $( 'div#sub-tab-content-col' );
+	elem.firstPaneSearchInput = $( 'input#list-with-toolbar-search-input' );
+	elem.listPaneContentList = $( '#list-with-toolbar-list ul' );
+	elem.contactCard = $( 'li.contact-card' );
+	elem.contactCardSelect = $( '.contact-card-select input' );
+	elem.contactSelectAll = $( '#list-with-toolbar-menu-select-all input' );
+	elem.contactDetailsContainerCol = $( 'div.contact-details-container-col' );
 	var tabContainerHeight = 0;
 
 	var onDivResize = 		function( event ) { 
@@ -63,6 +69,7 @@ $( window.document ).ready( function() {
 
 								// $tabContainer.animate( { height: tabContainerHeight + 'px' }, { duration: 70 } );
 								elem.singleColumnListCol.height( tabContainerHeight - ( 40 /* SingleColumnPadding */ + 2 /* Border */ ) );
+								elem.listPaneContentList.height( ( tabContainerHeight - 115 ) + 'px' );
 							};
 	var onWindowResize = 	function( event ) {
 								console.error( 'Inside onWindowResize().' );
@@ -75,7 +82,7 @@ $( window.document ).ready( function() {
 
 								$tabScrollContainer.height( tabContainerHeight + 'px' );
 								$tabContainer.height( tabContainerHeight + 'px' );
-								var tabColumnHeight = tabContainerHeight - ( 40 /* SingleColumnPadding */ + 0 /* Border */ - 2 );
+								var tabColumnHeight = tabContainerHeight - ( 40 /* SingleColumnPadding */ + 0 /* Border */ );
 								elem.singleColumnListCol.height( tabColumnHeight + 'px' );
 
 								var subTabHeight = 0;
@@ -83,13 +90,17 @@ $( window.document ).ready( function() {
 								if( viewPort == 'xs' ) {
 									subTabHeight = tabColumnHeight - ( 90 + 2 );
 								} else {
-									subTabHeight = tabColumnHeight - ( 40 + 2 );
+									subTabHeight = tabColumnHeight - ( 40 + 3 );
 								}
 								elem.subTabContent.height( subTabHeight + 'px' );
+
+								elem.listPaneContentList.height( ( tabContainerHeight - 116 ) + 'px' );
 								/*
 									$( '#first-pane-wrapper' ).hide();
 									$( '#second-pane-wrapper' ).hide();
 								*/
+
+								elem.contactDetailsContainerCol.height( ( tabContainerHeight - 101 ) + 'px' );
 
 							};
 
@@ -107,11 +118,20 @@ $( window.document ).ready( function() {
 									paneRow = 0;
 								$tabScrollContainer.animate( { scrollTop: ( tabContainerHeight * paneRow ) + 'px' }, 500 );
 							};
+
+	elem.contactCard.onLongPress( function( event ) { console.error( 'Long Pressed!' ); } );
+
+	elem.contactCardSelect.bind( 'click', function( event ) { console.error( 'Clicked! ' ); } );
+
+	elem.contactSelectAll.bind( 'click', function() { console.error( elem.contactSelectAll[0].checked ); if( elem.contactSelectAll[0].checked ) { elem.contactCardSelect.prop( 'checked', true ); } else { elem.contactCardSelect.prop( 'checked', false ); } } );
+
 	window.scrollToPane = scrollToPane;
 	onWindowResize();
 	$window.resize( onWindowResize );
 	$finEaseNavBar.attrchange( { callback: onDivResize } );
 	$dropdownMenu.attrchange( { callback: onDivResize } );
+
+	elem.firstPaneSearchInput.typeahead( { source: [ 'Sundarasan', 'Suresh', 'Abraham', 'Dunston' ] } );
 
 	window.onWindowResize = onWindowResize;
 } );

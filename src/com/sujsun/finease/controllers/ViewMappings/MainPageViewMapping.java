@@ -1,4 +1,4 @@
-package com.sujsun.finease.controllers.ViewMappings;
+package com.sujsun.finease.controllers.viewMappings;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,12 +22,17 @@ import com.sujsun.finease.mode.UrlMode;
 import com.sujsun.finease.util.URLHelper;
 
 @Controller
-@RequestMapping( value="/" )
+@RequestMapping( value="" )
 public class MainPageViewMapping {
 	
 	private static final Logger log = Logger.getLogger( MainPageViewMapping.class.getName() );
 	
-	@RequestMapping( method=RequestMethod.GET )
+	@RequestMapping( value="", method=RequestMethod.GET )
+	public String defaultRoute() {
+		return "redirect:login";
+	}
+	
+	@RequestMapping( value="home", method=RequestMethod.GET )
 	public ModelAndView showMainPage() {
 		log.info( "MainPageViewMapping :: Inside showMainPage()." );
 		ModelAndView modelAndView = new ModelAndView();
@@ -38,6 +43,22 @@ public class MainPageViewMapping {
 			exception.printStackTrace();
 		}
 		return modelAndView;
+	}
+	
+	@RequestMapping( value="login", method=RequestMethod.GET )
+	public String showLoginPage( HttpServletRequest request, HttpServletResponse response ) {
+		boolean isSuccess = false;
+		ModelAndView modelAndView = new ModelAndView();
+		Map<String, Object> returnHashMap = new HashMap<String, Object>();
+		try {
+			modelAndView.setViewName( "" );
+		} catch( Exception exception ) {
+			log.info( "Exception while detecting the subDomain." );
+			exception.printStackTrace();
+		} finally {
+			returnHashMap.put( "success", isSuccess );
+		}
+		return "Login";
 	}
 	
 	@RequestMapping( value="getSubDomain", method=RequestMethod.GET )

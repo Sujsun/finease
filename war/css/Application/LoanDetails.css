@@ -1,0 +1,47 @@
+/*
+LoanDetails.css
+*/
+
+div.loan-details {
+	color: #6B8F8F;
+}
+
+div.loan-details-col {
+	/* padding: 20px; */
+}
+
+div.loan-details-col div.loan-details-menu-col {
+	padding: 10px;
+}
+
+div.loan-details-col div.loan-details-menu-col div.loan-search-col {
+	margin-right: 10px;
+}
+
+div.loan-details-col div.loan-details-menu-col div.loan-search-col input {
+	border-radius: 10px;
+	border: 1px solid #CCCCCC;
+}
+
+div.loan-details-col div.loan-details-menu-col div.loan-search-col input:focus {
+	outline: none;
+}
+
+div.loan-details-col div.loan-details-container-col table.loan-details-table {
+	font-size: 12px;
+	border-top: 1px solid #D3CECE;
+}
+
+div.loan-details-col div.loan-details-container-col table.loan-details-table th, div.loan-details-col div.loan-details-container-col table.loan-details-table td {
+	text-align: center;
+}
+
+div.loan-details-col div.loan-details-container-col table.loan-details-table thead tr {
+	background-color: #6EBCCA;
+	color: #FFFFFF;
+}
+
+div.loan-details-col div.loan-details-container-col table.loan-details-table tbody tr:hover td {
+	background-color: #CCDBDD;
+	color: #006D77;
+}

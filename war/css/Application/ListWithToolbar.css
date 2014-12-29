@@ -1,0 +1,82 @@
+/*
+	ListWithToolbar.css
+*/
+
+div.list-with-toolbar {
+	color: #6EA0AA;
+}
+
+div.list-with-toolbar div.list-with-toolbar-searchbar input.list-with-toolbar-search-input {
+	border: none;
+	outline: none;
+	height: 40px;
+	padding: 0px 5px 0px 45px;
+	background-color: transparent;
+}
+
+div.list-with-toolbar div.list-with-toolbar-searchbar.right-inner-addon i {
+	z-index: 49;
+	padding: 10px 15px;
+	font-size: 20px;
+
+}
+
+div.list-with-toolbar div.list-with-toolbar-toolbar div.list-with-toolbar-menu-col {
+	/*
+	border-top: 1px solid #E7E7E7;
+	border-bottom: 1px solid #E7E7E7;
+	*/
+	border-top: 1px solid #D6E0E0;
+	border-bottom: 1px solid #D6E0E0;
+
+	/*
+	-moz-box-shadow:    inset 0 0 10px 1px rgba(114, 114, 114, 0.14);
+	-webkit-box-shadow: inset 0 0 10px 1px rgba(114, 114, 114, 0.14);
+	box-shadow: inset 0 0 10px 1px rgba(114, 114, 114, 0.14);
+	*/
+}
+
+div.list-with-toolbar div.list-with-toolbar-toolbar div.list-with-toolbar-menu-col div.list-with-toolbar-menu-select-all {
+	position: absolute;
+	left: 0px;
+	padding: 7px 7px;
+}
+
+div.list-with-toolbar div.list-with-toolbar-toolbar div.list-with-toolbar-menu-col div.list-with-toolbar-menu-toolbar {
+	margin-left: 0px;
+	padding-left: 20px;
+}
+
+div.list-with-toolbar div.list-with-toolbar-toolbar div.list-with-toolbar-menu-col div.list-with-toolbar-menu-toolbar button {
+	background-color: #F2F4F7;
+	border-color: #E7E7E7;
+	border-radius: 0px;
+	color: #6EA0AA;
+}
+
+div.list-with-toolbar div.list-with-toolbar-toolbar div.list-with-toolbar-menu-col div.list-with-toolbar-menu-toolbar button:hover, div.list-with-toolbar div.list-with-toolbar-toolbar div.list-with-toolbar-menu-col div.list-with-toolbar-menu-toolbar button:focus {
+	background-color: #F8F8F8;
+	border-color: #D6D5D5;
+}
+
+div.list-with-toolbar div.list-with-toolbar-list-scroll-wrapper {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+/*
+div.list-with-toolbar div.list-with-toolbar-list {
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: 331px;
+}
+*/
+
+div.list-with-toolbar div.list-with-toolbar-list ul.list-with-toolbar-ul {
+    list-style-type: none;
+    margin: 0px;
+    overflow-y: auto;
+}
+
+div.list-with-toolbar div.list-with-toolbar-list-col {
+	background-color: #FFFFFF;
+}
