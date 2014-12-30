@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<h1>Login Page</h1>
-		<form action="login" method="post">
+		<form action="login?authenticationBy=Finease" method="post">
 			<table>
 				<tbody>
 					<tr>

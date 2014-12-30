@@ -49,6 +49,14 @@ public class UrlMode {
 		return cmsContactUrl;
 	}
 	
+	public static String getCMSAuthenticateUrl() {
+		String cmsServiceUrl = getCMSServiceUrl();
+		String cmsAuthenticateUrl = ""; 
+		String cmsContactPath = ResourceBundle.getBundle("ApplicationResources").getString( "sujsun-cms.url.service.authenticate.path" );
+		cmsAuthenticateUrl = cmsServiceUrl + cmsContactPath;
+		return cmsAuthenticateUrl;
+	}
+	
 	public static List<String> getDomainName() {
 		String domainName = null;
 		List<String> domainNames = new ArrayList<String>();
