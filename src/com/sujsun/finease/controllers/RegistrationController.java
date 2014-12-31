@@ -3,6 +3,9 @@ package com.sujsun.finease.controllers;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +28,8 @@ public class RegistrationController {
 	private static final Logger log = Logger.getLogger( RegistrationController.class.getName() );
 	
 	@RequestMapping( value="register", method=RequestMethod.POST )
-	public @ResponseBody Contact register( @RequestBody String requestJSONString ) {
-		return new ContactService().create( requestJSONString );
+	public @ResponseBody Contact register( @RequestBody String requestJSONString, HttpServletRequest requset, HttpServletResponse response ) {
+		return new ContactService().create( requset, response, requestJSONString );
 	}
 
 }

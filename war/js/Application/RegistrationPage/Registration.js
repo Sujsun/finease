@@ -74,6 +74,7 @@
 																			.done( 	function( data ) {
 																						if( data ) {
 																							alert( 'Successfully Created Account' );
+																							document.location.href = '/home';
 																						} else {
 																							alert( 'Failed' );
 																						}

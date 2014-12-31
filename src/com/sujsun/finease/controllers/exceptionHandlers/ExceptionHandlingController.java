@@ -21,7 +21,6 @@ public class ExceptionHandlingController {
 	
 	@ExceptionHandler( value=Exception.class )
 	public ModelAndView handleException( Exception exception, HttpServletRequest request ) {
-		System.out.println( "Inside Global Exception Handler." );
   		log.severe( "Request: " + request.getRequestURL() + " raised " + exception );
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject( "showDebugDetails", ExceptionMode.getShowDebugInformationInView() );

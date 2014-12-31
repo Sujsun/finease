@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import com.google.appengine.api.log.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +18,29 @@ import com.sujsun.cms.jdo.Contact;
 import com.sujsun.finease.factories.AccountFactory;
 import com.sujsun.finease.factories.ContactFactory;
 import com.sujsun.finease.finalObjects.ObjectMapper;
+import com.sujsun.finease.finalObjects.SessionKeys;
 import com.sujsun.finease.mode.ApplicationMode;
 
 public class ContactService {
 
 	private static final Logger log = Logger.getLogger( ContactService.class.getName() );
+	
+	// Methods for creating contact - Starts
+	
+	public Contact create( HttpServletRequest request, HttpServletResponse response, String contactString ) {
+		Contact returnContact = null;
+		try {
+			returnContact = create( contactString );
+			if( returnContact != null ) {
+				HttpSession session = request.getSession();
+				session.setAttribute( "contact", SessionKeys.CONTACTKEY );
+			}
+		} catch( Exception exception ) {
+			log.severe( "Exception while creating Account. Exception Message : " + exception.getMessage() );
+			exception.printStackTrace();
+		}
+		return returnContact;
+	}
 	
 	public Contact create( String contactString ) {
 		Contact returnContact = null;
@@ -55,6 +74,8 @@ public class ContactService {
 		return returnContact;
 	}
 	
+	// Methods for creating contact - Ends
+	
 	public String autheticate( String authenticationBy, String login, String password, HttpServletRequest request, HttpServletResponse resposne ) {
 		boolean isSuccess = false;
 		String returnViewString = "redirect:login";
@@ -62,7 +83,7 @@ public class ContactService {
 			Contact contact = authenticate( authenticationBy, login, password);
 			if( contact != null ) {
 				HttpSession session = request.getSession();
-				session.setAttribute( "contact", contact );
+				session.setAttribute( "contact", SessionKeys.CONTACTKEY );
 				returnViewString = "redirect:home";
 				isSuccess = true;
 			}

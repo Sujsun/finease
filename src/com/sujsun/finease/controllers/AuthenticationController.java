@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sujsun.cms.jdo.Contact;
+import com.sujsun.finease.services.AuthenticationService;
 import com.sujsun.finease.services.ContactService;
 
 @Controller
@@ -25,6 +26,11 @@ public class AuthenticationController {
 	@RequestMapping( value="login", method=RequestMethod.POST )
 	public String authenticate( @RequestParam( value="authenticationBy" ) String authenticationBy, @RequestParam( value="login" ) String login, @RequestParam( value="password", required = false ) String password, HttpServletRequest request, HttpServletResponse response ) {
 		return new ContactService().autheticate( authenticationBy, login, password, request, response );
+	}
+	
+	@RequestMapping( value="logout", method=RequestMethod.GET )
+	public String logout( HttpServletRequest request, HttpServletResponse response ) {
+		return new AuthenticationService().logout( request, response );
 	}
 
 }

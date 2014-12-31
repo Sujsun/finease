@@ -120,7 +120,7 @@
 															<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
 															<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
 															<li role="presentation" class="divider"></li>
-															<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+															<li role="presentation"><a id="logout" role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
 														</ul>
 													</li>
 												</ul>

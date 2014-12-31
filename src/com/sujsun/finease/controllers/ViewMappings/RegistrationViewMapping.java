@@ -14,7 +14,7 @@ public class RegistrationViewMapping {
 	private static final Logger log = Logger.getLogger( RegistrationViewMapping.class.getName() );
 	
 	@RequestMapping( value="register", method=RequestMethod.GET )
-	public String register( @RequestBody String requestBody ) {
+	public String register() {
 		return "Register";
 	}
 	

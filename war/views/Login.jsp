@@ -18,7 +18,12 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="Login"></input>
+							<input type="submit" value="Login" style="float: right;"></input>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<a style="float: right;" href="/register">Sign up</a>
 						</td>
 					</tr>
 				</tbody>
