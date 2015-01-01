@@ -14,5 +14,10 @@ var Application = {};
 															}
 
 														};
+
+	Application.name 							= 		'Finease';
 	Application.appMode 						= 		getAppMode();
+
+	Application.properties 						= 		{};
+	Application.properties.landingRoute 		= 		'contact';
 } )();

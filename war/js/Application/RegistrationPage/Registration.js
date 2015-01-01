@@ -68,8 +68,6 @@
 																		address.pincode = ValidatorUtil.string( pincode );
 																		contact.addressList.push( address );
 
-																		console.error( contact );
-
 																		AJAXUtil.call( registrationUrl, 'post', contact )
 																			.done( 	function( data ) {
 																						if( data ) {
@@ -88,7 +86,7 @@
 
 										var attachEvents 	= 		function() {
 																		var self = this;
-																		dom.registerAnchor.onclick = onRegisterClick;
+																		dom.registerAnchor.addEventListener( 'click', onRegisterClick );
 																	};
 
 										findElements();

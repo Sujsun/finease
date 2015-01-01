@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- Page Title -->
-	<title>Contacts - FinEase</title>
+	<title>FinEase</title>
 
 	<!-- CSS -->
 
@@ -54,12 +54,31 @@
 	<script type="text/javascript" src="../js/Library/JQueryFloatThread-v1.2.7.js"></script>
 	<script type="text/javascript" src="../js/Library/Bootstrap-DatePicker.js"></script>
 	<script type="text/javascript" src="../js/Library/XmlStr2Json.js"></script>
+	<script type="text/javascript" src="../js/Library/Routie-v0.3.2.js"></script>
+	<script type="text/javascript" src="../js/Library/Minivents-CustomEvent.js"></script>
 	<script type="text/javascript" id="google-map-library" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
 
 	<!-- Application Properties Scripts -->
 	<script type="text/javascript" src="../js/Application/ApplicationProperties.js"></script>
 
-	<script type="text/javascript" src="../js/Application/actions.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/actions.js"></script>
+
+	<!-- Util Scripts -->
+	<script type="text/javascript" src="../js/Application/Util/DOMUtil.js"></script>
+
+	<!-- Title Scripts -->
+	<script type="text/javascript" src="../js/Application/MainPage/Views/TitleView.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Views/HeaderView.js"></script>
+
+	<!-- Router Scripts -->
+	<script type="text/javascript" src="../js/Application/MainPage/Routers/GlobalRouter.js"></script>
+
+	<!-- Controller Scripts -->
+	<script type="text/javascript" src="../js/Application/MainPage/Controllers/RootController.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Controllers/ContactPageController.js"></script>
+
+	<!-- Engine Scripts -->
+	<script type="text/javascript" src="../js/Application/MainPage/Engines/MainPageEngine.js"></script>
 
 </head>
 
@@ -98,27 +117,29 @@
 													<span class="icon-bar"></span>
 													<span class="icon-bar"></span>
 												</button>
-												<a class="finease-navbar-brand navbar-brand" href="#"><i class="fa fa-inr"></i>inEase</a>
+												<a class="finease-navbar-brand navbar-brand" href="javascript:void(0);"><i class="fa fa-inr"></i>inEase</a>
 											</div>
 
 											<!-- NavBar Collapse Starts -->
 											<div class="navbar-collapse collapse" style="height: 1px;">
 
 												<ul class="finease-nav-tabs nav navbar-nav">
-													<li><a id="contact-tab" class="contact-tab active" href="#"><i class="fa fa-users"></i></a></li>
-													<li><a id="loan-tab" class="loan-tab" href="#"><i class="fa fa-money"></i></a></li>
+													<li><a id="contact-tab" class="contact-tab active" href="javascript:void(0);"><i class="fa fa-users"></i></a></li>
+													<li><a id="loan-tab" class="loan-tab" href="javascript:void(0);"><i class="fa fa-money"></i></a></li>
 												</ul>
 
 												<!-- User Dropdown Starts -->
 												<ul class="finease-nav-tabs-right nav navbar-nav navbar-right">
 													<li>
 														<a id="user-dropdown-a" class="user-dropdown-a btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-															<img id="current-user-pic" class="current-user-pic" src="../images/user-icon.jpg">
+															<abbr id="username-abbr" title="" class="abbr-no-underline">
+																<img id="current-user-pic" class="current-user-pic" src="../images/user-icon.jpg"/>
+															</abbr>
 														</a>
 														<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-															<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-															<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-															<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+															<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">Action</a></li>
+															<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">Another action</a></li>
+															<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">Something else here</a></li>
 															<li role="presentation" class="divider"></li>
 															<li role="presentation"><a id="logout" role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
 														</ul>
