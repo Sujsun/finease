@@ -81,6 +81,6 @@
 
 							};
 
-	root.HeaderView 	= 	HeaderView;
+	root[ 'HeaderView' ] = 	HeaderView;
 
 } )( window );

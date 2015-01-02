@@ -56,6 +56,7 @@
 	<script type="text/javascript" src="../js/Library/XmlStr2Json.js"></script>
 	<script type="text/javascript" src="../js/Library/Routie-v0.3.2.js"></script>
 	<script type="text/javascript" src="../js/Library/Minivents-CustomEvent.js"></script>
+	<script type="text/javascript" src="../js/Library/Deferred.js"></script>
 	<script type="text/javascript" id="google-map-library" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
 
 	<!-- Application Properties Scripts -->
@@ -65,6 +66,7 @@
 
 	<!-- Util Scripts -->
 	<script type="text/javascript" src="../js/Application/Util/DOMUtil.js"></script>
+	<script type="text/javascript" src="../js/Application/Util/AJAXUtil.js"></script>
 
 	<!-- Title Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Views/TitleView.js"></script>
@@ -955,7 +957,7 @@
 										</div>
 
 									</div>
-									
+
 								</div>
 							</div>
 							<!-- Loan Tab Content - Ends -->
