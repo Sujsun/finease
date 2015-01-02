@@ -12,8 +12,8 @@
 															};
 
 								var igniteControllers 	= 	function() {
-																new root.RootController( mvc );
-																new root.ContactPageController( mvc );
+																new root.TabController( mvc );
+																new root.ContactTabController( mvc );
 															};
 
 								init.apply( self, arguments );

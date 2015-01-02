@@ -19,6 +19,7 @@
 																				dom.container = window.document.querySelector( '#header' );
 																				if( dom.container ) {
 																					dom.userPicAbbr = dom.container.querySelector( '#username-abbr' );
+																					dom.allNavTabAnchors = dom.container.querySelectorAll( '#finease-nav-tabs .finease-nav-tab-a' );
 																					dom.contactTabAnchor = dom.container.querySelector( '#contact-tab' );
 																					dom.loanTabAnchor = dom.container.querySelector( '#loan-tab' );
 																				}
@@ -36,22 +37,31 @@
 																				return root.DOMUtil.attr( dom.loanTabAnchor, 'href', hrefArg );
 																			};
 
+								var active 								= 	function( element ) {
+																				for( var index = 0; index < dom.allNavTabAnchors.length; index++ ) {
+																					var elem = dom.allNavTabAnchors[ index ];
+																					if( elem === element  ) {
+																						root.DOMUtil.addClass( elem, 'active' );
+																					} else {
+																						root.DOMUtil.removeClass( elem, 'active' );
+																					}
+																				}
+																			};
+
 								var highlightTab						= 	function( tab ) {
 																				if( tab ) {
 																					tab = tab.toLowerCase();
 																					switch( tab ) {
 																						case 'contact':
 																						case 'contacts':
-																							root.DOMUtil.addClass( dom.contactTabAnchor, 'active' );
-																							root.DOMUtil.removeClass( dom.loanTabAnchor, 'active' );
+																							active( dom.contactTabAnchor );
 																							break;
 																						case 'loan':
 																						case 'loans':
-																							root.DOMUtil.addClass( dom.loanTabAnchor, 'active' );
-																							root.DOMUtil.removeClass( dom.contactTabAnchor, 'active' );
+																							active( dom.loanTabAnchor );
 																							break;
 																						default:
-																							console.log( 'HeaderView :: Trying to select unknown tab. Tab name: ', tab );
+																							console.log( 'HeaderView :: Given unknown tab to highlight. Tab name: ', tab );
 																					}
 																				}
 																			};

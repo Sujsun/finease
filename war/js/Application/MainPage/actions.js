@@ -34,7 +34,7 @@ $( window.document ).ready( function() {
 
 	var swap = true;
 
-	navTabAnchors.click( function( event ) { navTabAnchors.removeClass( 'active' ); $( this ).addClass( 'active' ); } );
+	// navTabAnchors.click( function( event ) { navTabAnchors.removeClass( 'active' ); $( this ).addClass( 'active' ); } );
 	elem.subTabNavLi.click( function( event ) { elem.subTabNavLi.removeClass( 'active' ); $( this ).addClass( 'active' ); if( swap ) { elem.subTabContent.html( 'Hi!' ); swap = false; } else { elem.subTabContent.html( 'Hello!' ); swap = true; } } );
 
 	/* Find Elements Starts */

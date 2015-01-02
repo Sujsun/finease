@@ -69,13 +69,14 @@
 	<!-- Title Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Views/TitleView.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Views/HeaderView.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Views/TabView.js"></script>
 
 	<!-- Router Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Routers/GlobalRouter.js"></script>
 
 	<!-- Controller Scripts -->
-	<script type="text/javascript" src="../js/Application/MainPage/Controllers/RootController.js"></script>
-	<script type="text/javascript" src="../js/Application/MainPage/Controllers/ContactPageController.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Controllers/TabController.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Controllers/ContactTabController.js"></script>
 
 	<!-- Engine Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Engines/MainPageEngine.js"></script>
@@ -123,9 +124,9 @@
 											<!-- NavBar Collapse Starts -->
 											<div class="navbar-collapse collapse" style="height: 1px;">
 
-												<ul class="finease-nav-tabs nav navbar-nav">
-													<li><a id="contact-tab" class="contact-tab active" href="javascript:void(0);"><i class="fa fa-users"></i></a></li>
-													<li><a id="loan-tab" class="loan-tab" href="javascript:void(0);"><i class="fa fa-money"></i></a></li>
+												<ul id="finease-nav-tabs" class="finease-nav-tabs nav navbar-nav">
+													<li><a id="contact-tab" class="contact-tab finease-nav-tab-a active" href="javascript:void(0);"><i class="fa fa-users"></i></a></li>
+													<li><a id="loan-tab" class="loan-tab finease-nav-tab-a" href="javascript:void(0);"><i class="fa fa-money"></i></a></li>
 												</ul>
 
 												<!-- User Dropdown Starts -->
@@ -164,12 +165,13 @@
 						<!-- Tab Container Wrapper Starts -->
 						<div id="tab-container-wrapper" class="tab-container-wrapper">
 
-							<!-- Tab Container Starts -->
-							<div id="tab-container" class="tab-container row">
+							<!-- Contact Tab Container - Starts -->
+							<div id="contact-tab-content" class="tab-content row">
 								<div id="tab-container-col" class="tab-container-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 									
 									<div id="tab-container-scroll-wrapper" class= "tab-container-scroll-wrapper">
-										<div class="row">
+
+										<dic class="row">
 
 											<!-- First Pane Shell Wrapper Starts -->
 											<div id="first-pane-wrapper" class="first-pane-wrapper tab-pane col-lg-3 col-md-3 col-sm-6 col-xs-12 zero-padding">
@@ -920,11 +922,43 @@
 											<!-- Third Pane Wrapper Ends -->
 
 										</div>
+
 									</div>
 									
 								</div>
 							</div>
-							<!-- Tab Container Ends -->
+							<!-- Contact Tab Container - Starts -->
+
+							<!-- Loan Tab Content - Starts -->
+							<div id="loan-tab-content" class="tab-content row">
+								<div id="tab-container-col" class="tab-container-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+									
+									<div id="tab-container-scroll-wrapper" class= "tab-container-scroll-wrapper">
+
+										<dic class="row">
+
+											<!-- First Pane Shell Wrapper Starts -->
+											<div id="first-pane-wrapper" class="first-pane-wrapper tab-pane col-lg-3 col-md-3 col-sm-6 col-xs-12 zero-padding">
+											</div>
+											<!-- First Pane Shell Wrapper Ends -->
+
+											<!-- Second Pane Shell Wrapper Starts -->
+											<div id="second-pane-wrapper" class="second-pane-wrapper tab-pane col-lg-3 col-md-3 col-sm-6 col-xs-12 zero-padding">
+											</div>
+											<!-- Second Pane Shell Wrapper Ends -->
+
+											<!-- Third Pane Wrapper Starts -->
+											<div id="third-pane-wrapper" class="third-pane-wrapper tab-pane col-lg-6 col-md-6 col-sm-12 col-xs-12 zero-padding">
+											</div>
+											<!-- Third Pane Wrapper Ends -->
+
+										</div>
+
+									</div>
+									
+								</div>
+							</div>
+							<!-- Loan Tab Content - Ends -->
 
 						</div>
 						<!-- Tab Container Wrapper Ends -->

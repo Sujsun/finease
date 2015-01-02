@@ -24,8 +24,12 @@
 													var returnVariable = '';
 													if( element ) {
 														if( className ) {
-															if( element.className.indexOf( className ) === -1 ) {
-																element.className += ' ' + className;
+															if( element.classList ) {
+																element.classList.add( className );
+															} else if( element.className ) {
+																if( element.className.indexOf( className ) === -1 ) {
+																	element.className += ' ' + className;
+																}
 															}
 														}
 														returnVariable = element.className;
@@ -37,11 +41,28 @@
 													var returnVariable = '';
 													if( element ) {
 														if( className ) {
-															element.className = element.className.replace( className, '' );
+															if( element.classList ) {
+																element.classList.remove( className );
+															} else if( element.className ) {
+																element.className = element.className.replace( className, '' );
+															}
 														}
 														returnVariable = element.className;
 													}
 													return returnVariable;
+												};
+
+	DOMUtil.prototype.show 					= 	function( element, show ) {
+													if( element ) {
+														if( typeof( show ) === 'boolean' ) {
+															if( show ) {
+																element.style.display = 'block';
+															} else {
+																element.style.display = 'none';
+															}
+														}
+													}
+													return element.style.display != 'none';
 												};
 
 	root[ 'DOMUtil' ] 						= 	new DOMUtil();
