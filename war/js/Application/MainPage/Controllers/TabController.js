@@ -8,13 +8,28 @@
 
 										var init 				= 	function() {
 																		createViews();
+																		updateContactInView();
 																		attachEvents();
 																	};
 
+										var createNotifViews	= 	function() {
+																		mvc.views.notify = mvc.views.notify || {};
+																		mvc.views.notify.error = root.humane.spawn( { baseCls: 'humane-libnotify', addnCls: 'humane-libnotify-error', timeout: 'none', clickToClose: true, } );
+																		mvc.views.notify.success = root.humane.spawn( { baseCls: 'humane-libnotify', addnCls: 'humane-libnotify-success', timeout: 2 * 1000, clickToClose: true, } );
+																	};
+
 										var createViews 		= 	function() {
-																		views.titleView = new root.TitleView();
-																		views.headerView = new root.HeaderView();
-																		views.tabView = new root.TabView();
+																		views.titleView = new root.TitleView( mvc );
+																		views.headerView = new root.HeaderView( mvc );
+																		views.tabView = new root.TabView( mvc );
+																		views.overlayBlocker = new root.OverlayBlocker( window.document.body );
+																		createNotifViews();
+																	};
+
+										var updateContactInView = 	function() {
+																		mvc.services.sessionService.get( 'contact' )
+																			.done( function( sessionContactModel ) { views.headerView.setSessionContactModel( sessionContactModel ); } )
+																				.fail( function( status, statusText, xmlHttp ) { mvc.views.notify.error( [ '<div style="font-size: 13px; font-weight: bold;">' + statusText + '</div>', /*'<div style="font-size: 11px;">' + statusText + '</div>', */ '<div style="font-size: 11px;">Click to reload</div>' ], { click: function() { window.location.reload(); }, overlayBlock: true, } ); } );
 																	};
 
 										var attachEvents 		= 	function() {

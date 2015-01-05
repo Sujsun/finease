@@ -126,6 +126,12 @@ abbr.context-menu-cursor {
   z-index: 1051;
 }
 
+/* Highlight By Shadow - Starts */
+body .highlight-by-shadow.red {
+  box-shadow: 0px 0px 10px 1px rgba(255, 0, 0, 0.27);
+}
+/* Highlight By Shadow - Ends */
+
  .blink-me {
     animation-name: blinker;
     animation-duration: 1s;

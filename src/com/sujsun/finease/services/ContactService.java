@@ -83,7 +83,7 @@ public class ContactService {
 			Contact contact = authenticate( authenticationBy, login, password);
 			if( contact != null ) {
 				HttpSession session = request.getSession();
-				session.setAttribute( "contact", SessionKeys.CONTACTKEY );
+				session.setAttribute( SessionKeys.CONTACTKEY, contact );
 				returnViewString = "redirect:home";
 				isSuccess = true;
 			}

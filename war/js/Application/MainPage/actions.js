@@ -62,8 +62,7 @@ $( window.document ).ready( function() {
 	var tabContainerHeight = 0;
 
 	var onDivResize = 		function( event ) { 
-								console.error( 'Inside onDivResize().' );
-								console.error( 'Inside onWindowResize().' );
+								// console.log( 'Inside onDivResize().' );
 								var windowHeight = $window.height();
 								tabContainerHeight = windowHeight - $header.height();
 
@@ -72,7 +71,7 @@ $( window.document ).ready( function() {
 								elem.listPaneContentList.height( ( tabContainerHeight - 115 ) + 'px' );
 							};
 	var onWindowResize = 	function( event ) {
-								console.error( 'Inside onWindowResize().' );
+								// console.log( 'Inside onWindowResize().' );
 								var windowHeight = $window.height();
 								tabContainerHeight = windowHeight - $header.height();
 

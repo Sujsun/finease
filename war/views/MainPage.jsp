@@ -17,7 +17,10 @@
 	<!-- Library CSS -->
 	<link rel="stylesheet" type="text/css" href="../css/Library/font-awesome.css">
 	<link rel="stylesheet" type="text/css" href="../css/Library/Bootstrap.css" ></link>
+	<link rel="stylesheet" type="text/css" href="../css/Library/LibNotify-HumaneTheme.css" ></link>
+	<link rel="stylesheet" type="text/css" href="../css/Library/JackedUp-HumaneTheme.css" ></link>
 	<link rel="stylesheet" type="text/css" href="../css/Library/Bootstrap-DatePicker.css" ></link>
+	<link rel="stylesheet" type="text/css" href="../css/Library/OverlayBlocker.css" ></link>
 
 	<!-- Application CSS -->
 	<link rel="stylesheet" type="text/css" href="../css/Application/Test.css">
@@ -57,7 +60,11 @@
 	<script type="text/javascript" src="../js/Library/Routie-v0.3.2.js"></script>
 	<script type="text/javascript" src="../js/Library/Minivents-CustomEvent.js"></script>
 	<script type="text/javascript" src="../js/Library/Deferred.js"></script>
-	<script type="text/javascript" id="google-map-library" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+	<script type="text/javascript" src="../js/Library/Humane.js"></script>
+	<script type="text/javascript" src="../js/Library/OverlayBlocker.js"></script>
+	<script type="text/javascript" src="../js/Library/PicoModal.js"></script>
+	<script type="text/javascript" src="../js/Library/Mustache.js"></script>
+	<!-- <script type="text/javascript" id="google-map-library" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script> -->
 
 	<!-- Application Properties Scripts -->
 	<script type="text/javascript" src="../js/Application/ApplicationProperties.js"></script>
@@ -65,16 +72,33 @@
 	<script type="text/javascript" src="../js/Application/MainPage/actions.js"></script>
 
 	<!-- Util Scripts -->
+	<script type="text/javascript" src="../js/Application/Util/MathUtil.js"></script>
+	<script type="text/javascript" src="../js/Application/Util/ValidatorUtil.js"></script>
+	<script type="text/javascript" src="../js/Application/Util/ConverterUtil.js"></script>
 	<script type="text/javascript" src="../js/Application/Util/DOMUtil.js"></script>
 	<script type="text/javascript" src="../js/Application/Util/AJAXUtil.js"></script>
+	<script type="text/javascript" src="../js/Application/Util/ObjectUtil.js"></script>
 
 	<!-- Title Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Views/TitleView.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Views/HeaderView.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Views/TabView.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Views/PhoneNumberView.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Views/AddressView.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Views/ContactDetailsView.js"></script>
 
 	<!-- Router Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Routers/GlobalRouter.js"></script>
+
+	<!-- Model Scripts -->
+	<script type="text/javascript" src="../js/Application/MainPage/Models/Model.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Models/ContactModel.js"></script>
+
+	<!-- Factory Scripts -->
+	<script type="text/javascript" src="../js/Application/MainPage/Factories/SessionFactory.js"></script>
+
+	<!-- Service Scripts -->
+	<script type="text/javascript" src="../js/Application/MainPage/Services/SessionService.js"></script>
 
 	<!-- Controller Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Controllers/TabController.js"></script>
@@ -228,338 +252,9 @@
 
 																			<div id="list-with-toolbar-ul-row" class="list-with-toolbar-ul-row row">
 																				<ul id="list-with-toolbar-list-ul" class="list-with-toolbar-ul col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																					<!-- Contact Card Starts -->
-																					<li class="contact-card row">
-																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
-																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																									<div id="contact-name-row" class="contact-name-row row">
-																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											Sundarasan Natarajan
-																										</div>
-																									</div>
-																									<div id="contact-details-row" class="contact-details-row row">
-																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											<tbody>
-																												<tr>
-																													<th><i class="fa fa-phone"></i></th><td class="text-dot">+91-9790787483</td>
-																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
-																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
-																											</tbody>
-																										</table>
-																									</div>
-																								</div>
-																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg"/>
-																							</div>
-																						</div>
-																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
-																					</li>
-																					<!-- Contact Card Ends -->
 
 																					<!-- Contact Card Starts -->
 																					<li class="contact-card row active">
-																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
-																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																									<div id="contact-name-row" class="contact-name-row row">
-																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											Sundarasan Natarajan
-																										</div>
-																									</div>
-																									<div id="contact-details-row" class="contact-details-row row">
-																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											<tbody>
-																												<tr>
-																													<th><i class="fa fa-phone"></i></th><td class="text-dot">+91-9790787483</td>
-																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
-																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
-																											</tbody>
-																										</table>
-																									</div>
-																								</div>
-																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg"/>
-																							</div>
-																						</div>
-																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
-																					</li>
-																					<!-- Contact Card Ends -->
-
-																					<!-- Contact Card Starts -->
-																					<li class="contact-card row">
-																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
-																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																									<div id="contact-name-row" class="contact-name-row row">
-																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											Sundarasan Natarajan
-																										</div>
-																									</div>
-																									<div id="contact-details-row" class="contact-details-row row">
-																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											<tbody>
-																												<tr>
-																													<th><i class="fa fa-phone"></i></th><td class="text-dot">+91-9790787483</td>
-																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
-																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
-																											</tbody>
-																										</table>
-																									</div>
-																								</div>
-																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg"/>
-																							</div>
-																						</div>
-																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
-																					</li>
-																					<!-- Contact Card Ends -->
-
-																					<!-- Contact Card Starts -->
-																					<li class="contact-card row">
-																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
-																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																									<div id="contact-name-row" class="contact-name-row row">
-																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											Sundarasan Natarajan
-																										</div>
-																									</div>
-																									<div id="contact-details-row" class="contact-details-row row">
-																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											<tbody>
-																												<tr>
-																													<th><i class="fa fa-phone"></i></th><td class="text-dot">+91-9790787483</td>
-																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
-																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
-																											</tbody>
-																										</table>
-																									</div>
-																								</div>
-																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg"/>
-																							</div>
-																						</div>
-																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
-																					</li>
-																					<!-- Contact Card Ends -->
-
-																					<!-- Contact Card Starts -->
-																					<li class="contact-card row">
-																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
-																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																									<div id="contact-name-row" class="contact-name-row row">
-																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											Sundarasan Natarajan
-																										</div>
-																									</div>
-																									<div id="contact-details-row" class="contact-details-row row">
-																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											<tbody>
-																												<tr>
-																													<th><i class="fa fa-phone"></i></th><td class="text-dot">+91-9790787483</td>
-																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
-																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
-																											</tbody>
-																										</table>
-																									</div>
-																								</div>
-																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg"/>
-																							</div>
-																						</div>
-																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
-																					</li>
-																					<!-- Contact Card Ends -->
-
-																					<!-- Contact Card Starts -->
-																					<li class="contact-card row">
-																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
-																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																									<div id="contact-name-row" class="contact-name-row row">
-																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											Sundarasan Natarajan
-																										</div>
-																									</div>
-																									<div id="contact-details-row" class="contact-details-row row">
-																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											<tbody>
-																												<tr>
-																													<th><i class="fa fa-phone"></i></th><td class="text-dot">+91-9790787483</td>
-																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
-																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
-																											</tbody>
-																										</table>
-																									</div>
-																								</div>
-																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg"/>
-																							</div>
-																						</div>
-																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
-																					</li>
-																					<!-- Contact Card Ends -->
-
-																					<!-- Contact Card Starts -->
-																					<li class="contact-card row">
-																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
-																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																									<div id="contact-name-row" class="contact-name-row row">
-																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											Sundarasan Natarajan
-																										</div>
-																									</div>
-																									<div id="contact-details-row" class="contact-details-row row">
-																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											<tbody>
-																												<tr>
-																													<th><i class="fa fa-phone"></i></th><td class="text-dot">+91-9790787483</td>
-																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
-																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
-																											</tbody>
-																										</table>
-																									</div>
-																								</div>
-																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg"/>
-																							</div>
-																						</div>
-																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
-																					</li>
-																					<!-- Contact Card Ends -->
-
-																					<!-- Contact Card Starts -->
-																					<li class="contact-card row">
-																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
-																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																									<div id="contact-name-row" class="contact-name-row row">
-																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											Sundarasan Natarajan
-																										</div>
-																									</div>
-																									<div id="contact-details-row" class="contact-details-row row">
-																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											<tbody>
-																												<tr>
-																													<th><i class="fa fa-phone"></i></th><td class="text-dot">+91-9790787483</td>
-																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
-																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
-																											</tbody>
-																										</table>
-																									</div>
-																								</div>
-																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg"/>
-																							</div>
-																						</div>
-																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
-																					</li>
-																					<!-- Contact Card Ends -->
-
-																					<!-- Contact Card Starts -->
-																					<li class="contact-card row">
-																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
-																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																									<div id="contact-name-row" class="contact-name-row row">
-																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											Sundarasan Natarajan
-																										</div>
-																									</div>
-																									<div id="contact-details-row" class="contact-details-row row">
-																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											<tbody>
-																												<tr>
-																													<th><i class="fa fa-phone"></i></th><td class="text-dot">+91-9790787483</td>
-																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
-																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
-																											</tbody>
-																										</table>
-																									</div>
-																								</div>
-																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg"/>
-																							</div>
-																						</div>
-																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
-																					</li>
-																					<!-- Contact Card Ends -->
-
-																					<!-- Contact Card Starts -->
-																					<li class="contact-card row">
-																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
-																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																									<div id="contact-name-row" class="contact-name-row row">
-																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											Sundarasan Natarajan
-																										</div>
-																									</div>
-																									<div id="contact-details-row" class="contact-details-row row">
-																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											<tbody>
-																												<tr>
-																													<th><i class="fa fa-phone"></i></th><td class="text-dot">+91-9790787483</td>
-																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
-																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
-																											</tbody>
-																										</table>
-																									</div>
-																								</div>
-																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg"/>
-																							</div>
-																						</div>
-																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
-																					</li>
-																					<!-- Contact Card Ends -->
-
-																					<!-- Contact Card Starts -->
-																					<li class="contact-card row">
-																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
-																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																									<div id="contact-name-row" class="contact-name-row row">
-																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											Sundarasan Natarajan
-																										</div>
-																									</div>
-																									<div id="contact-details-row" class="contact-details-row row">
-																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											<tbody>
-																												<tr>
-																													<th><i class="fa fa-phone"></i></th><td class="text-dot">+91-9790787483</td>
-																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
-																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
-																											</tbody>
-																										</table>
-																									</div>
-																								</div>
-																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg"/>
-																							</div>
-																						</div>
-																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
-																					</li>
-																					<!-- Contact Card Ends -->
-
-																					<!-- Contact Card Starts -->
-																					<li class="contact-card row">
 																						<!-- Contact Card Container Starts -->
 																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
@@ -618,19 +313,19 @@
 														<div id="single-column-list-shell-col" class="single-column-list-shell-col">
 
 															<!-- Contact Details Starts -->
-															<div id="contact-details" class="row contact-details">
+															<div id="contact-page-contact-details" class="row contact-details">
 																<div id="contact-details-col" class="contact-details-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 
 																	<div id="contact-details-header" class="contact-details-header row">
 																		<div class="contact-details-header-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 																			
 																			<div id="contact-details-header-name" class="contact-details-header-name row">
-																				<div class="contact-details-header-name-col text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																				<div id="contact-details-header-name-col" class="contact-details-header-name-col text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 																					Sundarasan Natarajan
 																				</div>
 																				<div id="contact-details-header-menu" class="contact-details-header-menu btn-toolbar">
 																				 	<div class="btn-group pull-right">
-																				 		<button type="button" class="btn btn-default"><i class="fa fa-floppy-o"></i></button>
+																				 		<button id="save-contact-button" type="button" class="btn btn-default save-contact-button" style="display: none;"><i class="fa fa-floppy-o"></i></button>
 																				  	</div>
 																				 </div>
 																			</div>
@@ -649,17 +344,17 @@
 																				<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 zero-padding">
 																					<div class="contact-details-1-1 row">
 																						<abbr title="First Name" class="abbr-no-underline">
-																							<input class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="First Name"/>
+																							<input id="first-name" class="first-name contact-field-input col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="First Name"/>
 																						</abbr>
 																					</div>
 																					<div class="contact-details-1-2 row">
 																						<abbr title="Middle Name" class="abbr-no-underline">
-																							<input class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Middle Name"/>
+																							<input id="middle-name" class="middle-name contact-field-input col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Middle Name"/>
 																						</abbr>
 																					</div>
 																					<div class="contact-details-1-3 row">
 																						<abbr title="Last Name" class="abbr-no-underline">
-																							<input class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Last Name"/>
+																							<input id="last-name" class="last-name col-lg-12 contact-field-input col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Last Name"/>
 																						</abbr>
 																					</div>
 																				</div>
@@ -667,126 +362,121 @@
 
 																			<hr/>
 
-																			<abbr title="Phone Number" class="abbr-no-underline">
-																				<div class="contact-details-3 phone-number contact-field-row row">
-																					<input class="phone-number contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Phone"/>
-																					<div class="field-icon"><i class="fa fa-phone"></i></div>
-																					<div class="add-icon"><button class="btn"><i class="fa fa-minus"></i></button></div>
-																				</div>
-																				<div class="contact-details-3 phone-number contact-field-row row">
-																					<input class="phone-number contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Phone"/>
-																					<div class="field-icon"><i class="fa fa-phone"></i></div>
-																					<div class="add-icon"><button class="btn"><i class="fa fa-plus"></i></button></div>
-																				</div>
-																			</abbr>
+																			<!-- Phone Number List Div - Starts -->
+																			<div id="phone-number-list-div" class="phone-number-list-div row">
+																				<abbr id="phone-number-list-abbr" title="Phone Number" class="phone-number-list-abbr abbr-no-underline">
+																					<ul id="phone-number-list" class="phone-number-list col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																					</ul>
+																					<!--
+																					<div class="contact-details-3 phone-number contact-field-row row">
+																						<input class="phone-number contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Phone"/>
+																						<div class="field-icon"><i class="fa fa-phone"></i></div>
+																						<div class="add-icon"><button id="add-phone-number" class="add-remove-phone-number btn add"><i class="fa fa-minus"></i></button></div>
+																					</div>
+																					<div class="contact-details-3 phone-number contact-field-row row">
+																						<input class="phone-number contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Phone"/>
+																						<div class="field-icon"><i class="fa fa-phone"></i></div>
+																						<div class="add-icon"><button class="btn"><i class="fa fa-plus"></i></button></div>
+																					</div>
+																					-->
+																				</abbr>
+																				<!-- Phone Number Tempate - Starts -->
+																				<script id="phone-number-template" type="x-tmpl-mustache">
+																					<li id="{{id}}" class="phone-number-li">
+																						<div id="phone-number" class="phone-number contact-field-row row">
+																							<input id="phone-number-input" class="phone-number contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Phone">
+																							<div class="field-icon"><i class="fa fa-phone"></i></div>
+																							<div id="add-remove-phone-number-div" class="add-remove-phone-number-div"><button id="add-phone-number" class="btn"><i class="fa fa-plus"></i></button></div>
+																						</div>
+																					</li>
+																				</script>
+																				<!-- Phone Number Tempate - Ends -->
+																			</div>
+																			<!-- Phone Number List Div - Ends -->
 
 																			<hr/>
 
-																			<!-- Address Column Starts -->
-																			<abbr title="Company Details" class="abbr-no-underline">
-																				<div class="contact-details-4 contact-field-row row">
-																					<input class="contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Office Name"/>
-																					<div class="field-icon"><i class="fa fa-building-o"></i></div>
-																				</div>
+																			<!-- Address List Starts -->
+																			<div id="address-list-div" class="address-list-div">
+																				<ul id="address-list-list" class="address-list-list">
 
-																				<div class="contact-details-5 contact-field-row row">
-																					<input class="contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Address Line 1"/>
-																				</div>
+																				</ul>
 
-																				<div class="contact-details-5 contact-field-row row">
-																					<input class="contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Address Line 2"/>
-																				</div>
-
-																				<div class="contact-details-5 contact-field-row row">
-																					<div class="contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																						<div class="row">
-																							<div class="city col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
-																								<div class="row">
-																									<input placeholder="City" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding"/>
+																				<script id="contact-details-address-template" type="x-tmpl-mustache">
+																					<!-- Address Li - Starts -->
+																					<li id="{{id}}" class="address-li">
+																						<abbr title="Company Details" class="abbr-no-underline">
+																							<div class="contact-details-4 contact-field-row row">
+																								<input id="address-line-1" class="address-line-1 contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Address Line 1">
+																								<div class="field-icon">
+																									<div id="address-type-dropdown" class="dropdown address-type-dropdown">
+																										<button id="address-type-list" class="address-type-list" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																											<i class="fa fa-building-o"></i>
+																										</button>
+																										<ul class="dropdown-menu" role="menu" aria-labelledby="address-type-list">
+																											<li id="address-type-office-li" class="address-type-office-li" role="presentation">
+																												<a id="address-type-office-a" href="javascript:void(0);" class="address-type-office-a" role="menuitem">
+																													<i class="fa fa-building-o"></i>
+																												</a>
+																											</li>
+																											<li id="address-type-home-li" class="address-type-home-li" role="presentation">
+																												<a id="address-type-home-a" href="javascript:void(0);" class="address-type-home-a" role="menuitem">
+																													<i class="fa fa-home"></i>
+																												</a>
+																											</li>
+																										</ul>
+																									</div>
 																								</div>
 																							</div>
-																							<div class="state col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
-																								<div class="row">
-																									<input placeholder="State" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding"/>
+
+																							<div class="contact-details-5 contact-field-row row">
+																								<input id="address-line-2" class="address-line-2 contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Address Line 2">
+																							</div>
+
+																							<div class="contact-details-5 contact-field-row row">
+																								<input id="landmard" class="landmard contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Landmard">
+																							</div>
+
+																							<div class="contact-details-5 contact-field-row row">
+																								<div class="contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																									<div class="row">
+																										<div class="city col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
+																											<div class="row">
+																												<input id="city" placeholder="City" class="city col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																											</div>
+																										</div>
+																										<div class="state col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
+																											<div class="row">
+																												<input id="state" placeholder="State" class="state col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																											</div>
+																										</div>
+																									</div>
 																								</div>
 																							</div>
-																						</div>
-																					</div>
-																				</div>
 
-																				<div class="contact-details-5 contact-field-row row">
-																					<div class="contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																						<div class="row">
-																							<div class="city col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
-																								<div class="row">
-																									<input placeholder="Country" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding"/>
-																								</div>
+																							<div id="address-last-row" class="address-last-row contact-details-5 contact-field-row row">
+																								<div class="contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																									<div class="row">
+																										<div class="city col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
+																											<div class="row">
+																												<input id="country" placeholder="Country" class="country col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																											</div>
+																										</div>
+																										<div class="state col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
+																											<div class="row">
+																												<input id="pincode" placeholder="Pin Code" class="pincode col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																											</div>
+																										</div>
+																									</div>
+																								</div><div id="add-remove-address-div" class="add-remove-address-div"><button id="add-address-button" class="add-remove-address-button btn"><i class="fa fa-plus"></i></button></div>
 																							</div>
-																							<div class="state col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
-																								<div class="row">
-																									<input placeholder="Pin Code" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding"/>
-																								</div>
-																							</div>
-																						</div>
-																					</div>
-																				</div>
-																			</abbr>
+																						</abbr>
+																						<hr/>
+																					</li>
+																					<!-- Address Li - Starts -->
+																				</script>
 
-																			<hr/>
-																			<!-- Address Column Ends -->
-
-																			<!-- Address Column Starts -->
-																			<abbr title="Home Details" class="abbr-no-underline">
-																				<div class="contact-details-4 contact-field-row row">
-																					<input class="contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Home Name"/>
-																					<div class="field-icon"><i class="fa fa-home"></i></div>
-																				</div>
-
-																				<div class="contact-details-5 contact-field-row row">
-																					<input class="contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Address Line 1"/>
-																				</div>
-
-																				<div class="contact-details-5 contact-field-row row">
-																					<input class="contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Address Line 2"/>
-																				</div>
-
-																				<div class="contact-details-5 contact-field-row row">
-																					<div class="contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																						<div class="row">
-																							<div class="city col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
-																								<div class="row">
-																									<input placeholder="City" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding"/>
-																								</div>
-																							</div>
-																							<div class="state col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
-																								<div class="row">
-																									<input placeholder="State" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding"/>
-																								</div>
-																							</div>
-																						</div>
-																					</div>
-																				</div>
-
-																				<div class="contact-details-5 contact-field-row row">
-																					<div class="contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																						<div class="row">
-																							<div class="city col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
-																								<div class="row">
-																									<input placeholder="Country" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding"/>
-																								</div>
-																							</div>
-																							<div class="state col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
-																								<div class="row">
-																									<input placeholder="Pin Code" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding"/>
-																								</div>
-																							</div>
-																						</div>
-																					</div>
-																				</div>
-																			</abbr>
-
-																			<hr/>
-																			<!-- Address Column Ends -->
+																			</div>
 
 																		</div>
 																	</div>
@@ -834,8 +524,10 @@
 																					
 																					<div class="row">
 																						<div class="loan-search-col right-inner-addon col-lg-3 col-md-3 col-sm-3 col-xs-6 zero-padding pull-right" style="">
-																							<input placeholder="Search..."/>
-																							<i class="fa fa-search"></i>
+																							<div class="row">
+																								<input class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Search..."/>
+																								<i class="fa fa-search"></i>
+																							</div>
 																						</div>
 																					</div>
 
@@ -974,6 +666,35 @@
 		<!-- Application Shell Wrapper Ends -->
 
 	</div>
+
+	<!-- Modal - Starts -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="exampleModalLabel">New message</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="recipient-name" class="control-label">Recipient:</label>
+							<input type="text" class="form-control" id="recipient-name">
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">Message:</label>
+							<textarea class="form-control" id="message-text"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Send message</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal - Ends -->
 
 </body>
 

@@ -4,11 +4,14 @@
 
 										var self 				= 	this;
 
-										var init 				= 	function() {
+										var views 				= 	{};
 
+										var init 				= 	function() {
+																		createViews();
 																	};
 
 										var createViews 		= 	function() {
+																		views.contactDetailsView = new root.ContactDetailsView();
 																	};
 
 										var attachEvents 		= 	function() {

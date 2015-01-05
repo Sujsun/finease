@@ -8,6 +8,8 @@
 
 								var pageString 	= 	'';
 
+								var sessionContactModel = undefined;
+
 								var events 		= 	new root.Events();
 
 								var init 								= 	function() {
@@ -66,17 +68,28 @@
 																				}
 																			};
 
+								var setSessionContactModel				= 	function( sessionContactModelArg ) {
+																				sessionContactModel = sessionContactModelArg;
+																				updateContactInView();
+																			};
+
+								var updateContactInView 				= 	function() {
+																				if( sessionContactModel ) {
+																					userPicAbbr( sessionContactModel.attr( 'firstName' ) );
+																				}
+																			};
+
 								var attachEvents 						= 	function() {
 																			};
 
 								init.apply( self, arguments );
 
 								return 	{
-											events 			: 	events,
-											userPicAbbr 	: 	userPicAbbr,
-											contactHref 	: 	contactHref,
-											loanHref 		: 	loanHref,
-											highlightTab 	: 	highlightTab,
+											events 					: 	events,
+											contactHref 			: 	contactHref,
+											loanHref 				: 	loanHref,
+											highlightTab 			: 	highlightTab,
+											setSessionContactModel	: 	setSessionContactModel
 										};
 
 							};

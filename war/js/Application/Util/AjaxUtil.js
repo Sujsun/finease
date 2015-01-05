@@ -15,9 +15,9 @@
 																																				} else {
 																																					resolveWith = xmlHttp.responseText;
 																																				}
-																																		    	deferred.resolve( resolveWith );
+																																		    	deferred.resolve( resolveWith, xmlHttp );
 																																		    } else {
-																																		    	deferred.reject();	
+																																		    	deferred.reject( xmlHttp.status, xmlHttp.statusText, xmlHttp );	
 																																		    }
 																																    	}
 																															    	};
@@ -26,17 +26,17 @@
 
 													var call 						= 		function( url, type, requestData ) {
 																								var self = this;
+																								var deferred = new dfrd.Deferred();
 																								if( typeof( url ) === 'string' && url != '' ) {
 																									type = ( type && type.toUpperCase ) ? type.toUpperCase() : 'GET';
-																									var deferred = new dfrd.Deferred();
-																									var xmlHttp = window.XMLHttpRequest ? new XMLHttpRequest() : window.ActiveXObject ? new ActiveXObject("Microsoft.XMLHTTP") : false;
+																									var xmlHttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : window.ActiveXObject ? new window.ActiveXObject("Microsoft.XMLHTTP") : false;
 																									if( xmlHttp ) {
 																										requestData = ( typeof( requestData ) === 'object' ) ? JSON.stringify( requestData ) : requestData;
 																										xmlHttp.onreadystatechange = new OnReadyStateChangeClass( xmlHttp, deferred );
 																										xmlHttp.open( type, url, true /* async */ );
 																										xmlHttp.send( requestData );
 																									} else {
-																										deferred.reject();
+																										deferred.reject( XMLHTTP );
 																									}
 																								} else {
 																									deferred.reject();

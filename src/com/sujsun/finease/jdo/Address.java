@@ -22,6 +22,8 @@ public class Address implements Serializable {
     private String id;
 	
 	@Persistent
+	String type;
+	@Persistent
 	private String houseNumber;
 	@Persistent
 	private String street;

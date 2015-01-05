@@ -4,24 +4,27 @@
 
 								var self 				= 	this;
 
-								var sessionPath 		= 	'session'
-								var contactSessionPath 	= 	sessionPath + '?' + 'attribute=' + 'contact';
+								var sessionPath 		= 	'/service/session' + '?' + 'attribute=';
 
-								var init 		= 	function() {
-													};
+								var init 				= 	function() {
+															};
 
-								var get 		= 	function() {
-														return root.AJAXUtil.call( contactSessionPath, 'get' );
-													};
+								var get					= 	function( sessionAttributeKey ) {
+																var deferred = new dfrd.Deferred();
+																getCore( sessionAttributeKey )
+																	.done( function( data ) { deferred.resolve( new root.Model( data ) ); } )
+																		.fail( function() { deferred.reject.apply( deferred, arguments ); } );
+																return deferred;
+															};
+
+								var getCore				= 	function( sessionAttributeKey ) {
+																return root.AJAXUtil.call( sessionPath + sessionAttributeKey, 'get' );
+															};
 
 								init.apply( self, arguments );
 
 								return 	{
-											events 			: 	events,
-											userPicAbbr 	: 	userPicAbbr,
-											contactHref 	: 	contactHref,
-											loanHref 		: 	loanHref,
-											highlightTab 	: 	highlightTab,
+											get 		: 	get,
 										};
 
 							};

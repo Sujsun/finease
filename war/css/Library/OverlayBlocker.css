@@ -1,0 +1,28 @@
+/* CSS for Overlay Blocker - Starts */
+
+.overlay-blocker {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1040;
+	background-color: #000000;
+
+	-webkit-transition: opacity 0.15s linear, visibility 0.15s linear;
+	-moz-transition: opacity 0.15s linear, visibility 0.15s linear;
+	-o-transition: opacity 0.15s linear, visibility 0.15s linear;
+	transition: opacity 0.15s linear, visibility 0.15s linear;
+
+}
+
+.overlay-blocker.fade {
+	visibility: hidden;
+}
+
+.overlay-blocker.fade.in {
+	opacity: 0.5;
+	visibility:visible;
+}
+
+/* CSS for Overlay Blocker - Ends */

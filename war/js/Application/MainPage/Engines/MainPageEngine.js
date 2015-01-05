@@ -2,13 +2,18 @@
 
 	var MainPageEngine 	= 	function() {
 
-								var mvc 				= 	{ router: {}, collection: {}, model: {}, views: {}, };
+								var mvc 				= 	{ routers: {}, services: {}, views: {}, controllers: {}, };
 
 								var init 				= 	function() {
 															};
 
 								var start 				= 	function() {
+																igniteService();
 																igniteControllers();
+															};
+
+								var igniteService 		= 	function() {
+																mvc.services.sessionService = new root.SessionService();
 															};
 
 								var igniteControllers 	= 	function() {
@@ -17,6 +22,8 @@
 															};
 
 								init.apply( self, arguments );
+
+								root.mvc 				= 	mvc;
 
 								return 	{
 											start 	: 	start,

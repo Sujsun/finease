@@ -77,15 +77,28 @@ div.contact-details div.contact-details-container-col div.contact-field-row div.
 	padding: 1px 17px;
 }
 
-div.contact-details div.contact-details-container-col div.contact-field-row div.add-icon {
+div.contact-details div.contact-details-container-col ul.phone-number-list {
+	list-style-type: none;
+	margin: 0px;
+}
+
+div.contact-details div.contact-details-container-col ul.phone-number-list div.field-icon {
+	padding-left: 10px;
+}
+
+div.contact-details div.contact-details-container-col div.contact-field-row div.add-remove-phone-number-div, div.contact-details div.add-remove-address-div {
 	position: absolute;
 	right: 0px;
 	font-size: 20px;
-	padding: 1px 17px;
+	padding: 1px 0px;
 	margin: -2px 0px;
 }
 
-div.contact-details div.contact-details-container-col div.contact-field-row div.add-icon button {
+div.contact-details div.add-remove-address-div {
+	padding: 1px 10px;
+}
+
+div.contact-details div.contact-details-container-col div.contact-field-row div.add-remove-phone-number-div button {
 	color: #6B8F8F;
 	padding: 3px 10px;
 	background-color: #F2F4F7;
@@ -93,9 +106,59 @@ div.contact-details div.contact-details-container-col div.contact-field-row div.
 	border-radius: 3px;
 }
 
-div.contact-details div.contact-details-container-col div.contact-field-row div.add-icon button:focus, div.contact-details div.contact-details-container-col div.contact-field-row div.add-icon button:hover {
+div.contact-details div.add-remove-address-div button:focus, div.contact-details div.add-remove-address-div button {
+	color: #6B8F8F;
+	padding: 3px 10px;
+	background-color: #F2F4F7;
+	border-color: #E7E7E7;
+	border-radius: 3px;
+}
+
+div.contact-details div.address-list-div div.address-last-row {
+	padding: 3px 46px 3px 40px;
+}
+
+div.contact-details div.address-list-div button.address-type-list {
+	border: none;
+	background: none;
+	padding: 0px;
+}
+
+div.contact-details div.address-list-div button.address-type-list:focus {
+	outline: none;
+}
+
+div.contact-details div.address-list-div div.address-type-dropdown ul.dropdown-menu {
+	min-width: 30px;
+}
+
+div.contact-details div.address-list-div div.address-type-dropdown ul.dropdown-menu li a {
+	padding: 10px;
+	color: #6B8F8F;
+}
+
+div.contact-details div.address-list-div div.address-type-dropdown ul.dropdown-menu li a:hover, div.contact-details div.address-list-div div.address-type-dropdown ul.dropdown-menu li a:focus {
+	color: #FFFFFF;
+}
+
+div.contact-details div.address-list-div div.address-type-dropdown ul.dropdown-menu li a i {
+	font-size: 18px;
+}
+
+div.contact-details div.contact-details-container-col div.contact-field-row div.add-remove-phone-number-div button:focus, div.contact-details div.contact-details-container-col div.contact-field-row div.add-remove-phone-number-div button:hover {
 	background-color: #F8F8F8;
 	border-color: #D6D5D5;
+}
+
+div.contact-details div.add-remove-address-div button:focus, div.contact-details div.add-remove-address-div button:hover {
+	background-color: #F8F8F8;
+	border-color: #D6D5D5;
+}
+
+div.contact-details div.contact-details-container-col ul.address-list-list {
+	list-style-type: none;
+	margin: 0px;
+	padding-left: 0px;
 }
 
 div.contact-details div.contact-details-container-col div.contact-details-1-1 {

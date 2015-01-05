@@ -21,6 +21,7 @@ div.loan-details-col div.loan-details-menu-col div.loan-search-col {
 div.loan-details-col div.loan-details-menu-col div.loan-search-col input {
 	border-radius: 10px;
 	border: 1px solid #CCCCCC;
+	/* width: 160px; */
 }
 
 div.loan-details-col div.loan-details-menu-col div.loan-search-col input:focus {
