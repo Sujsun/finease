@@ -25,7 +25,8 @@
 
 								var render 								= 	function() {
 																				var params = { id: addressDOMId, };
-																				var templateGeneratedString = root.DOMUtil.runMustache( '#contact-details-address-template', params );
+																				dom.addressTemplate || ( dom.addressTemplate = window.document.querySelector( '#contact-details-address-template' ) );
+																				var templateGeneratedString = root.DOMUtil.runMustache( dom.addressTemplate, params );
 																				if( dom.listContainer ) {
 																					dom.listContainer.insertAdjacentHTML( 'beforeend', templateGeneratedString );
 																					findElements();

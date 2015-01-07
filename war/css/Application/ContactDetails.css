@@ -77,9 +77,50 @@ div.contact-details div.contact-details-container-col div.contact-field-row div.
 	padding: 1px 17px;
 }
 
+div.contact-details div.contact-details-container-col ul.email-list {
+	list-style-type: none;
+	margin: 0px;
+}
+
+div.contact-details div.contact-details-container-col div.seconday.email-list-div ul.email-list li div.field-icon i {
+	/* display: none; */
+}
+
+div.contact-details div.contact-details-container-col ul.email-list li div.field-icon i {
+	font-weight: bold;
+}
+
+div.contact-details div.contact-details-container-col div.email.contact-field-row {
+	padding: 3px 0px 3px 40px;
+}
+
+div.contact-details div.primary-email.email-list-div div.add-remove-email-div {
+	display: none;
+}
+
+div.contact-details div.email-list-div div.add-remove-email-div {
+	position: absolute;
+	right: 0px;
+	font-size: 20px;
+	padding: 1px 0px;
+	margin: -2px 0px;
+}
+
+div.contact-details div.contact-details-container-col div.contact-field-row div.add-remove-email-div button {
+	color: #6B8F8F;
+	padding: 3px 10px;
+	background-color: #F2F4F7;
+	border-color: #E7E7E7;
+	border-radius: 3px;
+}
+
 div.contact-details div.contact-details-container-col ul.phone-number-list {
 	list-style-type: none;
 	margin: 0px;
+}
+
+div.contact-details div.contact-details-container-col ul.email-list div.field-icon {
+	padding-left: 10px;
 }
 
 div.contact-details div.contact-details-container-col ul.phone-number-list div.field-icon {

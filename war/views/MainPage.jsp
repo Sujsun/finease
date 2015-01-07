@@ -83,6 +83,7 @@
 	<script type="text/javascript" src="../js/Application/MainPage/Views/TitleView.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Views/HeaderView.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Views/TabView.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Views/EmailView.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Views/PhoneNumberView.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Views/AddressView.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Views/ContactDetailsView.js"></script>
@@ -362,6 +363,50 @@
 
 																			<hr/>
 
+																			<!-- Primary Email List Div - Starts -->
+																			<div id="primary-email-list-div" class="primary-email-list-div primary-email email-list-div row">
+																				<abbr id="email-list-abbr" title="Primary Email" class="email-list-abbr abbr-no-underline">
+																					<ul id="email-list" class="email-list col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+																						<li id="123" class="email-li">
+																							<div id="email" class="email contact-field-row row">
+																								<input id="email-input" class="email-input contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Primary Email">
+																								<div class="field-icon"><i class="">@</i></div>
+																								<div id="add-remove-email-div" class="add-remove-email-div"><button id="add-email" class="btn"><i class="fa fa-plus"></i></button></div>
+																							</div>
+																						</li>
+
+																					</ul>
+
+																				</abbr>
+																			</div>
+																			<!-- Primary Email List Div - Ends -->
+
+																			<!-- Seconday Email List Div - Starts -->
+																			<div id="seconday-email-list-div" class="seconday-email-list-div seconday email-list-div row">
+																				<abbr id="email-list-abbr" title="Secondary Email" class="email-list-abbr abbr-no-underline">
+																					<ul id="email-list" class="email-list col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+																					</ul>
+																				</abbr>
+
+																				<!-- Email Tempate - Starts -->
+																				<script id="contact-details-email-template" type="x-tmpl-mustache">
+																					<li id="{{id}}" class="email-li">
+																						<div id="phone-number" class="phone-number contact-field-row row">
+																							<input id="email-input" class="email-input contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Secondary Email">
+																							<div class="field-icon"><i class="">@</i></div>
+																							<div id="add-remove-email-div" class="add-remove-email-div"><button id="add-email" class="btn"><i class="fa fa-plus"></i></button></div>
+																						</div>
+																					</li>
+																				</script>
+																				<!-- Email Tempate - Ends -->
+
+																			</div>
+																			<!-- Seconday Email List Div - Ends -->
+
+																			<hr/>
+
 																			<!-- Phone Number List Div - Starts -->
 																			<div id="phone-number-list-div" class="phone-number-list-div row">
 																				<abbr id="phone-number-list-abbr" title="Phone Number" class="phone-number-list-abbr abbr-no-underline">
@@ -381,7 +426,7 @@
 																					-->
 																				</abbr>
 																				<!-- Phone Number Tempate - Starts -->
-																				<script id="phone-number-template" type="x-tmpl-mustache">
+																				<script id="contact-details-phone-number-template" type="x-tmpl-mustache">
 																					<li id="{{id}}" class="phone-number-li">
 																						<div id="phone-number" class="phone-number contact-field-row row">
 																							<input id="phone-number-input" class="phone-number contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Phone">

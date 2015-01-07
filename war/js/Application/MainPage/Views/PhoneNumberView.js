@@ -23,7 +23,8 @@
 
 								var render 								= 	function() {
 																				var params = { id: phoneNumberDOMId, };
-																				var templateGeneratedString = root.DOMUtil.runMustache( '#phone-number-template', params );
+																				dom.phoneNumberTemplate || ( dom.phoneNumberTemplate = window.document.querySelector( '#contact-details-phone-number-template' ) );
+																				var templateGeneratedString = root.DOMUtil.runMustache( dom.phoneNumberTemplate, params );
 																				if( dom.listContainer ) {
 																					dom.listContainer.insertAdjacentHTML( 'beforeend', templateGeneratedString );
 																					findElements();

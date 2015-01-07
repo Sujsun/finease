@@ -32,6 +32,7 @@
 																					dom.middleName = dom.container.querySelector( '#middle-name' );
 																					dom.lastName = dom.container.querySelector( '#last-name' );
 																					dom.phoneNumberList = dom.container.querySelector( '#phone-number-list' );
+																					dom.secondaryEmailList = dom.container.querySelector( '#seconday-email-list-div #email-list' );
 																					dom.addressList = dom.container.querySelector( '#address-list-list' );
 																					dom.saveContactButton = dom.container.querySelector( '#save-contact-button' );
 																					dom.contactFieldInputs = dom.container.querySelectorAll( 'input.contact-field-input' );
@@ -39,6 +40,7 @@
 																			};
 
 								var createViews 						= 	function() {
+																				addSecondayEmailView();
 																				addPhoneNumberView();
 																				addAddressView();
 																			};
@@ -79,6 +81,20 @@
 																				}
 																			};
 
+								var getSecondaryEmailAddresses			= 	function() {
+																				var returnSecondayEmailArray = [];
+																				if( views.secondaryEmailViews ) {
+																					for( var key in views.secondaryEmailViews ) {
+																						var secondayEmailView = views.secondaryEmailViews[ key ];
+																						var email = secondayEmailView.getEmail();
+																						if( email ) {
+																							returnSecondayEmailArray.push( email );
+																						}
+																					}
+																				}
+																				return returnSecondayEmailArray;
+																			};
+
 								var getPhoneNumbers 					= 	function() {
 																				var returnPhoneNumberArray = [];
 																				if( views.phoneNumberViews ) {
@@ -105,6 +121,41 @@
 																					}
 																				}
 																				return returnAddressArray;
+																			};
+
+								var addSecondayEmailView				= 	function( email ) {
+																				views.secondaryEmailViews || ( views.secondaryEmailViews = {} );
+																				if( views.previousSecondaryEmailView ) {
+																					views.previousSecondaryEmailView.setButtonClickMode( 'remove' );
+																				}
+																				var secondaryEmailView = new root.EmailView( { listContainer: dom.secondaryEmailList, buttonClickMode: 'add', } );
+																				secondaryEmailView.render();
+																				if( email ) {
+																					secondaryEmailView.setEmail( email );
+																				}
+																				secondaryEmailView.events.on( 'click:addEmail', function( secondaryEmailView ) { addSecondayEmailView(); } );
+																				secondaryEmailView.events.on( 'click:removeEmail', function( secondaryEmailView ) { removeSecondaryEmailView( secondaryEmailView ); } );
+																				views.secondaryEmailViews[ secondaryEmailView.getDOMId() ] = secondaryEmailView;
+																				views.previousSecondaryEmailView = secondaryEmailView;
+																			};
+
+								var removeSecondaryEmailView			= 	function( secondaryEmailView ) {
+																				secondaryEmailView.destroy();
+																				var secondaryEmailViewDOMId = secondaryEmailView.getDOMId();
+																				if( views.secondaryEmailViews[ secondaryEmailViewDOMId ] ) {
+																					delete views.secondaryEmailViews[ secondaryEmailViewDOMId ];
+																				}
+																			};
+
+								var addPhoneNumberViews					= 	function( secondayEmailArray ) {
+																				if( secondayEmailArray && secondayEmailArray.length > 0 ) {
+																					for( var index in secondayEmailArray ) {
+																						var email = secondayEmailArray[ index ];
+																						addSecondayEmailView( email );
+																					}
+																				} else {
+																					addSecondayEmailView();
+																				}
 																			};
 
 								var addPhoneNumberView 					= 	function( phoneNumber ) {

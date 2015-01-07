@@ -86,12 +86,11 @@
 													return div;
 												};
 
-	DOMUtil.prototype.runMustache			= 	function( selector, params ) {													
+	DOMUtil.prototype.runMustache			= 	function( templateDOMElement, params ) {													
 													var generateHTMLString = ''
 													try {
-														var element = window.document.querySelector( selector );
-														if( element ) {
-															var templateString = element.innerHTML;
+														if( templateDOMElement ) {
+															var templateString = templateDOMElement.innerHTML;
 															generateHTMLString = root.Mustache.render( templateString, params );
 														}
 													} catch( exception ) {
