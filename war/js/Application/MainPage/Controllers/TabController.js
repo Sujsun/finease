@@ -15,6 +15,7 @@
 										var createNotifViews	= 	function() {
 																		mvc.views.notify = mvc.views.notify || {};
 																		mvc.views.notify.error = root.humane.spawn( { baseCls: 'humane-libnotify', addnCls: 'humane-libnotify-error', timeout: 'none', clickToClose: true, } );
+																		mvc.views.notify.info = root.humane.spawn( { baseCls: 'humane-libnotify', addnCls: 'humane-libnotify-warn', timeout: 'none', clickToClose: true, } );
 																		mvc.views.notify.success = root.humane.spawn( { baseCls: 'humane-libnotify', addnCls: 'humane-libnotify-success', timeout: 2 * 1000, clickToClose: true, } );
 																	};
 
@@ -27,9 +28,9 @@
 																	};
 
 										var updateContactInView = 	function() {
-																		mvc.services.sessionService.get( 'contact' )
-																			.done( function( sessionContactModel ) { views.headerView.setSessionContactModel( sessionContactModel ); } )
-																				.fail( function( status, statusText, xmlHttp ) { mvc.views.notify.error( [ '<div style="font-size: 13px; font-weight: bold;">' + statusText + '</div>', /*'<div style="font-size: 11px;">' + statusText + '</div>', */ '<div style="font-size: 11px;">Click to reload</div>' ], { click: function() { window.location.reload(); }, overlayBlock: true, } ); } );
+																		mvc.services.sessionService.get( 'sessionModel' )
+																			.done( function( sessionModel ) { mvc.models.sessionModel = sessionModel; var sessionContactModel = new Model( sessionModel.attr( 'contact' ) ); views.headerView.setSessionContactModel( sessionContactModel ); } )
+																			.fail( function( status, statusText, xmlHttp ) { mvc.views.notify.error( [ '<div style="font-size: 13px; font-weight: bold;">' + statusText + '</div>', /*'<div style="font-size: 11px;">' + statusText + '</div>', */ '<div style="font-size: 11px;">Click to reload</div>' ], { click: function() { window.location.reload(); }, overlayBlock: true, } ); } );
 																	};
 
 										var attachEvents 		= 	function() {

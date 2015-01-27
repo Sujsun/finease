@@ -38,16 +38,18 @@
 
 								var destroy 							= 	function() {
 																				if( isRendered ) {
-																					dom.container.innerHTML = "";
+																					root.DOMUtil.remove( dom.container );
+																					isRendered = false;
 																				}
 																				self = undefined;
-																				return true;
+																				return isRendered;
 																			};
 
 								var setAddress 							= 	function( address ) {
+																				setAddressType( address.type );
 																				root.DOMUtil.attr( dom.addressLine1, 'value', address.addressLine1 );
 																				root.DOMUtil.attr( dom.addressLine2, 'value', address.addressLine2 );
-																				root.DOMUtil.attr( dom.landmark, 'landmark', address.landmark );
+																				root.DOMUtil.attr( dom.landmark, 'value', address.landmark );
 																				root.DOMUtil.attr( dom.city, 'value', address.city );
 																				root.DOMUtil.attr( dom.state, 'value', address.state );
 																				root.DOMUtil.attr( dom.country, 'value', address.country );
@@ -60,7 +62,7 @@
 																				address.addressLine1 = root.ValidatorUtil.string( root.DOMUtil.attr( dom.addressLine1, 'value' ) );
 																				address.addressLine2 = root.ValidatorUtil.string( root.DOMUtil.attr( dom.addressLine2, 'value' ) );
 																				address.landmark = root.ValidatorUtil.string( root.DOMUtil.attr( dom.landmark, 'value' ) );
-																				address.city = root.ValidatorUtil.string( root.DOMUtil.attr( dom.city, 'value' ) );
+																				address.district = root.ValidatorUtil.string( root.DOMUtil.attr( dom.city, 'value' ) );
 																				address.state = root.ValidatorUtil.string( root.DOMUtil.attr( dom.state, 'value' ) );
 																				address.country = root.ValidatorUtil.string( root.DOMUtil.attr( dom.country, 'value' ) );
 																				address.pincode = root.ValidatorUtil.string( root.DOMUtil.attr( dom.pincode, 'value' ) );
@@ -117,21 +119,41 @@
 																			};
 
 								var onAddRemoveButtonClick 				= 	function( event ) {
-																				events.emit( 'click:' + buttonClickMode + 'Address', self );
+																				if( getAddress() ) {
+																					DOMUtil.removeClass( dom.container, 'highlight-red' );
+																					events.emit( 'click:' + buttonClickMode + 'Address', self );
+																				} else {
+																					DOMUtil.addClass( dom.container, 'highlight-red' );
+																				}
+																			};
+
+								var setAddressType 						= 	function( addressType ) {
+																				switch( addressType ) {
+																					case 'office' :
+																						addressType = 'office';
+																						root.DOMUtil.addClass( dom.addressTypeDropdownButtonIcon, 'fa-building-o' );
+																						root.DOMUtil.removeClass( dom.addressTypeDropdownButtonIcon, 'fa-home' );
+																						break;
+																					case 'home' :
+																						addressType = 'home';
+																						root.DOMUtil.addClass( dom.addressTypeDropdownButtonIcon, 'fa-home' );
+																						root.DOMUtil.removeClass( dom.addressTypeDropdownButtonIcon, 'fa-building-o' );
+																						break;
+																					default :
+																						console.error( 'AddressView :: Unknown address type. addressType : "', addressType, '"\nSo setting it to default address type "office"' );
+																						setAddressType( 'office' );
+																						break;
+																				}
 																			};
 
 								var onAddressTypeDropdownClick 			= 	function( event ) {
 																				var addressTypeAnchorId = root.DOMUtil.attr( this, 'id' );
 																				switch( addressTypeAnchorId ) {
 																					case 'address-type-office-a' :
-																						addressType = 'office';
-																						root.DOMUtil.addClass( dom.addressTypeDropdownButtonIcon, 'fa-building-o' );
-																						root.DOMUtil.removeClass( dom.addressTypeDropdownButtonIcon, 'fa-home' );
+																						setAddressType( 'office' );
 																						break;
 																					case 'address-type-home-a' :
-																						addressType = 'home';
-																						root.DOMUtil.addClass( dom.addressTypeDropdownButtonIcon, 'fa-home' );
-																						root.DOMUtil.removeClass( dom.addressTypeDropdownButtonIcon, 'fa-building-o' );
+																						setAddressType( 'home' );
 																						break;
 																				}
 																			};

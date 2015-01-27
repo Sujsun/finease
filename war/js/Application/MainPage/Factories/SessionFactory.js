@@ -10,7 +10,7 @@
 															};
 
 								var get					= 	function( sessionAttributeKey ) {
-																var deferred = new dfrd.Deferred();
+																var deferred = new root.dfrd.Deferred();
 																getCore( sessionAttributeKey )
 																	.done( function( data ) { deferred.resolve( new root.Model( data ) ); } )
 																		.fail( function() { deferred.reject.apply( deferred, arguments ); } );

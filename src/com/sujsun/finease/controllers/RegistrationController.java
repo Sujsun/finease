@@ -28,8 +28,8 @@ public class RegistrationController {
 	private static final Logger log = Logger.getLogger( RegistrationController.class.getName() );
 	
 	@RequestMapping( value="register", method=RequestMethod.POST )
-	public @ResponseBody Contact register( @RequestBody String requestJSONString, HttpServletRequest requset, HttpServletResponse response ) {
-		return new ContactService().create( requset, response, requestJSONString );
+	public @ResponseBody Contact register( @RequestBody Contact contact, HttpServletRequest requset, HttpServletResponse response ) {
+		return new ContactService().create( requset, response, contact );
 	}
 
 }

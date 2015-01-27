@@ -8,64 +8,68 @@ import javax.jdo.PersistenceManager;
 
 import com.sujsun.finease.finalObjects.PMF;
 import com.sujsun.finease.jdo.*;
+import com.sujsun.finease.util.RandomUtil;
 
-public class AccountFactory {
+public class SubAccountFactory {
 	
-	private static final Logger log = Logger.getLogger( AccountFactory.class.getName() );
+	private static final Logger log = Logger.getLogger( SubAccountFactory.class.getName() );
 	
-	public Account create( Account accountToPersist ) {
+	public SubAccount create( SubAccount subAccountToPersist ) {
 		boolean isSuccess = false;
-		Account returnAccount = null;
+		SubAccount returnSubAccount = null;
 		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
 		try {
+			if( subAccountToPersist.getId() == null ) {
+				subAccountToPersist.setId( RandomUtil.alphaNumberic() );
+			}
 			persistenceManager.currentTransaction().begin();
-			returnAccount = persistenceManager.makePersistent( accountToPersist );
+			returnSubAccount = persistenceManager.makePersistent( subAccountToPersist );
 			persistenceManager.currentTransaction().commit();
 			isSuccess = true;
 		} catch( Exception exception ) {
 			persistenceManager.currentTransaction().rollback();
-			log.log( Level.SEVERE, "Error while writing account to datastore." );
+			log.log( Level.SEVERE, "Error while writing SubAccount to datastore." );
 			exception.printStackTrace();
 		} finally {
 			persistenceManager.close();
 		}
-		return returnAccount;
+		return returnSubAccount;
 	}
 	
-	public Account get( String id ) {
+	public SubAccount get( String id ) {
 		boolean isSuccess = false;
-		Account returnAccount = null;
+		SubAccount returnSubAccount = null;
 		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
 		try {
 			persistenceManager.currentTransaction().begin();
-			returnAccount = persistenceManager.getObjectById( Account.class, id );
+			returnSubAccount = persistenceManager.getObjectById( SubAccount.class, id );
 			persistenceManager.currentTransaction().commit();
 			isSuccess = true;
 		} catch( JDOObjectNotFoundException jdoObjectNotFoundException ) {
-			log.log( Level.SEVERE, "Warning :: Account not found with the given id. Given id : " + id );
+			log.log( Level.SEVERE, "Warning :: SubAccount not found with the given id. Given id : " + id );
 			persistenceManager.currentTransaction().rollback();
 			// jdoObjectNotFoundException.printStackTrace();
 		} catch( Exception exception ) {
 			persistenceManager.currentTransaction().rollback();
-			log.log( Level.SEVERE, "Error while getting account from datastore." );
+			log.log( Level.SEVERE, "Error while getting SubAccount from datastore." );
 			exception.printStackTrace();
 		} finally {
 			persistenceManager.close();
 		}
-		return returnAccount;
+		return returnSubAccount;
 	}
 	
-	public boolean delete( Contact accountToDelete ) {
+	public boolean delete( Contact subAccountToDelete ) {
 		boolean isSuccess = false;
 		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
 		try {
 			persistenceManager.currentTransaction().begin();
-			persistenceManager.deletePersistent( accountToDelete );
+			persistenceManager.deletePersistent( subAccountToDelete );
 			persistenceManager.currentTransaction().commit();
 			isSuccess = true;
 		} catch( Exception exception ) {
 			persistenceManager.currentTransaction().rollback();
-			log.log( Level.SEVERE, "Error while updating account in datastore." );
+			log.log( Level.SEVERE, "Error while updating SubAccount in datastore." );
 			exception.printStackTrace();
 		} finally {
 			persistenceManager.close();

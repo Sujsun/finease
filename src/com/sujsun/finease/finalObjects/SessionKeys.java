@@ -4,6 +4,9 @@ public class SessionKeys {
 	
 	public static final String
 		CONTACTKEY 					= "contact",
-		AUTHENTICATIONKEY 			= CONTACTKEY;
+		SUBACCOUNTKEY 				= "subAccount",
+		SESSIONMODELKEY 			= "sessionModel",
+		
+		AUTHENTICATIONKEY 			= SESSIONMODELKEY;
 	
 }

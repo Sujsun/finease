@@ -31,18 +31,24 @@
 																					dom.firstName = dom.container.querySelector( '#first-name' );
 																					dom.middleName = dom.container.querySelector( '#middle-name' );
 																					dom.lastName = dom.container.querySelector( '#last-name' );
+																					dom.primaryEmail = dom.container.querySelector( '#primary-email-list-div #email-input' );
 																					dom.phoneNumberList = dom.container.querySelector( '#phone-number-list' );
 																					dom.secondaryEmailList = dom.container.querySelector( '#seconday-email-list-div #email-list' );
 																					dom.addressList = dom.container.querySelector( '#address-list-list' );
 																					dom.saveContactButton = dom.container.querySelector( '#save-contact-button' );
 																					dom.contactFieldInputs = dom.container.querySelectorAll( 'input.contact-field-input' );
+																					dom.createLoginDropdownMenuButtom = dom.container.querySelector( '#create-login' );
+
+																					dom.createLoginModal = window.document.body.querySelector( '#create-login-for-local-contact-modal' );
+																					dom.loginFor = dom.createLoginModal.querySelector( '#login-for' );
+																					dom.username = dom.createLoginModal.querySelector( '#username' );
+																					dom.password = dom.createLoginModal.querySelector( '#password' );
 																				}
 																			};
 
 								var createViews 						= 	function() {
-																				addSecondayEmailView();
-																				addPhoneNumberView();
-																				addAddressView();
+																				// setContact( null );
+																				setContact( new ContactModel( { firstName: 'Sundarasan', middleName: 'Selva Sundari', lastName: 'Natarajan', primaryEmail: 'Sundarasan.Natarajan@gmail.com', secondaryEmailList: ['S.N.Sundarasan@gmail.com', 'SundarasanIPS@yahoo.co.in'], phoneNumberList: [ '9790787483', '8148309965' ], addressList: [ { type: 'home', addressLine1: '445/1B, Yesunathar Aalayam street', addressLine2: 'Perambur', landmark: 'Opposite to Phoenix Mall', city: 'Chennai', state: 'Tamil Nadu', country: 'India', pincode: '600083' }, { type: 'office', addressLine1: '115/1A, Sival Kovil street', addressLine2: 'MGR Nagar', landmark: 'Backside of R6 Police Station', city: 'Chennai', state: 'Tamil Nadu', country: 'India', pincode: '600083' } ] } ) );
 																			};
 
 								var setContact 							= 	function( contactModelArg ) {
@@ -55,6 +61,9 @@
 																				contact.firstName = root.ValidatorUtil.string( root.DOMUtil.attr( dom.firstName, 'value' ) );
 																				contact.middleName = root.ValidatorUtil.string( root.DOMUtil.attr( dom.middleName, 'value' ) );
 																				contact.lastName = root.ValidatorUtil.string( root.DOMUtil.attr( dom.lastName, 'value' ) );
+																				contact.primaryEmail = root.ValidatorUtil.string( root.DOMUtil.attr( dom.primaryEmail, 'value' ) );
+																				var secondaryEmailArray = getSecondaryEmailAddresses();
+																				contact.secondaryEmailList = ( secondaryEmailArray && secondaryEmailArray.length > 0 ) ? secondaryEmailArray : undefined;
 																				var phoneNumberArray = getPhoneNumbers();
 																				contact.phoneNumberList = ( phoneNumberArray && phoneNumberArray.length > 0 ) ? phoneNumberArray : undefined;
 																				var addressArray = getAddresses();
@@ -74,10 +83,23 @@
 																					root.DOMUtil.attr( dom.firstName, 'value', contactModel.attr( 'firstName' ) || '' );
 																					root.DOMUtil.attr( dom.middleName, 'value', contactModel.attr( 'middleName' ) || '' );
 																					root.DOMUtil.attr( dom.lastName, 'value', contactModel.attr( 'lastName' ) || '' );
+																					root.DOMUtil.attr( dom.primaryEmail, 'value', contactModel.attr( 'primaryEmail' ) || '' );
+																					removeAllSecodaryEmailViews();
 																					removeAllPhoneNumberViews();
 																					removeAllAddressViews();
+																					addSecondaryEmailViews( contactModel.attr( 'secondaryEmailList' ) );
 																					addPhoneNumberViews( contactModel.attr( 'phoneNumberList' ) );
 																					addAddressViews( contactModel.attr( 'addressList' ) );
+																					showSaveButton( contactModel.attr( 'isChanged' ) || false );
+																				}
+																			};
+
+								var setContactInCreateLoginModal 		= 	function() {
+																				if( contactModel ) {
+																					var contactNameWithInitials = contactModel.getNameWithInitials();
+																					root.DOMUtil.attr( dom.loginFor, 'value', ( contactNameWithInitials != '' ? contactNameWithInitials : 'No Name' ) );
+																					root.DOMUtil.attr( dom.username, 'value', contactModel.attr( 'primaryEmail' ) || '' );
+																					root.DOMUtil.attr( dom.password, 'value', '' );
 																				}
 																			};
 
@@ -147,7 +169,16 @@
 																				}
 																			};
 
-								var addPhoneNumberViews					= 	function( secondayEmailArray ) {
+								var removeAllSecodaryEmailViews			= 	function() {
+																				if( views.secondaryEmailViews ) {
+																					for( var key in views.secondaryEmailViews ) {
+																						removeSecondaryEmailView( views.secondaryEmailViews[ key ] );
+																					}
+																					views.previousSecondaryEmailView = undefined;
+																				}
+																			};
+
+								var addSecondaryEmailViews				= 	function( secondayEmailArray ) {
 																				if( secondayEmailArray && secondayEmailArray.length > 0 ) {
 																					for( var index in secondayEmailArray ) {
 																						var email = secondayEmailArray[ index ];
@@ -158,13 +189,14 @@
 																				}
 																			};
 
-								var addPhoneNumberView 					= 	function( phoneNumber ) {
+								var addPhoneNumberView				= 	function( phoneNumber ) {
 																				views.phoneNumberViews || ( views.phoneNumberViews = {} );
 																				if( views.previousPhoneNumberView ) {
 																					views.previousPhoneNumberView.setButtonClickMode( 'remove' );
 																				}
 																				var phoneNumberView = new root.PhoneNumberView( { listContainer: dom.phoneNumberList, buttonClickMode: 'add', } );
 																				phoneNumberView.render();
+																				window.phone = phoneNumberView;
 																				if( phoneNumber ) {
 																					phoneNumberView.setPhoneNumber( phoneNumber );
 																				}
@@ -248,7 +280,13 @@
 																			};
 
 								var showSaveButton 						= 	function( show ) {
+																				root.DOMUtil.style( dom.contactDetailsHeader, 'paddingRight', ( show ? ( 85 + 'px' ) : ( 50 + 'px' ) ) );
 																				root.DOMUtil.show( dom.saveContactButton, show );
+																			};
+
+								var showCreateLoginModal 				= 	function() {
+																				setContactInCreateLoginModal();
+																				root.$( dom.createLoginModal ).modal( 'show' );
 																			};
 
 								var isValueChangedInView				= 	function( isValueChangedInViewBooleanArg ) {
@@ -261,8 +299,13 @@
 																				return isValueChangedInViewBoolean;
 																			};
 
-								var onSaveButtonClick 					= 	function() {
+								var onSaveButtonClick 					= 	function( event ) {
 																				isValueChangedInView( false );
+																				events.emit( 'click:' + 'saveButton', getContact() );
+																			};
+
+								var onCreateLoginClick 					= 	function( event ) {
+																				showCreateLoginModal();
 																			};
 
 								var onValueChangedInView 				= 	function() {
@@ -277,10 +320,13 @@
 
 								var attachEvents 						= 	function() {
 																				root.DOMUtil.event( dom.saveContactButton, 'click', onSaveButtonClick );
+																				root.DOMUtil.event( dom.createLoginDropdownMenuButtom, 'click', onCreateLoginClick );
 																				attachEventsToFindChangeInView();
 																			};
 
 								init.apply( self, arguments );
+
+								window.getSecondaryEmailAddresses 		= 	getSecondaryEmailAddresses;
 
 								window.setContact 						= 	setContact;
 								window.getContact 						= 	getContact;

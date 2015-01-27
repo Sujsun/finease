@@ -25,6 +25,10 @@ public class Account implements Serializable {
 	private String applicationId;
 	@Persistent
 	private String applicationTitle;
+	
+	@Persistent
+	private String subAccountId;
+	
 	@Persistent
 	private String accountId;
 	
@@ -33,6 +37,12 @@ public class Account implements Serializable {
 	}
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
+	}
+	public String getSubAccountId() {
+		return subAccountId;
+	}
+	public void setSubAccountId(String subAccountId) {
+		this.subAccountId = subAccountId;
 	}
 	public String getId() {
 		return id;

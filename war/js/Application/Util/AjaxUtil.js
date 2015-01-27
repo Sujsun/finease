@@ -26,7 +26,7 @@
 
 													var call 						= 		function( url, type, requestData ) {
 																								var self = this;
-																								var deferred = new dfrd.Deferred();
+																								var deferred = new root.dfrd.Deferred();
 																								if( typeof( url ) === 'string' && url != '' ) {
 																									type = ( type && type.toUpperCase ) ? type.toUpperCase() : 'GET';
 																									var xmlHttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : window.ActiveXObject ? new window.ActiveXObject("Microsoft.XMLHTTP") : false;
@@ -34,6 +34,9 @@
 																										requestData = ( typeof( requestData ) === 'object' ) ? JSON.stringify( requestData ) : requestData;
 																										xmlHttp.onreadystatechange = new OnReadyStateChangeClass( xmlHttp, deferred );
 																										xmlHttp.open( type, url, true /* async */ );
+																										if( requestData ) {
+																											xmlHttp.setRequestHeader( 'Content-Type', 'application/json;charset=UTF-8' );
+																										}
 																										xmlHttp.send( requestData );
 																									} else {
 																										deferred.reject( XMLHTTP );

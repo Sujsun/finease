@@ -2,7 +2,7 @@
 
 	var MainPageEngine 	= 	function() {
 
-								var mvc 				= 	{ routers: {}, services: {}, views: {}, controllers: {}, };
+								var mvc 				= 	{ routers: {}, services: {}, views: {}, controllers: {}, models: {}, };
 
 								var init 				= 	function() {
 															};
@@ -14,6 +14,7 @@
 
 								var igniteService 		= 	function() {
 																mvc.services.sessionService = new root.SessionService();
+																mvc.services.contactService = new root.ContactService();
 															};
 
 								var igniteControllers 	= 	function() {

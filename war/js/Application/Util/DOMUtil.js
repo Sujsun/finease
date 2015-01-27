@@ -5,10 +5,25 @@
 	DOMUtil.prototype.attr 					= 	function( element, attribute, value ) {
 													var returnVariable = undefined;
 													if( element ) {
-														if( value || value == '' ) {
-															element[ attribute ] = value;
+														if( attribute ) {
+															if( value || value == '' ) {
+																element[ attribute ] = value;
+															}
+															returnVariable = element[ attribute ];
 														}
-														returnVariable = element[ attribute ];
+													}
+													return returnVariable;
+												};
+
+	DOMUtil.prototype.style					= 	function( element, styleKey, value ) {
+													var returnVariable = undefined;
+													if( element && element.style ) {
+														if( styleKey ) {
+															if( value || value == '' ) {
+																element.style[ styleKey ] = value;
+															}
+															returnVariable = element.style[ styleKey ];
+														}
 													}
 													return returnVariable;
 												};
@@ -84,6 +99,13 @@
 														console.error( 'Exception while constructing DIV with given HTML String. Exception Message : ', exception.message );
 													};
 													return div;
+												};
+
+	DOMUtil.prototype.remove 				= 	function( element ) {
+													if( element ) {
+														element.parentNode.removeChild( element );
+													}
+													return element;
 												};
 
 	DOMUtil.prototype.runMustache			= 	function( templateDOMElement, params ) {													

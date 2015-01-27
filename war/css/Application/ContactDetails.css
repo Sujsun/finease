@@ -30,6 +30,57 @@ div.contact-details div.contact-details-header div.contact-details-header-menu b
 	background-color: #F2F4F7;
 	border-color: #E7E7E7;
 	border-radius: 3px;
+	margin-left: 5px;
+}
+
+div.contact-details div.contact-details-header div.contact-details-header-menu div.contact-details-header-dropdown {
+	position: relative;
+	float: left;
+}
+
+div.contact-details div.contact-details-header div.contact-details-header-menu div.contact-details-header-dropdown > a {
+	padding: 3px 10px;
+	background-color: #F2F4F7;
+	border-color: #E7E7E7;
+	border-radius: 3px;
+	margin-left: 5px;
+}
+
+div.contact-details div.contact-details-header div.contact-details-header-menu div.contact-details-header-dropdown a {
+	color: #6B8F8F;
+}
+
+div.contact-details div.contact-details-header div.contact-details-header-menu div.contact-details-header-dropdown ul li a:hover {
+	color: #FFFFFF;
+}
+
+div.contact-details div.contact-details-header div.contact-details-header-menu div.contact-details-header-dropdown ul li a:focus {
+	color: #FFFFFF;
+}
+
+.btn-a {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+div.contact-details div.contact-details-header div.contact-details-header-menu div.contact-details-header-dropdown ul.dropdown-menu {
+	left: auto;
+    right: 0px;
 }
 
 div.contact-details div.contact-details-header div.contact-details-header-menu button:hover, div.contact-details div.contact-details-header div.contact-details-header-menu button:focus {
@@ -226,3 +277,42 @@ div.contact-details div.contact-details-container-col div.city {
 div.contact-details div.contact-details-container-col div.state {
 	padding: 0px 0px 0px 3px;
 }
+
+div.contact-details div.contact-details-container-col div.address-list-div ul.address-list-list li.address-li.highlight-red input.contact-field {
+	box-shadow: 0px 0px 2px 0px #FD0000;
+}
+
+/* Modal - Create login for local contact Modal - Starts */
+div.create-login-for-local-contact-modal div.modal-dialog {
+	width:400px;
+	color: #6B8F8F;
+}
+
+div.create-login-for-local-contact-modal div.modal-header {
+	color: #000000;
+}
+
+div.create-login-for-local-contact-modal div.modal-dialog div.modal-body div.create-login-for-local-contact-field-row {
+	padding: 5px 10px;
+}
+
+div.create-login-for-local-contact-modal div.modal-dialog div.modal-body label {
+	text-align: right;
+	padding: 4px 20px 0px 20px;
+}
+
+div.create-login-for-local-contact-modal div.modal-dialog div.modal-body input {
+	height: 30px;
+	padding: 7px;
+	border-radius: 10px;
+	border: 1px solid #CCCCCC;
+}
+
+div.create-login-for-local-contact-modal div.modal-dialog div.modal-body input {
+	outline: none;
+}
+
+div.create-login-for-local-contact-modal div.modal-dialog div.modal-footer button {
+	border-radius: 20px;
+}
+/* Modal - Create login for local contact Modal - Ends */

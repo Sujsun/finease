@@ -14,6 +14,8 @@
 
 								var dom 				= 	{};
 
+								var isErrorHighlighted 	= 	false;
+
 								dom.listContainer		=	options.listContainer;
 
 								var events 				= 	new root.Events();
@@ -36,10 +38,11 @@
 
 								var destroy 							= 	function() {
 																				if( isRendered ) {
-																					dom.container.innerHTML = "";
+																					root.DOMUtil.remove( dom.container );
+																					isRendered = false;
 																				}
 																				self = undefined;
-																				return true;
+																				return isRendered;
 																			};
 
 								var setPhoneNumber 						= 	function( phoneNumber ) {
@@ -89,8 +92,30 @@
 																				return phoneNumberDOMId;
 																			};
 
+								var highlightError 						= 	function( highlight ) {
+																				if( typeof( highlight ) == 'boolean' ) {
+																					if( highlight ) {
+																						if( !isErrorHighlighted ) {
+																							root.DOMUtil.addClass( dom.phoneNumberInput, 'highlight-red' );
+																							isErrorHighlighted = true;
+																						}
+																					} else {
+																						if( isErrorHighlighted ) {
+																							root.DOMUtil.removeClass( dom.phoneNumberInput, 'highlight-red' );
+																							isErrorHighlighted = false;
+																						}
+																					}
+																				}
+																				return isErrorHighlighted;
+																			};
+
 								var onAddRemoveButtonClick 				= 	function( event ) {
-																				events.emit( 'click:' + buttonClickMode + 'PhoneNumber', self );
+																				if( getPhoneNumber() ) {
+																					events.emit( 'click:' + buttonClickMode + 'PhoneNumber', self );
+																					highlightError( false );
+																				} else {
+																					highlightError( true );
+																				}
 																			};
 
 								var attachEvents 						= 	function() {

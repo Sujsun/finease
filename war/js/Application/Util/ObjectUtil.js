@@ -12,9 +12,9 @@
 														};
 
 	ObjectUtilClass.prototype.construct 	 		= 	function( constructor, args ) {
-														    var ClassTemp = function() { return constructor.apply(this, args); };
-														    ClassTemp.prototype = constructor.prototype;
-														    return new ClassTemp();
+														    var Class = function() { return constructor.apply(this, args); };
+														    Class.prototype = constructor.prototype;
+														    return new Class();
 														};
 
 	root[ 'ObjectUtil' ] 							= 	new ObjectUtilClass();

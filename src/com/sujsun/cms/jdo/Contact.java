@@ -49,6 +49,7 @@ public class Contact implements Serializable {
 	private List<Account> accountList;
 	@Persistent( defaultFetchGroup = "true" )
 	private List<Skill> skillList;
+	
 	public String getId() {
 		return id;
 	}

@@ -22,45 +22,27 @@ public class Address implements Serializable {
     private String id;
 	
 	@Persistent
-	String type;
-	@Persistent
-	private String houseNumber;
-	@Persistent
-	private String street;
+	private String type;
 	@Persistent
 	private String addressLine1;
 	@Persistent
 	private String addressLine2;
 	@Persistent
-	private String region;
-	@Persistent
 	private String district;
 	@Persistent
-	private String pinCode;
+	private String pincode;
 	@Persistent
 	private String state;
 	@Persistent
 	private String country;
 	@Persistent
-	private String landMark;
+	private String landmark;
 	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getHouseNumber() {
-		return houseNumber;
-	}
-	public void setHouseNumber(String houseNumber) {
-		this.houseNumber = houseNumber;
-	}
-	public String getStreet() {
-		return street;
-	}
-	public void setStreet(String street) {
-		this.street = street;
 	}
 	public String getAddressLine1() {
 		return addressLine1;
@@ -74,23 +56,23 @@ public class Address implements Serializable {
 	public void setAddressLine2(String addressLine2) {
 		this.addressLine2 = addressLine2;
 	}
-	public String getRegion() {
-		return region;
-	}
-	public void setRegion(String region) {
-		this.region = region;
-	}
 	public String getDistrict() {
 		return district;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public void setDistrict(String district) {
 		this.district = district;
 	}
-	public String getPinCode() {
-		return pinCode;
+	public String getPincode() {
+		return pincode;
 	}
-	public void setPinCode(String pinCode) {
-		this.pinCode = pinCode;
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
 	}
 	public String getState() {
 		return state;
@@ -104,11 +86,11 @@ public class Address implements Serializable {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public String getLandMark() {
-		return landMark;
+	public String getLandmark() {
+		return landmark;
 	}
-	public void setLandMark(String landMark) {
-		this.landMark = landMark;
+	public void setLandmark(String landmark) {
+		this.landmark = landmark;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

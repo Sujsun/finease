@@ -83,6 +83,10 @@
 	<script type="text/javascript" src="../js/Application/MainPage/Views/TitleView.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Views/HeaderView.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Views/TabView.js"></script>
+
+	<script type="text/javascript" src="../js/Application/MainPage/Views/ContactCardView.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Views/ContactListView.js"></script>
+
 	<script type="text/javascript" src="../js/Application/MainPage/Views/EmailView.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Views/PhoneNumberView.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Views/AddressView.js"></script>
@@ -97,9 +101,11 @@
 
 	<!-- Factory Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Factories/SessionFactory.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Factories/ContactFactory.js"></script>
 
 	<!-- Service Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Services/SessionService.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Services/ContactService.js"></script>
 
 	<!-- Controller Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Controllers/TabController.js"></script>
@@ -204,8 +210,8 @@
 											<div id="first-pane-wrapper" class="first-pane-wrapper tab-pane col-lg-3 col-md-3 col-sm-6 col-xs-12 zero-padding">
 
 												<!-- Single Column List Shell Starts  -->
-												<div id="single-column-list-shell-container" class="single-column-list-shell-container">
-													<div id="single-column-list-shell" class="single-column-list-shell row">
+												<div id="contact-list-wrapper" class="single-column-list-shell-container">
+													<div id="contact-list" class="single-column-list-shell row">
 														<div id="single-column-list-shell-col" class="single-column-list-shell-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 
 															<!-- List With Toolbar Starts -->
@@ -287,6 +293,39 @@
 																					<li class="contacts-card">
 																					</li>
 																				</ul>
+
+																				<!-- Contact Card Template - Starts -->
+																				<script id="contact-card-template" type="x-tmpl-mustache">
+																					<li id="{{id}}" class="contact-card row">
+																						<!-- Contact Card Container Starts -->
+																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
+																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																									<div id="contact-name-row" class="contact-name-row row">
+																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																											{{fullName}}
+																										</div>
+																									</div>
+																									<div id="contact-details-row" class="contact-details-row row">
+																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																											<tbody>
+																												<tr>
+																													<th><i class="fa fa-phone"></i></th><td class="text-dot">{{phoneNumber}}</td>
+																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
+																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
+																											</tbody>
+																										</table>
+																									</div>
+																								</div>
+																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg">
+																							</div>
+																						</div>
+																						<!-- Contact Card Container Ends -->
+																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"></div>
+																					</li>
+																				</script>
+																				<!-- Contact Card Template - Ends -->
+
 																			</div>
 
 																		</div>
@@ -327,6 +366,14 @@
 																				<div id="contact-details-header-menu" class="contact-details-header-menu btn-toolbar">
 																				 	<div class="btn-group pull-right">
 																				 		<button id="save-contact-button" type="button" class="btn btn-default save-contact-button" style="display: none;"><i class="fa fa-floppy-o"></i></button>
+																				 		<div class="contact-details-header-dropdown dropdown" style="">
+																							<a id="dLabel" class="btn-a" data-target="#" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+																								<i class="fa fa-chevron-down"></i>
+																							</a>
+																							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+																								<li><a id="create-login" href="javascript:void(0);">Create login</a></li>
+																							</ul>
+																						</div>
 																				  	</div>
 																				 </div>
 																			</div>
@@ -450,7 +497,7 @@
 																				<script id="contact-details-address-template" type="x-tmpl-mustache">
 																					<!-- Address Li - Starts -->
 																					<li id="{{id}}" class="address-li">
-																						<abbr title="Company Details" class="abbr-no-underline">
+																						<abbr title="Address Details" class="abbr-no-underline">
 																							<div class="contact-details-4 contact-field-row row">
 																								<input id="address-line-1" class="address-line-1 contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Address Line 1">
 																								<div class="field-icon">
@@ -479,7 +526,7 @@
 																							</div>
 
 																							<div class="contact-details-5 contact-field-row row">
-																								<input id="landmard" class="landmard contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Landmard">
+																								<input id="landmark" class="landmark contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Landmark">
 																							</div>
 
 																							<div class="contact-details-5 contact-field-row row">
@@ -487,12 +534,12 @@
 																									<div class="row">
 																										<div class="city col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
 																											<div class="row">
-																												<input id="city" placeholder="City" class="city col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																												<input id="city" placeholder="City" class="city contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 																											</div>
 																										</div>
 																										<div class="state col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
 																											<div class="row">
-																												<input id="state" placeholder="State" class="state col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																												<input id="state" placeholder="State" class="state contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 																											</div>
 																										</div>
 																									</div>
@@ -504,12 +551,12 @@
 																									<div class="row">
 																										<div class="city col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
 																											<div class="row">
-																												<input id="country" placeholder="Country" class="country col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																												<input id="country" placeholder="Country" class="country contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 																											</div>
 																										</div>
 																										<div class="state col-lg-6 col-md-6 col-sm-6 col-xs-6 zero-padding">
 																											<div class="row">
-																												<input id="pincode" placeholder="Pin Code" class="pincode col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																												<input id="pincode" placeholder="Pin Code" class="pincode contact-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 																											</div>
 																										</div>
 																									</div>
@@ -713,28 +760,34 @@
 	</div>
 
 	<!-- Modal - Starts -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div id="create-login-for-local-contact-modal" class="modal fade create-login-for-local-contact-modal" tabindex="-1" role="dialog" aria-labelledby="create-login-for-local-contact-modal-title" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="exampleModalLabel">New message</h4>
+				<h4 class="modal-title" id="create-login-for-local-contact-modal-title">Create login</h4>
 				</div>
 				<div class="modal-body">
-					<form>
-						<div class="form-group">
-							<label for="recipient-name" class="control-label">Recipient:</label>
-							<input type="text" class="form-control" id="recipient-name">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+							<div class="row create-login-for-local-contact-field-row">
+								<label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 zero-padding">For</label>
+								<input id="login-for" class="login-for col-lg-8 col-md-8 col-sm-8 col-xs-8 zero-padding" value="" name="login-for" placeholder="Login for" disabled="disabled"/>
+							</div>
+							<div class="row create-login-for-local-contact-field-row">
+								<label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 zero-padding">Username</label>
+								<input id="username" class="username col-lg-8 col-md-8 col-sm-8 col-xs-8 zero-padding" value="" name="username" type="email" placeholder="Username" disabled="disabled"/>
+							</div>
+							<div class="row create-login-for-local-contact-field-row">
+								<label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 zero-padding">Password</label>
+								<input id="password" class="password col-lg-8 col-md-8 col-sm-8 col-xs-8 zero-padding" value="" name="password" type="password" placeholder="Password"/>
+							</div>
 						</div>
-						<div class="form-group">
-							<label for="message-text" class="control-label">Message:</label>
-							<textarea class="form-control" id="message-text"></textarea>
-						</div>
-					</form>
+					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Send message</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary">Create</button>
 				</div>
 			</div>
 		</div>
