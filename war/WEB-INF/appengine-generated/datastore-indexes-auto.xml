@@ -1,4 +1,11 @@
-<!-- Indices written at Tue, 27 Jan 2015 11:31:52 IST -->
+<!-- Indices written at Thu, 29 Jan 2015 11:18:07 IST -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="LocalContact" ancestor="false" source="auto">
+        <property name="subAccountId" direction="asc"/>
+        <property name="createdDate" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>

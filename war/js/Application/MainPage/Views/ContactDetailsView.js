@@ -48,7 +48,7 @@
 
 								var createViews 						= 	function() {
 																				// setContact( null );
-																				setContact( new ContactModel( { firstName: 'Sundarasan', middleName: 'Selva Sundari', lastName: 'Natarajan', primaryEmail: 'Sundarasan.Natarajan@gmail.com', secondaryEmailList: ['S.N.Sundarasan@gmail.com', 'SundarasanIPS@yahoo.co.in'], phoneNumberList: [ '9790787483', '8148309965' ], addressList: [ { type: 'home', addressLine1: '445/1B, Yesunathar Aalayam street', addressLine2: 'Perambur', landmark: 'Opposite to Phoenix Mall', city: 'Chennai', state: 'Tamil Nadu', country: 'India', pincode: '600083' }, { type: 'office', addressLine1: '115/1A, Sival Kovil street', addressLine2: 'MGR Nagar', landmark: 'Backside of R6 Police Station', city: 'Chennai', state: 'Tamil Nadu', country: 'India', pincode: '600083' } ] } ) );
+																				// setContact( new ContactModel( { firstName: 'Sundarasan', middleName: 'Selva Sundari', lastName: 'Natarajan', primaryEmail: 'Sundarasan.Natarajan@gmail.com', secondaryEmailList: ['S.N.Sundarasan@gmail.com', 'SundarasanIPS@yahoo.co.in'], phoneNumberList: [ '9790787483', '8148309965' ], addressList: [ { type: 'home', addressLine1: '445/1B, Yesunathar Aalayam street', addressLine2: 'Perambur', landmark: 'Opposite to Phoenix Mall', city: 'Chennai', state: 'Tamil Nadu', country: 'India', pincode: '600083' }, { type: 'office', addressLine1: '115/1A, Sival Kovil street', addressLine2: 'MGR Nagar', landmark: 'Backside of R6 Police Station', city: 'Chennai', state: 'Tamil Nadu', country: 'India', pincode: '600083' } ] } ) );
 																			};
 
 								var setContact 							= 	function( contactModelArg ) {

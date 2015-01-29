@@ -51,6 +51,7 @@ public class LocalContactFactory {
 		Query query = persistenceManager.newQuery( LocalContact.class );
 		query.setFilter( "subAccountId == subAccountIdParam" );
 		query.declareParameters("String subAccountIdParam");
+		query.setOrdering("createdDate des");
 		try {
 			returnLocalContactList = (List<LocalContact>) query.execute( subAccountId );
 			isSuccess = true;

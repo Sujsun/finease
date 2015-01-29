@@ -19,7 +19,9 @@
 		function init() {
 			render();
 			return 	{
+						events 			: 	events,
 						add 			: 	addContactCard,
+						select 			: 	select,
 					};
 		}
 
@@ -45,11 +47,28 @@
 			dom.container = dom.wrapper.querySelector( '#contact-list' );
 			if( dom.container ) {
 				dom.contactListUl = dom.container.querySelector( '#list-with-toolbar-list-ul' );
+				dom.addContactButton = dom.container.querySelector( '#add-contact-button' );
+				dom.removeContactButton = dom.container.querySelector( '#remove-contact-button' );
 			}
 		}
 
-		function attachEvents() {
+		function onAddContactButtonClick( event ) {
+			events.emit( 'click:' + 'addContactButton', this, event );
+		}
 
+		function onRemoveContactButtonClick( event ) {
+			events.emit( 'click:' + 'removeContactButton', this, event );
+		}
+
+		function attachEvents() {
+			if( dom.container ) {
+				dom.addContactButton.addEventListener( 'click', onAddContactButtonClick );
+				dom.removeContactButton.addEventListener( 'click', onRemoveContactButtonClick );
+			}
+		}
+
+		function onContactCardClick( element, event, contactModel ) {
+			events.emit( 'click:contactCard', element, event, contactModel );
 		}
 
 		function addContactCard( contactModels ) {
@@ -61,7 +80,22 @@
 				views.contactCardViews || ( views.contactCardViews = {} );
 				var contactCardView = new root.ContactCardView( mvc, { contactModel: contactModel, listContainer: dom.contactListUl, } );
 				contactCardView.render();
+				contactCardView.events.on( 'click:contactCard', onContactCardClick );
 				views.contactCardViews[ contactModel.attr( 'id' ) ] = contactCardView;
+			}
+		}
+
+		function select( contactModel ) {
+			if( contactModel ) {
+				var contactModelId = contactModel.attr( 'id' );
+				for( var key in views.contactCardViews ) {
+					var contactCardView = views.contactCardViews[ key ];
+					var selectFlag = false;
+					if( key === contactModelId ) {
+						selectFlag = true;
+					}
+					contactCardView.select( selectFlag );
+				}
 			}
 		}
 

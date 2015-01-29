@@ -21,19 +21,22 @@
 						events 			: 	events,
 						render 			: 	render,
 						destroy 		: 	destroy,
+						select 			: 	select,
 					};
 		}
 
 
 		function render() {
-			var params = { id: 'A' + contactModel.attr( 'id' ), fullName: contactModel.getFullName(), };
+			var params = { id: 'A' + contactModel.attr( 'id' ), };
 			if( params ) {
-				params.phoneNumber = contactModel.attr( 'phoneNumberList' ) ? ( contactModel.attr( 'phoneNumberList' ).length > 0 ? contactModel.attr( 'phoneNumberList' )[contactModel.attr( 'phoneNumberList' ).length-1] : 'Nil' ) : 'Nil';
+				params.phoneNumber = contactModel.attr( 'phoneNumberList' ) ? ( contactModel.attr( 'phoneNumberList' ).length > 0 ? contactModel.attr( 'phoneNumberList' )[contactModel.attr( 'phoneNumberList' ).length-1] : 'No Phone' ) : 'No Phone';
+				var fullName = contactModel.getFullName();
+				params.fullName = ( fullName && fullName != '' ) ? fullName : 'No Name';
 			}
 			dom.contactCardTemplate || ( dom.contactCardTemplate = window.document.querySelector( '#contact-card-template' ) );
 			var templateGeneratedString = root.DOMUtil.runMustache( dom.contactCardTemplate, params );
 			if( dom.listContainer ) {
-				dom.listContainer.insertAdjacentHTML( 'beforeend', templateGeneratedString );
+				dom.listContainer.insertAdjacentHTML( 'afterbegin', templateGeneratedString );
 				findElements();
 				attachEvents();
 				isRendered = true;
@@ -56,8 +59,25 @@
 			}
 		}
 
-		function attachEvents() {
+		function onContactCardClick( event ) {
+			events.emit( 'click:' + 'contactCard', this, event, contactModel );
+		}
 
+		function attachEvents() {
+			if( dom.container ) {
+				dom.container.addEventListener( 'click', onContactCardClick );
+			}
+		}
+
+		function select( select ) {
+			if( typeof( select ) === 'boolean' ) {
+				if( select ) {
+					root.DOMUtil.addClass( dom.container, 'active' );
+				} else {
+					root.DOMUtil.removeClass( dom.container, 'active' );
+				}
+			}
+			return root.DOMUtil.hasClass( dom.container, 'active' );
 		}
 
 		return init.apply( this, arguments );

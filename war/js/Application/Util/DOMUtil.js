@@ -76,6 +76,20 @@
 													return returnVariable;
 												};
 
+	DOMUtil.prototype.hasClass				= 	function( element, className ) {
+													var returnVariable = false;
+													if( element ) {
+														if( className ) {
+															if( element.classList ) {
+																returnVariable = element.classList.contains( className );
+															} else if( element.className ) {
+																returnVariable = ( element.className.indexOf( className ) != -1 );
+															}
+														}
+													}
+													return returnVariable;
+												};
+
 	DOMUtil.prototype.show 					= 	function( element, show ) {
 													if( element ) {
 														if( typeof( show ) === 'boolean' ) {

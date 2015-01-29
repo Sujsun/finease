@@ -33,8 +33,28 @@
 																	};
 
 										var attachViewEvents 	= 	function() {
+																		views.contactListView.events.on( 'click:addContactButton', onAddContactButtonClick );
+																		views.contactListView.events.on( 'click:removeContactButton', onRemoveContactButtonClick );
+																		views.contactListView.events.on( 'click:contactCard', onContactCardClick );
+																		
 																		views.contactDetailsView.events.on( 'click:saveButton', onContactDetailsViewSaveButtonClick );
 																	};
+
+										function onContactCardClick( element, event, contactModel ) {
+											views.contactListView.select( contactModel );
+											views.contactDetailsView.setContact( contactModel );
+										}
+
+										function onAddContactButtonClick() {
+											var emptyContactModel = new root.ContactModel( { id: String( new Date().getTime() ), } );
+											views.contactDetailsView.setContact( emptyContactModel );
+											views.contactListView.add( emptyContactModel );
+											views.contactListView.select( emptyContactModel );
+										}
+
+										function onRemoveContactButtonClick() {
+											console.error( 'Remove contact button has been clicked.' );
+										}
 
 										function onContactDetailsViewSaveButtonClick( contactModel ) {
 											contactModel.attr( 'subAccountId', mvc.models.sessionModel.attr( 'subAccount' ).id );

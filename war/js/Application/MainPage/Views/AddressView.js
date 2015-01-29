@@ -50,7 +50,7 @@
 																				root.DOMUtil.attr( dom.addressLine1, 'value', address.addressLine1 );
 																				root.DOMUtil.attr( dom.addressLine2, 'value', address.addressLine2 );
 																				root.DOMUtil.attr( dom.landmark, 'value', address.landmark );
-																				root.DOMUtil.attr( dom.city, 'value', address.city );
+																				root.DOMUtil.attr( dom.city, 'value', address.district );
 																				root.DOMUtil.attr( dom.state, 'value', address.state );
 																				root.DOMUtil.attr( dom.country, 'value', address.country );
 																				root.DOMUtil.attr( dom.pincode, 'value', address.pincode );
@@ -127,8 +127,8 @@
 																				}
 																			};
 
-								var setAddressType 						= 	function( addressType ) {
-																				switch( addressType ) {
+								var setAddressType 						= 	function( addressTypeArg ) {
+																				switch( addressTypeArg ) {
 																					case 'office' :
 																						addressType = 'office';
 																						root.DOMUtil.addClass( dom.addressTypeDropdownButtonIcon, 'fa-building-o' );
@@ -140,7 +140,7 @@
 																						root.DOMUtil.removeClass( dom.addressTypeDropdownButtonIcon, 'fa-building-o' );
 																						break;
 																					default :
-																						console.error( 'AddressView :: Unknown address type. addressType : "', addressType, '"\nSo setting it to default address type "office"' );
+																						console.error( 'AddressView :: Unknown address type. addressType : "', addressTypeArg, '"\nSo setting it to default address type "office"' );
 																						setAddressType( 'office' );
 																						break;
 																				}

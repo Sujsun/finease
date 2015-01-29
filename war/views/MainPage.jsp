@@ -236,8 +236,8 @@
 																					<div class="row">
 																						<div id="list-with-toolbar-menu-toolbar" class="list-with-toolbar-menu-toolbar btn-toolbar col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 																						 	<div class="btn-group pull-right">
-																						 		<button type="button" class="btn btn-default"><i class="fa fa-plus"></i></button>
-		  																						<button type="button" class="btn btn-default"><i class="fa fa-minus"></i></button>
+																						 		<button id="add-contact-button" type="button" class="btn btn-default"><i class="fa fa-plus"></i></button>
+		  																						<button id="remove-contact-button" type="button" class="btn btn-default"><i class="fa fa-minus"></i></button>
 																						  	</div>
 																						 </div>
 																						 <div id="list-with-toolbar-menu-select-all" class="list-with-toolbar-menu-select-all">
@@ -261,9 +261,9 @@
 																				<ul id="list-with-toolbar-list-ul" class="list-with-toolbar-ul col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 
 																					<!-- Contact Card Starts -->
-																					<li class="contact-card row active">
+																					<!-- <li class="contact-card row active">
 																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																						<!--<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
 																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 																									<div id="contact-name-row" class="contact-name-row row">
@@ -286,12 +286,10 @@
 																							</div>
 																						</div>
 																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
-																					</li>
+																						<!-- <div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
+																					</li> -->
 																					<!-- Contact Card Ends -->
 
-																					<li class="contacts-card">
-																					</li>
 																				</ul>
 
 																				<!-- Contact Card Template - Starts -->
