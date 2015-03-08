@@ -17,6 +17,14 @@
 														    return new Class();
 														};
 
+	ObjectUtilClass.prototype.toArray 				= 	function( jsonMap ) {
+															var returnArray = [];
+															for( var key in jsonMap ) {
+																returnArray.push( jsonMap[ key ] );
+															}
+															return returnArray;
+														}
+
 	root[ 'ObjectUtil' ] 							= 	new ObjectUtilClass();
 
 } )( window );

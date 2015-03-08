@@ -6,10 +6,11 @@
 
 										var views 				= 	{};
 
+										var contactSearchMap	= 	{};
+
 										var init 				= 	function() {
 																		createViews();
 																		attachEvents();
-																		mvc.s
 																	};
 
 										var createViews 		= 	function() {
@@ -36,6 +37,7 @@
 																		views.contactListView.events.on( 'click:addContactButton', onAddContactButtonClick );
 																		views.contactListView.events.on( 'click:removeContactButton', onRemoveContactButtonClick );
 																		views.contactListView.events.on( 'click:contactCard', onContactCardClick );
+																		views.contactListView.events.on( 'change:searchInput', onContactSearchInputChange );
 																		
 																		views.contactDetailsView.events.on( 'click:saveButton', onContactDetailsViewSaveButtonClick );
 																	};
@@ -52,8 +54,8 @@
 											views.contactListView.select( emptyContactModel );
 										}
 
-										function onRemoveContactButtonClick() {
-											console.error( 'Remove contact button has been clicked.' );
+										function onRemoveContactButtonClick( element, event, contactModels ) {
+											views.contactListView.remove( contactModels );
 										}
 
 										function onContactDetailsViewSaveButtonClick( contactModel ) {
@@ -63,6 +65,32 @@
 														.fail( function() { console.error( 'Failed to create contact.' ); } );
 										}
 
+										function onContactSearchInputChange() {
+										}
+
+										function searchSource() {
+											var contactModels = mvc.services.contactService.getAll();
+											var contactNameArray = [];
+											for( var key in contactModels ) {
+												var contactModel = contactModels[ key ];
+												var fullName = contactModel.getFullName();
+												contactSearchMap[ fullName ] = contactModel;
+												contactNameArray.push( fullName );
+											}
+											return contactNameArray;
+										}
+
+										function searchUpdater( displayName ) {
+											var selectedContactModel = contactSearchMap[ displayName ];
+											selectContact( selectedContactModel );
+											return displayName;
+										}
+
+										function selectContact( contactModel ) {
+											views.contactListView.select( contactModel );
+											views.contactDetailsView.setContact( contactModel );
+										}
+
 										// Get all contacts under the subAccount and show in the view
 										function getContacts() {
 											mvc.services.sessionService.get( 'sessionModel' )
@@ -70,9 +98,17 @@
 													var subAccount = sessionModel.attr( 'subAccount' );
 													mvc.services.contactService.getBySubAccountId( subAccount.id )
 														.done( 	function( contactModels ) {
+																	var contactNames = [];
 																	for( var index in contactModels ) {
-																		views.contactListView.add( contactModels[ index ] );
+																		var contactModel = contactModels[ index ];
+																		views.contactListView.add( contactModel );
+																		contactNames.push( contactModel.getFullName() );
 																	}
+																	if( contactModels && contactModels.length > 0 ) {
+																		var contactModelToSelect = contactModels[ contactModels.length - 1 ];
+																		selectContact( contactModelToSelect );
+																	}
+																	views.contactListView.setSearchSource( searchSource, searchUpdater );
 																} )
 														.fail( 	function( status, statusText, xmlHttp ) {
 																	mvc.views.notify.error( [ '<div style="font-size: 13px; font-weight: bold;">' + statusText + '</div>', /*'<div style="font-size: 11px;">' + statusText + '</div>', */ '<div style="font-size: 11px;">Click to reload</div>' ], { click: function() { window.location.reload(); }, overlayBlock: true, } );

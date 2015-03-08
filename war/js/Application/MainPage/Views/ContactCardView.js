@@ -22,6 +22,8 @@
 						render 			: 	render,
 						destroy 		: 	destroy,
 						select 			: 	select,
+						check 			: 	check,
+						getContactModel : 	getContactModel,
 					};
 		}
 
@@ -55,7 +57,7 @@
 		function findElements() {
 			dom.container = dom.listContainer.querySelector( '#A' + contactModel.attr( 'id' ) + '.contact-card' );
 			if( dom.container ) {
-				
+				dom.selectCheckBox = dom.container.querySelector( '#contact-card-select input' );
 			}
 		}
 
@@ -78,6 +80,17 @@
 				}
 			}
 			return root.DOMUtil.hasClass( dom.container, 'active' );
+		}
+
+		function check( checkFlag ) {
+			if( typeof( checkFlag ) === 'boolean' ) {
+				root.DOMUtil.attr( dom.selectCheckBox, 'checked', checkFlag );
+			}
+			return root.DOMUtil.attr( dom.selectCheckBox, 'checked' );
+		}
+
+		function getContactModel() {
+			return contactModel;
 		}
 
 		return init.apply( this, arguments );

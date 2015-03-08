@@ -18,8 +18,9 @@
 															};
 
 								var igniteControllers 	= 	function() {
-																new root.TabController( mvc );
-																new root.ContactTabController( mvc );
+																mvc.controllers.tabController = new root.TabController( mvc );
+																mvc.controllers.contactTabController = new root.ContactTabController( mvc );
+																mvc.controllers.loanTabController = new root.LoanTabController( mvc );
 															};
 
 								init.apply( self, arguments );

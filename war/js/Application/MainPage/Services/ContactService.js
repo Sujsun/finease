@@ -1,6 +1,7 @@
 ( function( root ) {
 
-	var Contacts = {};
+	var ContactsModel = {};
+	var ContactsJsonMap = {};
 	var ContactsBySubAccountId = {};
 	var getDeferreds = {};
 
@@ -10,7 +11,7 @@
 
 		function get( id ) {
 			var deferred = new root.dfrd.Deferred();
-			var contact = Contacts[ id ];
+			var contact = _get( id );
 			var getDeferred = getDeferreds[ id ];
 			if( contact ) {
 				// If we have the already fetched, then return the value.
@@ -21,7 +22,7 @@
 			} else {
 				// If we have no data regarding the given id, then make the service call.
 				deferred = 	contactFactory.get( id )
-								.done( function( contactModel ) { Contacts[ contactModel.attr( 'id' ) ] = contactModel; } );
+								.done( function( contactModel ) { _add( contactModel ); } );
 				getDeferreds[ id ] = deferred;
 			}
 			deferred
@@ -50,7 +51,7 @@
 											ContactsBySubAccountId[ subAccountId ] = contactModels;
 											for( var index in contactModels ) {
 												var contactModel = contactModels[ index ];
-												Contacts[ contactModel.attr( 'id' ) ] = contactModel;
+												_add( contactModel );
 											}
 										} );
 				getDeferreds[ subAccountId ] = deferred;
@@ -61,22 +62,48 @@
 		}
 
 		function put( contactModel ) {
-			return ( Contacts[ contactModel.attr( 'id' ) ] ) ? update( contactModel ) : create( contactModel );
+			return ( _get( contactModel.attr( 'id' ) ) ? update( contactModel ) : create( contactModel ) );
 		}
 
 		function create( contactModel ) {
 			return 	contactFactory.create( contactModel )
-						.done( function( contactModel ) { Contacts[ contactModel.attr( 'id' ) ] = contactModel; } );
+						.done( function( contactModel ) { _add( contactModel ); } );
 		}
 
 		function update( contactModel ) {
 			return 	contactFactory.update( contactModel )
-						.done( function( contactModel ) { Contacts[ contactModel.attr( 'id' ) ] = contactModel; } );	
+						.done( function( contactModel ) { _add( contactModel ); } );	
 		}
 
 		function remove( contactModel ) {
 			return 	contactFactory.remove( contactModel )
-						.done( function( contactModel ) { delete Contacts[ contactModel.attr( id ) ]; } );
+						.done( function( contactModel ) { _remove( contactModel ); } );
+		}
+
+		function _add( contactModel ) {
+			ContactsModel[ contactModel.attr( 'id' ) ] = contactModel;
+			ContactsJsonMap[ contactModel.attr( 'id' ) ] = contactModel.toJSON();
+		}
+
+		function _get( id ) {
+			return ContactsModel[ id ];
+		}
+
+		function _remove( contactModel ) {
+			delete ContactsModel[ contactModel.attr( 'id' ) ];
+			delete ContactsJsonMap[ contactModel.attr( 'id' ) ];
+		}
+
+		function toJSON() {
+			return ContactsJsonMap;
+		}
+
+		function toArray() {
+			return root.ObjectUtil.toArray( ContactsJsonMap );
+		}
+
+		function getAll() {
+			return ContactsModel;
 		}
 
 		return 	{
@@ -84,6 +111,9 @@
 					getBySubAccountId 	: 	getBySubAccountId,
 					put 				: 	put,
 					remove 				: 	remove,
+					toJSON 				: 	toJSON,
+					toArray 			: 	toArray,
+					getAll 				: 	getAll,
 				};
 
 	}
