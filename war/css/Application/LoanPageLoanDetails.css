@@ -1,0 +1,156 @@
+/*
+LoanPageLoanDetails.css
+*/
+
+div.loan-details {
+	color: #6B8F8F;
+}
+
+div.loan-details div.loan-details-header {
+	height: 40px;
+	border-bottom: 1px solid #000000;
+	border-bottom: 1px solid #D6E0E0;
+}
+
+div.loan-details div.loan-details-header div.loan-details-header-name-col {
+	padding: 10px 50px 10px 20px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+div.loan-details div.loan-details-header div.loan-details-header-menu {
+	position: absolute;
+	padding: 5px;
+	right: 0px;
+}
+
+div.loan-details div.loan-details-header div.loan-details-header-menu button {
+	color: #6B8F8F;
+	padding: 3px 10px;
+	background-color: #F2F4F7;
+	border-color: #E7E7E7;
+	border-radius: 3px;
+	margin-left: 5px;
+}
+
+div.loan-details div.loan-details-header div.loan-details-header-menu div.loan-details-header-dropdown {
+	position: relative;
+	float: left;
+}
+
+div.loan-details div.loan-details-header div.loan-details-header-menu div.loan-details-header-dropdown > a {
+	padding: 3px 10px;
+	background-color: #F2F4F7;
+	border-color: #E7E7E7;
+	border-radius: 3px;
+	margin-left: 5px;
+}
+
+div.loan-details div.loan-details-header div.loan-details-header-menu div.loan-details-header-dropdown a {
+	color: #6B8F8F;
+}
+
+div.loan-details div.loan-details-header div.loan-details-header-menu div.loan-details-header-dropdown ul li a:hover {
+	color: #FFFFFF;
+}
+
+div.loan-details div.loan-details-header div.loan-details-header-menu div.loan-details-header-dropdown ul li a:focus {
+	color: #FFFFFF;
+}
+
+div.loan-details div.loan-details-header div.loan-details-header-menu div.loan-details-header-dropdown ul.dropdown-menu {
+	left: auto;
+    right: 0px;
+}
+
+div.loan-details div.loan-details-header div.loan-details-header-menu button:hover, div.loan-details div.loan-details-header div.loan-details-header-menu button:focus {
+	background-color: #F8F8F8;
+	border-color: #D6D5D5;
+}
+
+div.loan-details div.loan-details-header div.loan-details-header-menu button i {
+	font-size: 20px;
+}
+
+div.loan-details div.loan-details-container-col {
+	padding: 10px;
+	overflow-y: auto;
+}
+
+div.loan-details div.loan-details-container-col div.loan-field-row {
+	padding: 3px 0px 3px 40px;
+}
+
+div.loan-details div.loan-details-container-col div.loan-field-row div.field-icon {
+	position: absolute;
+	left: 0px;
+	font-size: 20px;
+	padding: 1px 17px;
+}
+
+div.loan-details div.loan-details-container-col ul {
+	list-style-type: none;
+	margin: 0px;
+}
+
+div.loan-details div.loan-details-container-col a.linked-contact-a {
+	text-decoration: none;
+	font-weight: bold;
+	color: #5FA3AF;
+}
+
+div.loan-details div.loan-details-container-col a.linked-contact-a:hover {
+	color: #236F86;
+}
+
+div.loan-details div.loan-details-container-col div.linked-contact.loan-field-row {
+	padding: 3px 46px 3px 40px;
+}
+
+div.loan-details div.loan-details-container-col div.loan-field-row div.add-remove-linked-contact-div {
+	position: absolute;
+	right: 0px;
+	font-size: 20px;
+	padding: 1px 0px;
+	margin: -2px 0px;
+}
+
+div.loan-details div.loan-details-container-col div.loan-field-row div.add-remove-linked-contact-div button {
+	color: #6B8F8F;
+	padding: 3px 10px;
+	background-color: #F2F4F7;
+	border-color: #E7E7E7;
+	border-radius: 3px;
+}
+
+div.loan-details div.loan-details-container-col input {
+	height: 30px;
+	padding: 7px;
+	border-radius: 10px;
+	border: 1px solid #CCCCCC;
+}
+
+div.loan-details div.loan-details-container-col ul div.loan-field-row div.field-icon {
+	padding-left: 10px;
+}
+
+div.loan-details div.loan-details-container-col hr {
+	margin: 5px 0px;
+	border-color: #D5E0E0;
+}
+
+div.loan-details div.loan-details-container-col ul div.interval-dropdown {
+	margin: auto;
+}
+
+div.loan-details div.loan-details-container-col ul div.interval div.field-icon {
+	padding-top: 4px;
+}
+
+div.loan-details div.loan-details-container-col ul div.interval-dropdown a, div.loan-details div.loan-details-container-col ul div.interval-dropdown button {
+	color: #6B8F8F;
+}
+
+div.loan-details div.loan-details-container-col ul div.interval-dropdown a:hover {
+	color: #FFFFFF;
+}
