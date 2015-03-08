@@ -35,6 +35,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/Application/ContactCard.css">
 	<link rel="stylesheet" type="text/css" href="../css/Application/ContactDetails.css">
 	<link rel="stylesheet" type="text/css" href="../css/Application/LoanDetails.css">
+	<link rel="stylesheet" type="text/css" href="../css/Application/LoanPageLoanDetails.css">
 
 	<!-- Scripts -->
 
@@ -64,6 +65,7 @@
 	<script type="text/javascript" src="../js/Library/OverlayBlocker.js"></script>
 	<script type="text/javascript" src="../js/Library/PicoModal.js"></script>
 	<script type="text/javascript" src="../js/Library/Mustache.js"></script>
+	<script type="text/javascript" src="../js/Library/Defiant.js"></script>
 	<!-- <script type="text/javascript" id="google-map-library" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script> -->
 
 	<!-- Application Properties Scripts -->
@@ -92,6 +94,11 @@
 	<script type="text/javascript" src="../js/Application/MainPage/Views/AddressView.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Views/ContactDetailsView.js"></script>
 
+	<script type="text/javascript" src="../js/Application/MainPage/Views/LoanListView.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Views/LoanCardView.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Views/LoanDetailsView.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Views/LinkedContactView.js"></script>
+
 	<!-- Router Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Routers/GlobalRouter.js"></script>
 
@@ -110,6 +117,7 @@
 	<!-- Controller Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Controllers/TabController.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Controllers/ContactTabController.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Controllers/LoanTabController.js"></script>
 
 	<!-- Engine Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Engines/MainPageEngine.js"></script>
@@ -428,7 +436,7 @@
 																			<!-- Primary Email List Div - Ends -->
 
 																			<!-- Seconday Email List Div - Starts -->
-																			<div id="seconday-email-list-div" class="seconday-email-list-div seconday email-list-div row">
+																			<div id="seconday-email-list-div" class="seconday-email-list-div secondary email-list-div row">
 																				<abbr id="email-list-abbr" title="Secondary Email" class="email-list-abbr abbr-no-underline">
 																					<ul id="email-list" class="email-list col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 
@@ -723,11 +731,319 @@
 
 											<!-- First Pane Shell Wrapper Starts -->
 											<div id="first-pane-wrapper" class="first-pane-wrapper tab-pane col-lg-3 col-md-3 col-sm-6 col-xs-12 zero-padding">
+												
+												<!-- Single Column List Shell Starts  -->
+												<div id="loan-list-wrapper" class="single-column-list-shell-container">
+													<div id="loan-list" class="single-column-list-shell row">
+														<div id="single-column-list-shell-col" class="single-column-list-shell-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+															<!-- List With Toolbar Starts -->
+															<div id="list-with-toolbar" class="list-with-toolbar row">
+																<div id="list-with-toolbar-col" class="list-with-toolbar-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+																	<!-- Toolbar Starts -->
+																	<div id="list-with-toolbar-toolbar" class="list-with-toolbar-toolbar row">
+																		<div id="list-with-toolbar-toolbar-col" class="list-with-toolbar-toolbar-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+																			<!-- Search Bar Starts -->
+																			<div id="list-with-toolbar-searchbar" class="list-with-toolbar-searchbar right-inner-addon row">
+																				<i class="fa fa-search"></i>
+																				<input id="list-with-toolbar-search-input" placeholder="Search..." type="search" class="list-with-toolbar-search-input col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding"></input>
+																			</div>
+																			<!-- Search Bar Ends -->
+
+																			<!-- Menu Bar Starts -->
+																			<div id="list-with-toolbar-menu" class="list-with-toolbar-menu row">
+																				<div id="list-with-toolbar-menu-col" class="list-with-toolbar-menu-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" role="toolbar">
+
+																					<div class="row">
+																						<div id="list-with-toolbar-menu-toolbar" class="list-with-toolbar-menu-toolbar btn-toolbar col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																						 	<div class="btn-group pull-right">
+																						 		<button id="add-loan-button" type="button" class="btn btn-default"><i class="fa fa-plus"></i></button>
+		  																						<button id="remove-loan-button" type="button" class="btn btn-default"><i class="fa fa-minus"></i></button>
+																						  	</div>
+																						 </div>
+																						 <div id="list-with-toolbar-menu-select-all" class="list-with-toolbar-menu-select-all">
+																						 	<input type="checkbox"/>
+																						 </div>
+																					</div>
+
+																				</div>
+																			</div>
+																			<!-- Menu Bar Ends -->
+
+																		</div>
+																	</div>
+																	<!-- Toolbar Ends -->
+
+																	<!-- List Starts -->
+																	<div id="list-with-toolbar-list" class="list-with-toolbar-list row">
+																		<div id="list-with-toolbar-list-col" class="list-with-toolbar-list-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+																			<div id="list-with-toolbar-ul-row" class="list-with-toolbar-ul-row row">
+																				<ul id="list-with-toolbar-list-ul" class="list-with-toolbar-ul col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+																					<!-- Contact Card Starts -->
+																					<li class="contact-card row active">
+																						<!-- Contact Card Container Starts -->
+																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
+																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																									<div id="contact-name-row" class="contact-name-row row">
+																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																											Sundarasan Natarajan
+																										</div>
+																									</div>
+																									<div id="contact-details-row" class="contact-details-row row">
+																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																											<tbody>
+																												<tr>
+																													<th><i class="fa fa-phone"></i></th><td class="text-dot">+91-9790787483</td>
+																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
+																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
+																											</tbody>
+																										</table>
+																									</div>
+																								</div>
+																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg"/>
+																							</div>
+																						</div>
+																						<!-- Contact Card Container Ends -->
+																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
+																					</li>
+																					<!-- Contact Card Ends -->
+
+																				</ul>
+
+																				<!-- Contact Card Template - Starts -->
+																				<script id="contact-card-template" type="x-tmpl-mustache">
+																					<li id="{{id}}" class="contact-card row">
+																						<!-- Contact Card Container Starts -->
+																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
+																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																									<div id="contact-name-row" class="contact-name-row row">
+																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																											{{fullName}}
+																										</div>
+																									</div>
+																									<div id="contact-details-row" class="contact-details-row row">
+																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																											<tbody>
+																												<tr>
+																													<th><i class="fa fa-phone"></i></th><td class="text-dot">{{phoneNumber}}</td>
+																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
+																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
+																											</tbody>
+																										</table>
+																									</div>
+																								</div>
+																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg">
+																							</div>
+																						</div>
+																						<!-- Contact Card Container Ends -->
+																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"></div>
+																					</li>
+																				</script>
+																				<!-- Contact Card Template - Ends -->
+
+																			</div>
+
+																		</div>
+																	</div>
+																	<!-- List Ends -->
+
+																</div>
+															</div>
+															<!-- List With Toolbar Ends -->
+
+														</div>
+													</div>
+												</div>
+												<!-- Single Column List Shell Ends  -->
+
 											</div>
 											<!-- First Pane Shell Wrapper Ends -->
 
 											<!-- Second Pane Shell Wrapper Starts -->
 											<div id="second-pane-wrapper" class="second-pane-wrapper tab-pane col-lg-3 col-md-3 col-sm-6 col-xs-12 zero-padding">
+
+												<!-- Single Column List Shell Starts  -->
+												<div id="single-column-list-shell-container" class="single-column-list-shell-container">
+													<div id="single-column-list-shell" class="single-column-list-shell row">
+														<div id="single-column-list-shell-col" class="single-column-list-shell-col">
+
+															<!-- Loan Details Starts -->
+															<div id="loan-page-loan-details" class="row loan-details">
+																<div id="loan-details-col" class="loan-details-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+																	<div id="loan-details-header" class="loan-details-header row">
+																		<div class="loan-details-header-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																			
+																			<div id="loan-details-header-name" class="loan-details-header-name row">
+																				<div id="loan-details-header-name-col" class="loan-details-header-name-col text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																					Sundarasan Natarajan
+																				</div>
+																				<div id="loan-details-header-menu" class="loan-details-header-menu btn-toolbar">
+																				 	<div class="btn-group pull-right">
+																				 		<button id="save-loan-button" type="button" class="btn btn-default save-loan-button" style="display: none;"><i class="fa fa-floppy-o"></i></button>
+																				 		<div class="loan-details-header-dropdown dropdown" style="">
+																							<a id="dLabel" class="btn-a" data-target="#" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+																								<i class="fa fa-chevron-down"></i>
+																							</a>
+																							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+																								<li><a id="create-login" href="javascript:void(0);">Create login</a></li>
+																							</ul>
+																						</div>
+																				  	</div>
+																				 </div>
+																			</div>
+
+																			<div>
+																			</div>
+
+																		</div>
+																	</div>
+
+																	<div id="loan-details-container" class="loan-details-container row">
+																		<div class="loan-details-container-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																			
+																			<div id="linked-contact-list-div" class="linked-contact-list-div primary-email email-list-div row">
+																				<abbr id="linked-contact-list-abbr" title="Linked Contact(s)" class="linked-contact-list-abbr abbr-no-underline">
+
+																					<ul id="linked-contact-list" class="linked-contact-list col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+																					</ul>
+
+																					<script id="loan-details-linked-contact-template" type="x-tmpl-mustache">
+																						<li id="{{id}}" class="linked-contact-li">
+																							<div id="{{id}}" class="linked-contact loan-field-row row">
+																								<input id="linked-contact-input" class="loan-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Search contact...">
+																								<div class="field-icon"><i class="fa fa-user"></i></div>
+																								<div id="add-remove-linked-contact-div" class="add-remove-linked-contact-div"><button id="add-linked-contact" class="btn"><i class="fa fa-plus"></i></button></div>
+																							</div>
+																						</li>
+																					</script>
+
+																				</abbr>
+																			</div>
+
+																			<hr/>
+
+																			<!-- Amount List Div - Starts -->
+																			<div id="amount-list-div" class="amount-list-div amount amount-list-div row">
+																				<abbr id="amount-list-abbr" title="Amount" class="amount-list-abbr abbr-no-underline">
+																					<ul id="amount-list" class="amount-list col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+																						<li id="123" class="amount-li">
+																							<div id="amount" class="amount loan-field-row row">
+																								<input id="amount-input" class="amount-input loan-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Amount">
+																								<div class="field-icon"><i class="fa fa-money"></i></div>
+																							</div>
+																						</li>
+
+																					</ul>
+
+																				</abbr>
+																			</div>
+																			<!-- Amount List Div - Ends -->
+
+																			<!-- Interest List Div - Starts -->
+																			<div id="interest-list-div" class="interest-list-div interest-list-div row">
+																				<abbr id="interest-list-abbr" title="Interest" class="interest-list-abbr abbr-no-underline">
+																					<ul id="interest-list" class="interest-list col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+																						<li id="123" class="interest-li">
+																							<div id="interest" class="interest loan-field-row row">
+																								<input id="interest-input" class="interest-input loan-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Interest">
+																								<div class="field-icon"><i class="">%</i></div>
+																							</div>
+																						</li>
+
+																					</ul>
+
+																				</abbr>
+																			</div>
+																			<!-- Interest List Div - Ends -->
+
+																			<!-- Period List Div - Starts -->
+																			<div id="period-list-div" class="period-list-div period-list-div row">
+																				<abbr id="period-list-abbr" title="Period" class="period-list-abbr abbr-no-underline">
+																					<ul id="period-list" class="period-list col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+																						<li id="123" class="period-li">
+																							<div id="period" class="period loan-field-row row">
+																								<input id="period-input" class="period-input loan-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Period">
+																								<div class="field-icon"><i class="fa fa-calendar"></i></div>
+																							</div>
+																						</li>
+
+																					</ul>
+																				</abbr>
+																			</div>
+																			<!-- Period List Div - Ends -->
+																			
+																			<!-- Interval List Div - Starts -->
+																			<div id="interval-list-div" class="interval-list-div interval-list-div row">
+																				<abbr id="interval-list-abbr" title="Interval" class="interval-list-abbr abbr-no-underline">
+
+																					<ul id="interval-list" class="interval-list col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+																						<li id="123" class="interval-li">
+																							<div id="interval" class="interval loan-field-row row">
+																								
+																								<div class="field-icon"><i class="fa fa-clock-o"></i></div>
+
+																								<div id="interval-dropdown" class="interval-dropdown dropdown">
+																									<button id="interval-dropdown-button" class="interval-dropdown-button btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+																										<text>Daily</text>
+																										<span class="caret"></span>
+																									</button>
+																									<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+																										<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">Daily</a></li>
+																										<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">Monthly</a></li>
+																										<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">Yearly</a></li>
+																									</ul>
+																								</div>
+
+																							</div>
+																						</li>
+
+																					</ul>
+
+																				</abbr>
+																			</div>
+																			<!-- Interval List Div - Ends -->
+
+																			<hr/>
+
+																			<!-- Linked Contact List - Starts -->
+																			<!-- <div id="linked-contact-list-div" class="linked-contact-list-div row">
+																				<abbr id="linked-contact-list-abbr" title="Linked Contacts" class="linked-contact-list-abbr abbr-no-underline">
+																					Linked Contact(s):
+																				</abbr>
+																				<ul id="linked-contact-list" class="linked-contact-list col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																					<li class="linked-contact-li">
+																						<a id="" class="linked-contact-a" href="javascript:void(0);">Sundarasan Natarajan</a>
+																					</li>
+																					<li class="linked-contact-li">
+																						<a id="" class="linked-contact-a" href="javascript:void(0);">Ramesh Lingappa</a>
+																					</li>
+																				</ul> -->
+																			<!-- </div> -->
+																			<!-- Linked Contact List - Ends -->
+
+																	</div>
+
+																</div>										
+															</div>
+															<!-- Contact Details Ends -->
+
+														</div>
+													</div>
+												</div>
+												<!-- Single Column List Shell Ends  -->
+
 											</div>
 											<!-- Second Pane Shell Wrapper Ends -->
 
