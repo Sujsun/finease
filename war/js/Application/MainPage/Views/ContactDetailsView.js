@@ -58,6 +58,7 @@
 
 								var getContact 							= 	function() {
 																				var contact = {};
+																				contact.id = contactModel.attr('id') ? contactModel.attr('id') : undefined;
 																				contact.firstName = root.ValidatorUtil.string( root.DOMUtil.attr( dom.firstName, 'value' ) );
 																				contact.middleName = root.ValidatorUtil.string( root.DOMUtil.attr( dom.middleName, 'value' ) );
 																				contact.lastName = root.ValidatorUtil.string( root.DOMUtil.attr( dom.lastName, 'value' ) );

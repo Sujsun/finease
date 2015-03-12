@@ -24,6 +24,12 @@ div.loan-details-col div.loan-details-menu-col div.loan-search-col input {
 	/* width: 160px; */
 }
 
+div.loan-details-col div.search-typeahead-container {
+	background-color: transparent;
+	border: none;
+  	box-shadow: none;
+}
+
 div.loan-details-col div.loan-details-menu-col div.loan-search-col input:focus {
 	outline: none;
 }

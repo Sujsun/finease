@@ -1,6 +1,6 @@
 (function(root) {
 
-	function ContactListView(options) {
+	function ContactListView(mvc, options) {
 
 		var self = this;
 
@@ -24,6 +24,7 @@
 				events: events,
 				add: addContactCard,
 				remove: removeContactCard,
+				update: updateContactCard,
 				select: select,
 				setSearchSource: setSearchSource,
 			};
@@ -85,6 +86,9 @@
 			if (dom.container) {
 				dom.addContactButton.addEventListener('click', onAddContactButtonClick);
 				dom.removeContactButton.addEventListener('click', onRemoveContactButtonClick);
+				mvc.deferreds.ContactsDeferred.done(function() {
+					setSearchSource(mvc.data.ContactsSearchSource);
+				});
 			}
 		}
 
@@ -99,6 +103,7 @@
 			for (var index in contactModels) {
 				var contactModel = contactModels[index];
 				views.contactCardViews || (views.contactCardViews = {});
+				mvc.views.contactCardViews = views.contactCardViews;
 				var contactCardView = new root.ContactCardView(mvc, {
 					contactModel: contactModel,
 					listContainer: dom.contactListUl,
@@ -124,6 +129,14 @@
 			}
 		}
 
+		function updateContactCard(contactModel) {
+			var contactCardView = views.contactCardViews[contactModel.attr('id')];
+			if (contactCardView) {
+				contactCardView.setContactModel(contactModel);
+				contactCardView.render();
+			}
+		}
+
 		function select(contactModel) {
 			if (contactModel) {
 				selectedContactCardView && (selectedContactCardView.select(false));
@@ -146,12 +159,20 @@
 			return checkedContactCardViews;
 		}
 
-		function setSearchSource(source, updater) {
+		function setSearchSource(source) {
 			dom.$searchInput.typeahead({
-				name: 'Contacts',
-				displayKey: 'value',
-				source: source,
-				updater: updater,
+				// hint: true,
+				display: 'fullName',
+				source: {
+					data: source,
+				},
+				emptyInputAfterSelection: true,
+				callback: {
+					onClick: function(inputDOM, selectedAnchor, selectedObject, event) {
+						events.emit('select:contactSearchList', selectedAnchor, event, new root.ContactModel(selectedObject));
+						inputDOM.val('');
+					}
+				}
 			});
 		}
 

@@ -14,11 +14,24 @@ div.list-with-toolbar div.list-with-toolbar-searchbar input.list-with-toolbar-se
 	background-color: transparent;
 }
 
+div.list-with-toolbar div.list-with-toolbar-searchbar .search-typeahead-container {
+	padding: 0px;
+	background-color: transparent;
+}
+
+div.list-with-toolbar div.list-with-toolbar-searchbar .search-typeahead-container .typeahead-hint {
+	padding: 0px 5px 0px 44px;
+  	top: 6px;
+}
+
+div.list-with-toolbar div.list-with-toolbar-searchbar .search-typeahead-container .typeahead-result, .search-typeahead-container .typeahead-result {
+	top: initial;
+}
+
 div.list-with-toolbar div.list-with-toolbar-searchbar.right-inner-addon i {
 	z-index: 49;
 	padding: 10px 15px;
 	font-size: 20px;
-
 }
 
 div.list-with-toolbar div.list-with-toolbar-toolbar div.list-with-toolbar-menu-col {

@@ -23,20 +23,33 @@
 				destroy: destroy,
 				select: select,
 				check: check,
+				setLoanModel: setLoanModel,
 				getLoanModel: getLoanModel,
 			};
 		}
 
 
 		function render() {
+
 			var params = {
 				id: 'A' + loanModel.attr('id'),
+				label: loanModel.attr('label') ? loanModel.attr('label') : 'No Label',
+				phoneNumber: 'No phone',
 			};
-
+			var previousSiblingNode;
+			if(isRendered) {
+				previousSiblingNode = dom.container.previousElementSibling;
+				root.DOMUtil.remove( dom.container );
+				params.isSelected = select();
+			}
 			dom.loanCardTemplate || (dom.loanCardTemplate = window.document.querySelector('#loan-card-template'));
-			var templateGeneratedString = root.DOMUtil.runMustache(dom.loanCardTemplate, params);
-			if (dom.listContainer) {
-				dom.listContainer.insertAdjacentHTML('afterbegin', templateGeneratedString);
+			var templateGeneratedString = root.DOMUtil.runMustache( dom.loanCardTemplate, params );
+			if( dom.listContainer ) {
+				if(previousSiblingNode) {
+					previousSiblingNode.insertAdjacentHTML( 'afterend', templateGeneratedString );
+				} else {
+					dom.listContainer.insertAdjacentHTML( 'afterbegin', templateGeneratedString );
+				}
 				findElements();
 				attachEvents();
 				isRendered = true;
@@ -59,7 +72,7 @@
 			}
 		}
 
-		function onContactCardClick(event) {
+		function onLoanCardClick(event) {
 			events.emit('click:' + 'loanCard', this, event, loanModel);
 		}
 
@@ -85,6 +98,11 @@
 				root.DOMUtil.attr(dom.selectCheckBox, 'checked', checkFlag);
 			}
 			return root.DOMUtil.attr(dom.selectCheckBox, 'checked');
+		}
+
+		function setLoanModel(loanModelArg) {
+			loanModel = loanModelArg;
+			return loanModel;
 		}
 
 		function getLoanModel() {

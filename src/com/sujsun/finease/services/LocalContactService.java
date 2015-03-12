@@ -49,7 +49,7 @@ public class LocalContactService {
 			returnLocalContact = new LocalContactFactory().delete( localContact );
 			isSuccess = true;
 		} catch( Exception exception ) {
-			log.severe( "Exception while logging out. Exception Message : " + exception.getMessage() );
+			log.severe( "Exception while deleting LocalContact. Exception Message : " + exception.getMessage() );
 			exception.printStackTrace();
 		}
 		return returnLocalContact;

@@ -1,13 +1,17 @@
 package com.sujsun.finease.factories;
 
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 
 import com.sujsun.finease.finalObjects.PMF;
 import com.sujsun.finease.jdo.*;
+import com.sujsun.finease.util.RandomUtil;
 
 public class LoanFactory {
 	
@@ -18,6 +22,14 @@ public class LoanFactory {
 		Loan returnLoan = null;
 		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
 		try {
+			Date currentDate = new Date();
+			if( loanToPersist.getId() == null ) {
+				loanToPersist.setId( RandomUtil.alphaNumberic() );
+			}
+			if( loanToPersist.getCreatedDate() == null ) {
+				loanToPersist.setCreatedDate( currentDate );
+			}
+			loanToPersist.setLastUpdateDate( currentDate );
 			persistenceManager.currentTransaction().begin();
 			returnLoan = persistenceManager.makePersistent( loanToPersist );
 			persistenceManager.currentTransaction().commit();
@@ -53,6 +65,29 @@ public class LoanFactory {
 			persistenceManager.close();
 		}
 		return returnLoan;
+	}
+	
+	public List<Loan> getBySubAccountId( String subAccountId ) {
+		boolean isSuccess = false;
+		List<Loan> returnLoanList = null;
+		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
+		Query query = persistenceManager.newQuery( Loan.class );
+		query.setFilter( "subAccountId == subAccountIdParam" );
+		query.declareParameters("String subAccountIdParam");
+		query.setOrdering("createdDate des");
+		try {
+			returnLoanList = (List<Loan>) query.execute( subAccountId );
+			isSuccess = true;
+		} catch( JDOObjectNotFoundException jdoObjectNotFoundException ) {
+			log.log( Level.SEVERE, "Warning :: Contact not found with the given subAccountId. Given subAccountId : " + subAccountId + "." );
+			jdoObjectNotFoundException.printStackTrace();
+		} catch( Exception exception ) {
+			log.log( Level.SEVERE, "Error while getting Comment from datastore." );
+			exception.printStackTrace();
+		} finally {
+			query.closeAll();
+		}
+		return returnLoanList;
 	}
 	
 	public boolean delete( Loan loanToDelete ) {

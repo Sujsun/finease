@@ -21,6 +21,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/Library/JackedUp-HumaneTheme.css" ></link>
 	<link rel="stylesheet" type="text/css" href="../css/Library/Bootstrap-DatePicker.css" ></link>
 	<link rel="stylesheet" type="text/css" href="../css/Library/OverlayBlocker.css" ></link>
+	<link rel="stylesheet" type="text/css" href="../css/Library/JQuery.Typeahead.css" ></link>
 
 	<!-- Application CSS -->
 	<link rel="stylesheet" type="text/css" href="../css/Application/Test.css">
@@ -36,6 +37,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/Application/ContactDetails.css">
 	<link rel="stylesheet" type="text/css" href="../css/Application/LoanDetails.css">
 	<link rel="stylesheet" type="text/css" href="../css/Application/LoanPageLoanDetails.css">
+	<link rel="stylesheet" type="text/css" href="../css/Application/LoanCard.css">
 
 	<!-- Scripts -->
 
@@ -49,7 +51,8 @@
 	<script type="text/javascript" src="../js/Library/Bootstrap.js"></script>
 	<script type="text/javascript" src="../js/Library/Bootstrap-Tooltip.js"></script>
 	<script type="text/javascript" src="../js/Library/Bootstrap-PopOver.js"></script>
-	<script type="text/javascript" src="../js/Library/Bootstrap3-TypeAhead.js"></script>
+	<!-- <script type="text/javascript" src="../js/Library/Bootstrap3-TypeAhead.js"></script> -->
+	<script type="text/javascript" src="../js/Library/JQuery.Typeahead.js"></script>
 	<script type="text/javascript" src="../js/Library/Bootstrap-ClickOver.js"></script>
 	<script type="text/javascript" src="../js/Library/soyutils.js"></script>
 	<script type="text/javascript" src="../js/Library/Moment.js"></script>
@@ -109,10 +112,12 @@
 	<!-- Factory Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Factories/SessionFactory.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Factories/ContactFactory.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Factories/LoanFactory.js"></script>
 
 	<!-- Service Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Services/SessionService.js"></script>
 	<script type="text/javascript" src="../js/Application/MainPage/Services/ContactService.js"></script>
+	<script type="text/javascript" src="../js/Application/MainPage/Services/LoanService.js"></script>
 
 	<!-- Controller Scripts -->
 	<script type="text/javascript" src="../js/Application/MainPage/Controllers/TabController.js"></script>
@@ -233,7 +238,15 @@
 																			<!-- Search Bar Starts -->
 																			<div id="list-with-toolbar-searchbar" class="list-with-toolbar-searchbar right-inner-addon row">
 																				<i class="fa fa-search"></i>
-																				<input id="list-with-toolbar-search-input" placeholder="Search..." type="search" class="list-with-toolbar-search-input col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding"></input>
+																				<!-- <input id="list-with-toolbar-search-input" placeholder="Search..." type="search" class="list-with-toolbar-search-input col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding"></input> -->
+																				<div id="search-typeahead-container" class="typeahead-container search-typeahead-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																		            <div class="typeahead-field row">
+																		                <div class="typeahead-query col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																		                    <input id="list-with-toolbar-search-input" class="list-with-toolbar-search-input col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" name="list-with-toolbar-search-input" type="search" placeholder="Search Contact..." autocomplete="off">
+																		                </div>
+																		            </div>
+																		        </div>
+
 																			</div>
 																			<!-- Search Bar Ends -->
 
@@ -302,7 +315,7 @@
 
 																				<!-- Contact Card Template - Starts -->
 																				<script id="contact-card-template" type="x-tmpl-mustache">
-																					<li id="{{id}}" class="contact-card row">
+																					<li id="{{id}}" class="contact-card row {{#isSelected}}active{{/isSelected}}">
 																						<!-- Contact Card Container Starts -->
 																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
@@ -657,35 +670,35 @@
 																								<tr>
 																									<td>1</td>
 																									<td>78aslksd-sd12sfd-asdfjk34</td>
-																									<td>Sundar-Loan-1</td>
+																									<td>Vijaya Agency Loan</td>
 																									<td>100000</td>
 																									<td>20</td>
-																									<td>12/1/2014</td>
-																									<td>12/10/2014</td>
+																									<td>6/1/2015</td>
+																									<td>8/10/2015</td>
 																									<td>1000</td>
 																									<td>100</td>
 																									<td>10</td>
 																								</tr>
 																								<tr>
-																									<td>1</td>
-																									<td>78aslksd-sd12sfd-asdfjk34</td>
-																									<td>Sundar-Loan-1</td>
+																									<td>2</td>
+																									<td>Ef8aslksd-sd12sfd-asdfjk34</td>
+																									<td>Demo Agency Loan</td>
 																									<td>100000</td>
 																									<td>20</td>
-																									<td>12/1/2014</td>
-																									<td>12/10/2014</td>
+																									<td>9/1/2015</td>
+																									<td>12/10/2015</td>
 																									<td>1000</td>
 																									<td>100</td>
 																									<td>10</td>
 																								</tr>
 																								<tr>
-																									<td>1</td>
-																									<td>78aslksd-sd12sfd-asdfjk34</td>
-																									<td>Sundar-Loan-1</td>
+																									<td>3</td>
+																									<td>G7taslksd-sd12sfd-asdfjk34</td>
+																									<td>Maruthi Petrol Bunk Loan</td>
 																									<td>100000</td>
 																									<td>20</td>
-																									<td>12/1/2014</td>
-																									<td>12/10/2014</td>
+																									<td>12/1/2015</td>
+																									<td>12/10/2016</td>
 																									<td>1000</td>
 																									<td>100</td>
 																									<td>10</td>
@@ -783,52 +796,22 @@
 																			<div id="list-with-toolbar-ul-row" class="list-with-toolbar-ul-row row">
 																				<ul id="list-with-toolbar-list-ul" class="list-with-toolbar-ul col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 
-																					<!-- Contact Card Starts -->
-																					<li class="contact-card row active">
-																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
-																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																									<div id="contact-name-row" class="contact-name-row row">
-																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											Sundarasan Natarajan
-																										</div>
-																									</div>
-																									<div id="contact-details-row" class="contact-details-row row">
-																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											<tbody>
-																												<tr>
-																													<th><i class="fa fa-phone"></i></th><td class="text-dot">+91-9790787483</td>
-																													<th><i class="fa fa-money"></i></th><td class="text-dot">1</td>
-																													<th><i class="fa fa-exchange"></i></th><td class="text-dot">14</td></tr>
-																											</tbody>
-																										</table>
-																									</div>
-																								</div>
-																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg"/>
-																							</div>
-																						</div>
-																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"/></div>
-																					</li>
-																					<!-- Contact Card Ends -->
-
 																				</ul>
 
-																				<!-- Contact Card Template - Starts -->
-																				<script id="contact-card-template" type="x-tmpl-mustache">
-																					<li id="{{id}}" class="contact-card row">
-																						<!-- Contact Card Container Starts -->
-																						<div id="contact-card-container" class="contact-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																							<div id="contact-card-container-inner-row" class="row contact-card-container-inner-row">
-																								<div id="contact-card-text-container" class="contact-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																									<div id="contact-name-row" class="contact-name-row row">
-																										<div id="contact-name" class="contact-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
-																											{{fullName}}
+																				<!-- Loan Card Template - Starts -->
+																				<script id="loan-card-template" type="x-tmpl-mustache">
+																					<li id="{{id}}" class="loan-card row {{#isSelected}}active{{/isSelected}}">
+																						<!-- Loan Card Container Starts -->
+																						<div id="loan-card-container" class="loan-card-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																							<div id="loan-card-container-inner-row" class="row loan-card-container-inner-row">
+																								<div id="loan-card-text-container" class="loan-card-text-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																									<div id="loan-name-row" class="loan-name-row row">
+																										<div id="loan-name" class="loan-name text-dot col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																											{{label}}
 																										</div>
 																									</div>
-																									<div id="contact-details-row" class="contact-details-row row">
-																										<table id="contact-details" class="contact-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																									<div id="loan-details-row" class="loan-details-row row">
+																										<table id="loan-details" class="loan-details col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 																											<tbody>
 																												<tr>
 																													<th><i class="fa fa-phone"></i></th><td class="text-dot">{{phoneNumber}}</td>
@@ -838,14 +821,14 @@
 																										</table>
 																									</div>
 																								</div>
-																								<img id="contact-card-pic" class="contact-card-pic" src="../images/user-icon.jpg">
+																								<img id="loan-card-pic" class="loan-card-pic" src="../images/user-icon.jpg">
 																							</div>
 																						</div>
-																						<!-- Contact Card Container Ends -->
-																						<div id="contact-card-select" class="contact-card-select"><input type="checkbox"></div>
+																						<!-- Loan Card Container Ends -->
+																						<div id="loan-card-select" class="loan-card-select"><input type="checkbox"></div>
 																					</li>
 																				</script>
-																				<!-- Contact Card Template - Ends -->
+																				<!-- Loan Card Template - Ends -->
 
 																			</div>
 
@@ -908,17 +891,47 @@
 																	<div id="loan-details-container" class="loan-details-container row">
 																		<div class="loan-details-container-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
 																			
+																			<!-- Label List Div - Starts -->
+																			<div id="label-list-div" class="label-list-div row">
+																				<abbr id="label-list-abbr" title="Label" class="label-list-abbr abbr-no-underline">
+																					<ul id="label-list" class="label-list col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+																						<li id="label-li" class="label-li">
+																							<div id="label" class="loan-field-row row">
+																								<input id="label-input" class="label-input loan-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Label">
+																								<div class="field-icon"><i class="fa fa-bookmark"></i></div>
+																							</div>
+																						</li>
+
+																					</ul>
+
+																				</abbr>
+																			</div>
+																			<!-- Label List Div - Ends -->
+
+																			<hr/>
+
 																			<div id="linked-contact-list-div" class="linked-contact-list-div primary-email email-list-div row">
 																				<abbr id="linked-contact-list-abbr" title="Linked Contact(s)" class="linked-contact-list-abbr abbr-no-underline">
 
 																					<ul id="linked-contact-list" class="linked-contact-list col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+
 
 																					</ul>
 
 																					<script id="loan-details-linked-contact-template" type="x-tmpl-mustache">
 																						<li id="{{id}}" class="linked-contact-li">
 																							<div id="{{id}}" class="linked-contact loan-field-row row">
-																								<input id="linked-contact-input" class="loan-field col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Search contact...">
+																							
+																								<div id="search-typeahead-container" class="typeahead-container search-typeahead-container col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																						            <div class="typeahead-field row">
+																						                <div class="typeahead-query col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																						                    <input id="linked-contact-search-input" class="linked-contact-search-input col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" name="list-with-toolbar-search-input" type="search" placeholder="Search Contact..." autocomplete="off" value="{{fullName}}">
+																						                </div>
+																						            </div>
+																						        </div>
+
 																								<div class="field-icon"><i class="fa fa-user"></i></div>
 																								<div id="add-remove-linked-contact-div" class="add-remove-linked-contact-div"><button id="add-linked-contact" class="btn"><i class="fa fa-plus"></i></button></div>
 																							</div>
@@ -996,13 +1009,13 @@
 
 																								<div id="interval-dropdown" class="interval-dropdown dropdown">
 																									<button id="interval-dropdown-button" class="interval-dropdown-button btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-																										<text>Daily</text>
+																										<text id="daily">Daily</text>
 																										<span class="caret"></span>
 																									</button>
 																									<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-																										<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">Daily</a></li>
-																										<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">Monthly</a></li>
-																										<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);">Yearly</a></li>
+																										<li role="presentation"><a id="daily" role="menuitem" tabindex="-1" href="javascript:void(0);">Daily</a></li>
+																										<li role="presentation"><a id="monthly" role="menuitem" tabindex="-1" href="javascript:void(0);">Monthly</a></li>
+																										<li role="presentation"><a id="yearly" role="menuitem" tabindex="-1" href="javascript:void(0);">Yearly</a></li>
 																									</ul>
 																								</div>
 
@@ -1032,7 +1045,7 @@
 																				</ul> -->
 																			<!-- </div> -->
 																			<!-- Linked Contact List - Ends -->
-
+																		</div>
 																	</div>
 
 																</div>										
@@ -1049,6 +1062,123 @@
 
 											<!-- Third Pane Wrapper Starts -->
 											<div id="third-pane-wrapper" class="third-pane-wrapper tab-pane col-lg-6 col-md-6 col-sm-12 col-xs-12 zero-padding">
+
+												<!-- Single Column List Shell Starts  -->
+												<div id="single-column-list-shell-container" class="single-column-list-shell-container">
+
+													<div id="sub-tab" class="sub-tab row">
+														<div id="sub-tab-col" class="sub-tab-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+
+															<div id="sub-tab-nav" class="sub-tab-nav row">
+																<div id="sub-tab-nav-col" class="sub-tab-nav-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																	<ul class="nav nav-tabs nav-justified" role="tablist">
+			  															<li><a id="loan-sub-tab" class="loan-sub-tab" href="javascript:void(0);">Loan</a></li>
+			  															<li class="active"><a id="transaction-sub-tab" class="transaction-sub-tab" href="javascript:void(0);">Transaction</a></li>
+																	</ul>
+																</div>
+															</div>
+
+															<div id="sub-tab-content" class="sub-tab-content row">
+																<div id="sub-tab-content-col" class="sub-tab-content-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																	
+																	<!-- Loan Details Starts -->
+																	<div id="loan-details" class="loan-details row">
+																		<div id="loan-details-col" class="loan-details-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																			
+																			<!-- Loan Details Menu Starts -->
+																			<div class="loan-details-menu row">
+																				<div id="loan-details-menu-col" class="loan-details-menu-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																					
+																					<div class="row">
+																						<div class="loan-search-col right-inner-addon col-lg-3 col-md-3 col-sm-3 col-xs-6 zero-padding pull-right" style="">
+																							<div class="row">
+																								<input class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding" placeholder="Search..."/>
+																								<i class="fa fa-search"></i>
+																							</div>
+																						</div>
+																					</div>
+
+																				</div>
+																			</div>
+																			<!-- Loan Details Menu Ends -->
+
+																			<!-- Loan Details Container Starts -->
+																			<div class="loan-details-container row">
+																				<div id="loan-details-container-col" class="loan-details-container-col col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																					
+																					<div class="loan-details-table-row row">
+																						<table class="loan-details-table table table-hover col-lg-12 col-md-12 col-sm-12 col-xs-12 zero-padding">
+																							<thead>
+																								<tr>
+																									<th>S.No.</th>
+																									<th>ID</th>
+																									<th>Name</th>
+																									<th>Loan Amount</th>
+																									<th>Interest (%)</th>
+																									<th>Start Date</th>
+																									<th>End Date</th>
+																									<th>Repayed Amount</th>
+																									<th>Daily Due</th>
+																									<th>No. of Transactions</th>
+																								</tr>
+																							</thead>
+																							<tbody>
+																								<tr>
+																									<td>1</td>
+																									<td>78aslksd-sd12sfd-asdfjk34</td>
+																									<td>Vijaya Agency Loan</td>
+																									<td>100000</td>
+																									<td>20</td>
+																									<td>6/1/2015</td>
+																									<td>8/10/2015</td>
+																									<td>1000</td>
+																									<td>100</td>
+																									<td>10</td>
+																								</tr>
+																								<tr>
+																									<td>2</td>
+																									<td>Ef8aslksd-sd12sfd-asdfjk34</td>
+																									<td>Demo Agency Loan</td>
+																									<td>100000</td>
+																									<td>20</td>
+																									<td>9/1/2015</td>
+																									<td>12/10/2015</td>
+																									<td>1000</td>
+																									<td>100</td>
+																									<td>10</td>
+																								</tr>
+																								<tr>
+																									<td>3</td>
+																									<td>G7taslksd-sd12sfd-asdfjk34</td>
+																									<td>Maruthi Petrol Bunk Loan</td>
+																									<td>100000</td>
+																									<td>20</td>
+																									<td>12/1/2015</td>
+																									<td>12/10/2016</td>
+																									<td>1000</td>
+																									<td>100</td>
+																									<td>10</td>
+																								</tr>
+																							</tbody>
+																						</table>
+																					</div>
+
+																				</div>
+																			</div>
+																			<!-- Loan Details Container Ends -->
+
+																		</div>
+																	</div>
+																	<!-- Loan Details Ends -->
+
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+												<!-- Single Column List Shell Ends  -->
+
 											</div>
 											<!-- Third Pane Wrapper Ends -->
 

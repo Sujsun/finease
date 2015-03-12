@@ -27,6 +27,7 @@
 				setLoan: setLoan,
 				getLoan: getLoan,
 				reset: reset,
+				setContactSearchSource: setContactSearchSource,
 			};
 		}
 
@@ -34,8 +35,14 @@
 			if (dom.container) {
 				dom.loanDetailsHeader = dom.container.querySelector('#loan-details-header-name-col');
 				dom.saveLoanButton = dom.container.querySelector('#save-loan-button');
-				dom.loanFieldInputs = dom.container.querySelectorAll('input.loan-field-input');
+				dom.loanFieldInputs = dom.container.querySelectorAll('input.loan-field');
 				dom.linkedContactList = dom.container.querySelector('ul#linked-contact-list');
+				dom.labelInput = dom.container.querySelector('input#label-input');
+				dom.amountInput = dom.container.querySelector('input#amount-input');
+				dom.interestInput = dom.container.querySelector('input#interest-input');
+				dom.periodInput = dom.container.querySelector('input#period-input');
+				dom.intervalDropdownText = dom.container.querySelector('#interval-dropdown-button text');
+				dom.intervalDropdownMenu = dom.container.querySelector('#interval-dropdown ul.dropdown-menu');
 			}
 		}
 
@@ -47,21 +54,76 @@
 		function getLoan() {
 			var loan = {};
 			loan.linkedContacts = getLinkedContactIds();
+			if (dom.container) {
+				loan.id = loanModel.attr('id') || undefined;
+				loan.label = root.ValidatorUtil.string(root.DOMUtil.attr(dom.labelInput, 'value'));
+				loan.amount = root.ValidatorUtil.string(root.DOMUtil.attr(dom.amountInput, 'value'));
+				loan.interest = root.ValidatorUtil.string(root.DOMUtil.attr(dom.interestInput, 'value'));
+				loan.period = root.ValidatorUtil.string(root.DOMUtil.attr(dom.periodInput, 'value'));
+				loan.interval = root.ValidatorUtil.string(root.DOMUtil.attr(dom.intervalDropdownText, 'id'));
+			}
+			loan = root.ObjectUtil.deleteUndefinedParams(loan);
 			return new root.Model(loan);
 		}
 
 		function reset() {
-			setContact(null);
+			setLoan(null);
 		}
 
 		function setLoanInView() {
 			if (loanModel) {
-				root.DOMUtil.attr(dom.loanDetailsHeader, 'innerHTML', loanModel.attr('name'));
-				if(loanModel.attr('linkedContacts') && loanModel.attr('linkedContacts').length > 0) {
-				} else {
-					addLinkedContactView();
-				}
+				root.DOMUtil.attr(dom.loanDetailsHeader, 'innerHTML', (loanModel.attr('label') ? loanModel.attr('label') : 'No Label'));
+				root.DOMUtil.attr(dom.labelInput, 'value', (loanModel.attr('label') ? loanModel.attr('label') : ''));
+				removeAllLinkedContactViews();
+				setLinkedContactInView();
+				root.DOMUtil.attr(dom.amountInput, 'value', (loanModel.attr('amount') ? loanModel.attr('amount') : ''));
+				root.DOMUtil.attr(dom.interestInput, 'value', (loanModel.attr('interest') ? loanModel.attr('interest') : ''));
+				root.DOMUtil.attr(dom.periodInput, 'value', (loanModel.attr('period') ? loanModel.attr('period') : ''));
+				setIntervalInView();
 			}
+		}
+
+		function setIntervalInView() {
+			var interval = loanModel.attr('interval');
+			if (interval) {
+				var intervalAnchor = dom.intervalDropdownMenu.querySelector('#' + interval);
+				if (intervalAnchor) {
+					root.DOMUtil.attr(dom.intervalDropdownText, 'id', root.DOMUtil.attr(intervalAnchor, 'id'));
+					root.DOMUtil.attr(dom.intervalDropdownText, 'innerHTML', root.DOMUtil.attr(intervalAnchor, 'innerHTML'));
+				} else {
+					intervalAnchor();
+				}
+			} else {
+				resetInterval();
+			}
+		}
+
+		function resetInterval() {
+			root.DOMUtil.attr(dom.intervalDropdownText, 'id', 'daily');
+			root.DOMUtil.attr(dom.intervalDropdownText, 'innerHTML', 'Daily');
+		}
+
+		function setLinkedContactInView() {
+			var linkedContactIds = loanModel.attr('linkedContacts');
+			if (linkedContactIds && linkedContactIds.length > 0) {
+				mvc.deferreds.ContactsDeferred.done(function() {
+					for (var index in linkedContactIds) {
+						mvc.services.contactService.get(linkedContactIds[index])
+							.done(function(contactModel) {
+								addLinkedContactViews(contactModel);
+							});
+					}
+				});
+			} else {
+				addLinkedContactView();
+			}
+		}
+
+		function setContactSearchSource(contactSearchSourceArg) {
+			if (contactSearchSourceArg) {
+				contactSearchSource = contactSearchSourceArg;
+			}
+			return contactSearchSource;
 		}
 
 		function setContactInCreateLoginModal() {
@@ -176,8 +238,9 @@
 				buttonClickMode: 'add',
 			});
 			linkedContactView.render();
+			// linkedContactView.setContactSearchSource(contactSearchSource);
 			if (linkedContactModel) {
-			 	linkedContactView.setLinkedContactModel(linkedContactModel);
+				linkedContactView.setContact(linkedContactModel);
 			}
 			linkedContactView.events.on('click:addLinkedContact', function(linkedContactView) {
 				addLinkedContactView();
@@ -200,7 +263,7 @@
 		function getLinkedContactIds() {
 			var linkedContactIds = [];
 			var linkedContactModels = getLinkedContacts();
-			for(var index in linkedContactModels) {
+			for (var index in linkedContactModels) {
 				linkedContactIds.push(linkedContactModels[index].attr('id'));
 			}
 			return linkedContactIds;
@@ -208,30 +271,36 @@
 
 		function getLinkedContacts() {
 			var contactModels = [];
-			for(var key in views.linkedContactViews) {
+			for (var key in views.linkedContactViews) {
 				var linkedContactView = views.linkedContactViews[key];
-				contactModels.push(linkedContactView.getContact());
+				var linkedContactModel = linkedContactView.getContact();
+				if (linkedContactModel) {
+					contactModels.push(linkedContactModel);
+				}
 			}
 			return contactModels;
 		}
 
-		function addPhoneNumberViews(phoneNumberArray) {
-			if (phoneNumberArray && phoneNumberArray.length > 0) {
-				for (var index in phoneNumberArray) {
-					var phoneNumber = phoneNumberArray[index];
-					addPhoneNumberView(phoneNumber);
+		function addLinkedContactViews(linkedContactModelArray) {
+			if (!Array.isArray(linkedContactModelArray)) {
+				linkedContactModelArray = [linkedContactModelArray];
+			}
+			if (linkedContactModelArray && linkedContactModelArray.length > 0) {
+				for (var index in linkedContactModelArray) {
+					var linkedContactModel = linkedContactModelArray[index];
+					addLinkedContactView(linkedContactModel);
 				}
 			} else {
-				addPhoneNumberView();
+				addLinkedContactView();
 			}
 		}
 
-		function removeAllPhoneNumberViews() {
-			if (views.phoneNumberViews) {
-				for (var key in views.phoneNumberViews) {
-					removePhoneNumberView(views.phoneNumberViews[key]);
+		function removeAllLinkedContactViews() {
+			if (views.linkedContactViews) {
+				for (var key in views.linkedContactViews) {
+					removeLinkedContactView(views.linkedContactViews[key]);
 				}
-				views.previousPhoneNumberView = undefined;
+				views.previousLinkedContactView = undefined;
 			}
 		}
 
@@ -288,8 +357,8 @@
 		}
 
 		function showSaveButton(show) {
-			root.DOMUtil.style(dom.contactDetailsHeader, 'paddingRight', (show ? (85 + 'px') : (50 + 'px')));
-			root.DOMUtil.show(dom.saveContactButton, show);
+			root.DOMUtil.style(dom.loanDetailsHeader, 'paddingRight', (show ? (85 + 'px') : (50 + 'px')));
+			root.DOMUtil.show(dom.saveLoanButton, show);
 		}
 
 		function showCreateLoginModal() {
@@ -309,7 +378,7 @@
 
 		function onSaveButtonClick(event) {
 			isValueChangedInView(false);
-			events.emit('click:' + 'saveButton', getContact());
+			events.emit('click:' + 'saveButton', getLoan());
 		}
 
 		function onCreateLoginClick(event) {
@@ -327,7 +396,7 @@
 		}
 
 		function attachEvents() {
-			root.DOMUtil.event(dom.saveContactButton, 'click', onSaveButtonClick);
+			root.DOMUtil.event(dom.saveLoanButton, 'click', onSaveButtonClick);
 			root.DOMUtil.event(dom.createLoginDropdownMenuButtom, 'click', onCreateLoginClick);
 			attachEventsToFindChangeInView();
 		}

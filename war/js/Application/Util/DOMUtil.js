@@ -100,7 +100,7 @@
 															}
 														}
 													}
-													return element.style.display != 'none';
+													return element && element.style.display != 'none';
 												};
 
 	DOMUtil.prototype.createDiv 			= 	function( htmlString ) {

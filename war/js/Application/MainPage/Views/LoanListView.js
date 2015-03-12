@@ -1,6 +1,6 @@
 (function(root) {
 
-	function LoanListView(options) {
+	function LoanListView(mvc, options) {
 
 		var self = this;
 
@@ -24,6 +24,7 @@
 				events: events,
 				add: addLoanCard,
 				remove: removeLoanCard,
+				update: updateLoanCard,
 				select: select,
 				setSearchSource: setSearchSource,
 			};
@@ -51,30 +52,30 @@
 			dom.container = dom.wrapper.querySelector('#loan-list');
 			if (dom.container) {
 				dom.contactListUl = dom.container.querySelector('#list-with-toolbar-list-ul');
-				dom.addContactButton = dom.container.querySelector('#add-loan-button');
-				dom.removeContactButton = dom.container.querySelector('#remove-loan-button');
+				dom.addLoanButton = dom.container.querySelector('#add-loan-button');
+				dom.removeLoanButton = dom.container.querySelector('#remove-loan-button');
 				dom.searchInput = dom.container.querySelector('#list-with-toolbar-search-input');
 				dom.$searchInput = $(dom.searchInput);
 			}
 		}
 
 		function onAddLoanButtonClick(event) {
-			events.emit('click:' + 'addContactButton', this, event);
+			events.emit('click:' + 'addLoanButton', this, event);
 		}
 
 		function onRemoveLoanButtonClick(event) {
-			var checkedContactCardViews = getCheckedContactCardViews();
-			var selectedContactModels = [];
-			if (Object.keys(checkedContactCardViews).length) {
-				for (var key in checkedContactCardViews) {
-					var checkedContactCardView = checkedContactCardViews[key];
-					checkedContactCardView && (selectedContactModels.push(checkedContactCardView.getContactModel()));
+			var checkedLoanCardViews = getCheckedLoanCardViews();
+			var selectedLoanModels = [];
+			if (Object.keys(checkedLoanCardViews).length) {
+				for (var key in checkedLoanCardViews) {
+					var checkedLoanCardView = checkedLoanCardViews[key];
+					checkedLoanCardView && (selectedLoanModels.push(checkedLoanCardView.getLoanModel()));
 				}
 			} else {
-				var selectedContactCardView = select();
-				selectedContactCardView && (selectedContactModels = [selectedContactCardView.getContactModel()]);
+				var selectedLoanCardView = select();
+				selectedLoanCardView && (selectedLoanModels = [selectedLoanCardView.getLoanModel()]);
 			}
-			events.emit('click:' + 'removeContactButton', this, event, selectedContactModels);
+			events.emit('click:' + 'removeLoanButton', this, event, selectedLoanModels);
 		}
 
 		function onSearchInputChange(event) {
@@ -83,67 +84,76 @@
 
 		function attachEvents() {
 			if (dom.container) {
-				dom.addContactButton.addEventListener('click', onAddLoanButtonClick);
-				dom.removeContactButton.addEventListener('click', onRemoveLoanButtonClick);
+				dom.addLoanButton.addEventListener('click', onAddLoanButtonClick);
+				dom.removeLoanButton.addEventListener('click', onRemoveLoanButtonClick);
 			}
 		}
 
-		function onLoanCardClick(element, event, contactModel) {
-			events.emit('click:contactCard', element, event, contactModel);
+		function onLoanCardClick(element, event, loanModel) {
+			events.emit('click:loanCard', element, event, loanModel);
 		}
 
-		function addLoanCard(contactModels) {
-			if (!Array.isArray(contactModels)) {
-				contactModels = [contactModels];
+		function addLoanCard(loanModels) {
+			if (!Array.isArray(loanModels)) {
+				loanModels = [loanModels];
 			}
-			for (var index in contactModels) {
-				var contactModel = contactModels[index];
-				views.contactCardViews || (views.contactCardViews = {});
-				var contactCardView = new root.ContactCardView(mvc, {
-					contactModel: contactModel,
+			for (var index in loanModels) {
+				var loanModel = loanModels[index];
+				views.loanCardViews || (views.loanCardViews = {});
+				mvc.views.loanCardViews = views.loanCardViews;
+				var loanCardView = new root.LoanCardView(mvc, {
+					loanModel: loanModel,
 					listContainer: dom.contactListUl,
 				});
-				contactCardView.render();
-				contactCardView.events.on('click:contactCard', onLoanCardClick);
-				views.contactCardViews[contactModel.attr('id')] = contactCardView;
+				loanCardView.render();
+				loanCardView.events.on('click:loanCard', onLoanCardClick);
+				views.loanCardViews[loanModel.attr('id')] = loanCardView;
 			}
 		}
 
-		function removeLoanCard(contactModels) {
-			if (!Array.isArray(contactModels)) {
-				contactModels = [contactModels];
+		function removeLoanCard(loanModels) {
+			if (!Array.isArray(loanModels)) {
+				loanModels = [loanModels];
 			}
-			for (var index in contactModels) {
-				var contactModel = contactModels[index];
-				views.contactCardViews || (views.contactCardViews = {});
-				var contactCardView = views.contactCardViews[contactModel.attr('id')];
-				if (contactCardView) {
-					contactCardView.destroy();
+			for (var index in loanModels) {
+				var loanModel = loanModels[index];
+				views.loanCardViews || (views.loanCardViews = {});
+				var loanCardView = views.loanCardViews[loanModel.attr('id')];
+				if (loanCardView) {
+					loanCardView.destroy();
 				}
-				delete views.contactCardViews[contactModel.attr('id')];
+				delete views.loanCardViews[loanModel.attr('id')];
 			}
 		}
 
-		function select(contactModel) {
-			if (contactModel) {
-				selectedContactCardView && (selectedContactCardView.select(false));
-				var contactModelId = contactModel.attr('id');
-				var contactCardView = views.contactCardViews[contactModelId];
-				contactCardView.select(true);
-				selectedContactCardView = contactCardView;
+		function updateLoanCard(loanModel) {
+			var loanCardView = views.loanCardViews[loanModel.attr('id')];
+			if (loanCardView) {
+				loanCardView.setLoanModel(loanModel);
+				loanCardView.render();
 			}
-			return selectedContactCardView;
+		}
+
+		function select(loanModel) {
+			if (loanModel) {
+				selectedLoanCardView && (selectedLoanCardView.select(false));
+				var loanModelId = loanModel.attr('id');
+				var loanCardView = views.loanCardViews[loanModelId];
+				loanCardView.select(true);
+				selectedLoanCardView = loanCardView;
+			}
+			return selectedLoanCardView;
 		}
 
 		function getCheckedLoanCardViews() {
-			var checkedContactCardViews = {};
-			for (var key in views.contactCardViews) {
-				var contactCardView = views.contactCardViews[key];
-				if (contactCardView.check()) {
-					checkedContactCardViews[key] = contactCardView;
+			var checkedLoanCardViews = {};
+			for (var key in views.loanCardViews) {
+				var loanCardView = views.loanCardViews[key];
+				if (loanCardView.check()) {
+					checkedLoanCardViews[key] = loanCardView;
 				}
 			}
-			return checkedContactCardViews;
+			return checkedLoanCardViews;
 		}
 
 		function setSearchSource(source, updater) {

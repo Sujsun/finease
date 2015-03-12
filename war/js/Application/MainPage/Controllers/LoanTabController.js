@@ -11,11 +11,13 @@
 		function init() {
 			createViews();
 			attachEvents();
+			getLoanAndShowInView();
 		}
 
 		function createViews() {
 			views.loanListView = new root.LoanListView(mvc);
 			views.loanDetailsView = new root.LoanDetailsView(mvc);
+			mvc.views.loanDetailsView = views.loanDetailsView;
 		}
 
 		function attachEvents() {
@@ -38,36 +40,46 @@
 			views.loanListView.events.on('click:loanCard', onLoanCardClick);
 			views.loanListView.events.on('change:searchInput', onLoanSearchInputChange);
 
-			// views.loanDetailsView.events.on('click:saveButton', onContactDetailsViewSaveButtonClick);
+			views.loanDetailsView.events.on('click:saveButton', onLoanDetailsViewSaveButtonClick);
 		}
 
-		function onLoanCardClick(element, event, contactModel) {
-			views.loanListView.select(contactModel);
-			views.loanDetailsView.setLoan(contactModel);
+		function onLoanCardClick(element, event, loanModel) {
+			views.loanListView.select(loanModel);
+			views.loanDetailsView.setLoan(loanModel);
 		}
 
 		function onAddLoanButtonClick() {
-			var emptyContactModel = new root.ContactModel({
+			var emptyLoanModel = new root.Model({
 				id: String(new Date().getTime()),
 			});
-			views.contactDetailsView.setContact(emptyContactModel);
-			views.contactListView.add(emptyContactModel);
-			views.contactListView.select(emptyContactModel);
+			views.loanDetailsView.setLoan(emptyLoanModel);
+			views.loanListView.add(emptyLoanModel);
+			views.loanListView.select(emptyLoanModel);
 		}
 
-		function onRemoveLoanButtonClick(element, event, contactModels) {
-			views.contactListView.remove(contactModels);
+		function onRemoveLoanButtonClick(element, event, loanModels) {
+			views.loanListView.remove(loanModels);
+			var loanDetailsViewModel = views.loanDetailsView.getLoan();
+			for (var index in loanModels) {
+				var loanModel = loanModels[index];
+				if (loanDetailsViewModel && loanDetailsViewModel.attr('id') === loanModel.attr('id')) {
+					views.loanDetailsView.reset();
+					break;
+				}
+			}
 		}
 
-		function onLoanDetailsViewSaveButtonClick(contactModel) {
-			contactModel.attr('subAccountId', mvc.models.sessionModel.attr('subAccount').id);
-			return mvc.services.contactService.put(contactModel)
-				.done(function(contactModel) {
-					console.error('Created Contact Successfully! --> ', contactModel.toJSON());
-					alert('Created Contact Successfully!');
+		function onLoanDetailsViewSaveButtonClick(loanModel) {
+			loanModel.attr('subAccountId', mvc.models.sessionModel.attr('subAccount').id);
+			return mvc.services.loanService.put(loanModel)
+				.done(function(loanModel) {
+					console.error('Created Loan Successfully! --> ', loanModel.toJSON());
+					views.loanListView.update(loanModel);
+					views.loanDetailsView.setLoan(loanModel);
+					// alert('Created Contact Successfully!');
 				})
 				.fail(function() {
-					console.error('Failed to create contact.');
+					mvc.views.notify.error('Loan creation failed!');
 				});
 		}
 
@@ -91,29 +103,30 @@
 			return displayName;
 		}
 
-		function selectLoan(contactModel) {
-			views.contactListView.select(contactModel);
-			views.contactDetailsView.setContact(contactModel);
+		function selectLoan(loanModel) {
+			views.loanListView.select(loanModel);
+			views.loanDetailsView.setLoan(loanModel);
 		}
 
-		// Get all contacts under the subAccount and show in the view
-		function getContacts() {
+		function getLoanAndShowInView() {
+			var deferred = new dfrd.Deferred();
 			mvc.services.sessionService.get('sessionModel')
 				.done(function(sessionModel) {
 					var subAccount = sessionModel.attr('subAccount');
-					mvc.services.contactService.getBySubAccountId(subAccount.id)
-						.done(function(contactModels) {
-							var contactNames = [];
-							for (var index in contactModels) {
-								var contactModel = contactModels[index];
-								views.contactListView.add(contactModel);
-								contactNames.push(contactModel.getFullName());
+					mvc.services.loanService.getBySubAccountId(subAccount.id)
+						.done(function(loanModels) {
+							// getSearchSource(loanModels);
+							mvc.deferreds.LoansDeferred.resolve(loanModels);
+							// Rendering the contact views
+							for (var index in loanModels) {
+								var loanModel = loanModels[index];
+								views.loanListView.add(loanModel);
 							}
-							if (contactModels && contactModels.length > 0) {
-								var contactModelToSelect = contactModels[contactModels.length - 1];
-								selectLoan(contactModelToSelect);
+							// Selecting the first contact
+							if (loanModels && loanModels.length > 0) {
+								var loanModelToSelect = loanModels[loanModels.length - 1];
+								selectLoan(loanModelToSelect);
 							}
-							views.contactListView.setSearchSource(searchSource, searchUpdater);
 						})
 						.fail(function(status, statusText, xmlHttp) {
 							mvc.views.notify.error(['<div style="font-size: 13px; font-weight: bold;">' + statusText + '</div>', /*'<div style="font-size: 11px;">' + statusText + '</div>', */ '<div style="font-size: 11px;">Click to reload</div>'], {
@@ -133,8 +146,6 @@
 					});
 				});
 		}
-
-		window.v = views;
 
 		init.apply(self, arguments);
 

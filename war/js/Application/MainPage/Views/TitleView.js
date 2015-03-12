@@ -25,7 +25,7 @@
 																				if( pageArg && pageArg != pageString && dom.title ) {
 																					var titleText = '';
 																					titleText += pageArg;
-																					titleText += ( root.Application.name ? (  ' - ' + root.Application.name ) : '' );
+																					titleText += ( root.Application.name ? (  ' | ' + root.Application.name ) : '' );
 																					pageString = root.DOMUtil.attr( dom.title, 'innerHTML', titleText );;
 																				}
 																				return pageString;

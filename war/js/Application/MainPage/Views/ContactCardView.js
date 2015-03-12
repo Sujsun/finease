@@ -23,6 +23,7 @@
 						destroy 		: 	destroy,
 						select 			: 	select,
 						check 			: 	check,
+						setContactModel : 	setContactModel,
 						getContactModel : 	getContactModel,
 					};
 		}
@@ -30,6 +31,12 @@
 
 		function render() {
 			var params = { id: 'A' + contactModel.attr( 'id' ), };
+			var previousSiblingNode;
+			if(isRendered) {
+				previousSiblingNode = dom.container.previousElementSibling;
+				root.DOMUtil.remove( dom.container );
+				params.isSelected = select();
+			}
 			if( params ) {
 				params.phoneNumber = contactModel.attr( 'phoneNumberList' ) ? ( contactModel.attr( 'phoneNumberList' ).length > 0 ? contactModel.attr( 'phoneNumberList' )[contactModel.attr( 'phoneNumberList' ).length-1] : 'No Phone' ) : 'No Phone';
 				var fullName = contactModel.getFullName();
@@ -38,7 +45,11 @@
 			dom.contactCardTemplate || ( dom.contactCardTemplate = window.document.querySelector( '#contact-card-template' ) );
 			var templateGeneratedString = root.DOMUtil.runMustache( dom.contactCardTemplate, params );
 			if( dom.listContainer ) {
-				dom.listContainer.insertAdjacentHTML( 'afterbegin', templateGeneratedString );
+				if(previousSiblingNode) {
+					previousSiblingNode.insertAdjacentHTML( 'afterend', templateGeneratedString );
+				} else {
+					dom.listContainer.insertAdjacentHTML( 'afterbegin', templateGeneratedString );
+				}
 				findElements();
 				attachEvents();
 				isRendered = true;
@@ -90,6 +101,11 @@
 		}
 
 		function getContactModel() {
+			return contactModel;
+		}
+
+		function setContactModel(contactModelArg) {
+			contactModel = contactModelArg;
 			return contactModel;
 		}
 

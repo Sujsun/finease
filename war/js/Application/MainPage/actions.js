@@ -38,20 +38,35 @@ $(window.document).ready(function() {
 
 	var navTabAnchors = $('.finease-nav-tabs a');
 	elem.subTabNavAnchor = $('div.sub-tab ul.nav-tabs li a');
-	elem.subTabNavLi = $('div.sub-tab ul.nav-tabs li');
-	elem.subTabContent = $('div.sub-tab div.sub-tab-content');
+	elem.contactSubTabNavLi = $('#contact-tab-content div.sub-tab ul.nav-tabs li');
+	elem.contactSubTabContent = $('#contact-tab-content div.sub-tab div.sub-tab-content-col');
+	elem.loanSubTabNavLi = $('#loan-tab-content div.sub-tab ul.nav-tabs li');
+	elem.loanSubTabContent = $('#loan-tab-content div.sub-tab div.sub-tab-content-col');
+
 
 	var swap = true;
 
 	// navTabAnchors.click( function( event ) { navTabAnchors.removeClass( 'active' ); $( this ).addClass( 'active' ); } );
-	elem.subTabNavLi.click(function(event) {
-		elem.subTabNavLi.removeClass('active');
+	elem.contactSubTabNavLi.click(function(event) {
+		elem.contactSubTabNavLi.removeClass('active');
 		$(this).addClass('active');
 		if (swap) {
-			elem.subTabContent.html('Hi!');
+			// elem.contactSubTabContent.html('Hi!');
 			swap = false;
 		} else {
-			elem.subTabContent.html('Hello!');
+			// elem.contactSubTabContent.html('Hello!');
+			swap = true;
+		}
+	});
+
+	elem.loanSubTabNavLi.click(function(event) {
+		elem.loanSubTabNavLi.removeClass('active');
+		$(this).addClass('active');
+		if (swap) {
+			// elem.contactSubTabContent.html('Hi!');
+			swap = false;
+		} else {
+			// elem.contactSubTabContent.html('Hello!');
 			swap = true;
 		}
 	});
@@ -76,11 +91,12 @@ $(window.document).ready(function() {
 	elem.listPaneContentList = $('#list-with-toolbar-list ul');
 	elem.contactCard = $('li.contact-card');
 	elem.contactCardSelect = $('.contact-card-select input');
-	elem.contactSelectAll = $('#list-with-toolbar-menu-select-all input');
+	elem.contactSelectAll = $('#contact-tab-content #list-with-toolbar-menu-select-all input');
 	elem.contactDetailsContainerCol = $('div.contact-details-container-col');
 	elem.loanDetailsContainerCol = $('div.loan-details-container-col');
 	elem.intervalDropdownButtonText = $('#interval-dropdown button#interval-dropdown-button text');
 	elem.intervalDropdownOptions = $('#interval-dropdown ul li a');
+	elem.loanSelectAllCheckbox = $('#loan-tab-content #list-with-toolbar-menu-select-all input');
 	var tabContainerHeight = 0;
 
 	var onDivResize = function(event) {
@@ -163,8 +179,19 @@ $(window.document).ready(function() {
 		}
 	});
 
+	elem.loanSelectAllCheckbox.bind('click', function() {
+		// console.error(elem.contactSelectAll[0].checked);
+		elem.loanCardSelect = $('.loan-card-select input');
+		if (elem.loanSelectAllCheckbox[0].checked) {
+			elem.loanCardSelect.prop('checked', true);
+		} else {
+			elem.loanCardSelect.prop('checked', false);
+		}
+	});
+
 	elem.intervalDropdownOptions.bind( 'click', function(event) {
 		elem.intervalDropdownButtonText.html($(this).html());
+		elem.intervalDropdownButtonText.attr( 'id', $(this).attr( 'id' ) );
 	} );
 
 	window.scrollToPane = scrollToPane;

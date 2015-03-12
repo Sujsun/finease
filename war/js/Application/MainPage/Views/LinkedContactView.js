@@ -20,6 +20,8 @@
 
 		var events = new root.Events();
 
+		var contactModel;
+
 		function init() {
 			var objectToReturn = {
 				events: events,
@@ -37,9 +39,12 @@
 
 		function render() {
 			if (!isRendered) {
-				var params = {
-					id: linkedContactDOMId,
-				};
+				var params = {};
+				if(contactModel) {
+					params = contactModel.toJSON();
+					params.fullName = contactModel.getFullName();
+				}
+				(!params.id) && (params.id = linkedContactDOMId);
 				dom.phoneNumberTemplate || (dom.phoneNumberTemplate = window.document.querySelector('#loan-details-linked-contact-template'));
 				var templateGeneratedString = root.DOMUtil.runMustache(dom.phoneNumberTemplate, params);
 				if (dom.listContainer) {
@@ -61,18 +66,15 @@
 			return isRendered;
 		}
 
-		function setContact(contactModel) {
-			if (dom.phoneNumberInput) {
-				return root.DOMUtil.attr(dom.linkedContactInput, 'value', phoneNumber);
+		function setContact(contactModelArg) {
+			contactModel = contactModelArg;
+			if (dom.linkedContactInput) {
+				return root.DOMUtil.attr(dom.linkedContactInput, 'value', contactModel.getFullName());
 			}
 		}
 
 		function getContact() {
-			var contactName;
-			if (dom.linkedContactInput) {
-				contactName = root.ValidatorUtil.string(root.DOMUtil.attr(dom.linkedContactInput, 'value'));
-			}
-			return new Model( {id: linkedContactDOMId, contactName: contactName, } );
+			return contactModel;
 		}
 
 		function setButtonClickMode(buttonClickModeArg) {
@@ -98,10 +100,11 @@
 			if (dom.listContainer) {
 				dom.container = dom.listContainer.querySelector('#' + linkedContactDOMId);
 				if (dom.container) {
-					dom.linkedContactInput = dom.container.querySelector('#linked-contact-input');
 					dom.addRemoveLinkedContactDiv = dom.container.querySelector('#add-remove-linked-contact-div');
 					dom.addRemoveLinkedContactButton = dom.addRemoveLinkedContactDiv.querySelector('button');
 					dom.addRemoveLinkedContactIcon = dom.addRemoveLinkedContactDiv.querySelector('i');
+					dom.linkedContactInput = dom.container.querySelector('#linked-contact-search-input');
+					dom.$linkedContactInput = root.$(dom.linkedContactInput);
 				}
 			}
 		}
@@ -128,7 +131,7 @@
 		}
 
 		function onAddRemoveButtonClick(event) {
-			if (getContact().attr('id') || buttonClickMode === 'remove') {
+			if (getContact() || buttonClickMode === 'remove') {
 				events.emit('click:' + buttonClickMode + 'LinkedContact', self);
 				highlightError(false);
 			} else {
@@ -137,7 +140,28 @@
 		}
 
 		function attachEvents() {
-			root.DOMUtil.event(dom.addRemoveLinkedContactButton, 'click', onAddRemoveButtonClick);
+			if (dom.listContainer) {
+				root.DOMUtil.event(dom.addRemoveLinkedContactButton, 'click', onAddRemoveButtonClick);
+				mvc.deferreds.ContactsDeferred.done(function() {
+					setSearchSource(mvc.data.ContactsSearchSource);
+				});
+			}
+		}
+
+		function setSearchSource(source) {
+			dom.$linkedContactInput.typeahead({
+				// hint: true,
+				display: 'fullName',
+				source: {
+					data: source,
+				},
+				emptyInputAfterSelection: true,
+				callback: {
+					onClick: function(inputDOM, selectedAnchor, selectedObject, event) {
+						contactModel = new root.ContactModel(selectedObject);
+					}
+				}
+			});
 		}
 
 		return init.apply(self, arguments);
